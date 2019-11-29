@@ -1,0 +1,556 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+
+.padding_5 {
+  padding: 5px;
+}
+.padding_10 {
+  padding: 10px;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+}
+.columnHome {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 10px;
+  row-gap: 2.5em;
+  
+}
+
+.ListWrapper {
+  display: inline-grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.listData {
+  height:71px;
+  width:75px;
+  text-align:center;
+  margin-left: 25px;
+}
+
+.lal {
+  position: relative;
+  right: 50%;
+  top: -30%;
+  color: white;
+  font-size: 15px;
+  font-family: raleway_regular, Arial;
+}
+.lalFirst {
+  position: relative;
+  right: 50%;
+  top: -30%;
+  color: white;
+  font-size: 15px;
+  font-family: raleway_regular, Arial;
+}
+    /* right: 49%;
+    top: -28%; */
+.lal2 {
+  position: relative;
+  right:-85%;
+  top: -61%;
+  font-size: 15px;
+  font-family: raleway_regular, Arial;
+}
+.lalDef {
+  position: relative;
+  right: 15%;
+  top: -38%;
+  color: white;
+  font-size: 15px;
+  font-family: raleway_regular, Arial;
+}
+.lalNext {
+  position: relative;
+  right: -0%;
+  top: -44%;
+  font-size: 15px;
+  font-family: raleway_regular, Arial;
+}
+.lalFis {
+  position: relative;
+  right: 15%;
+  top: -44%;
+  font-size: 15px;
+  font-family: raleway_regular, Arial;
+  color: white;
+}
+.lal1{
+  position: relative;
+  top: 145%;
+}
+
+.textDiv{
+  text-align: start;
+  padding-left: 55px;
+}
+
+.centerText{
+  margin: auto;
+  font-size: 16px;
+  font-family: raleway_regular, Arial;
+  color: #2b2924;
+}
+
+.centerTextDef{
+  margin: auto;
+  font-size: 16px;
+  font-family: raleway_regular, Arial;
+  color: #2b2924;
+  position: relative;
+  top: -41%;
+}
+
+.test{
+  height: 71px;
+  width: 75px;
+  text-align: center;
+  margin: auto;
+}
+
+.testDef{
+  height: 71px;
+  width: 75px;
+  text-align: center;
+  margin: auto;
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: -webkit-fill-available;
+  }
+  .columnHome {
+    width: -webkit-fill-available;
+  }
+}
+
+@media only screen 
+and (max-device-width : 320px) and (orientation:portrait){ 
+  .lal{
+    right: -26%;
+    top: -40%;
+  }
+  .centerText{
+    font-size: 15px;
+  }
+}
+
+
+@media only screen and (device-width: 768px) {
+  .column {
+    width: -webkit-fill-available;
+  }
+  .columnHome {
+    width: -webkit-fill-available;
+  }
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+  .column {
+    width: -webkit-fill-available;
+  }
+  .columnHome {
+    width: -webkit-fill-available;
+  }
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+  .column {
+    width: -webkit-fill-available;
+  }
+  .columnHome {
+    width: -webkit-fill-available;
+  }
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+ .columnHome {
+    width: -webkit-fill-available;
+  }
+}
+
+.bg-white{
+  background-color: #ffff;
+  border-radius: 65px;
+  border: 1.5px solid gray;
+}
+
+.title{
+  position: relative;
+  display: block;
+  color: rgba(41, 39, 36, 1);
+  background-color: #fefdf9;
+  padding:8px;
+}
+
+.title-text{
+  font-size: 32.00px;
+  font-weight: 500;
+  font-style: normal;
+  font-family: raleway_medium, Arial;
+  color: rgba(41, 39, 36, 1);
+  opacity: 0.800000011920929;
+}
+
+.setUp{
+  font-size: 30.00px;
+  font-weight: 700;
+  font-style: normal;
+  font-family: raleway_bold, Arial;
+  color: rgba(41, 39, 36, 1);
+  opacity: 0.800000011920929;
+  padding: 3px;
+}
+
+.welcome{
+  font-size: 50.00px;
+  font-weight: 700;
+  font-style: normal;
+  font-family: raleway_bold, Arial;
+  color: rgba(41, 39, 36, 1);
+  opacity: 0.800000011920929;
+}
+
+.lets{
+  font-size: 23.00px;
+  font-weight: 700;
+  font-style: normal;
+  font-family: raleway_bold, Arial;
+  color: rgba(41, 39, 36, 1);
+  opacity: 0.800000011920929;
+  padding-top: 12px;
+}
+
+.notes{
+  font-size: 14.00px;
+  font-style: normal;
+  font-family: raleway_regular, Arial;
+  color: #bdb9ad;
+  padding-top: 12px;
+}
+
+.enterPhone{
+  font-size: 23.00px;
+  font-weight: 700;
+  font-style: normal;
+  font-family: raleway_bold, Arial;
+  color: white;
+  padding-top: 12px;
+}
+
+.forgot{
+  font-size: 22.00px;
+  font-weight: 700;
+  font-style: normal;
+  font-family: raleway_regular, Arial;
+  color: rgba(41, 39, 36, 1);
+  opacity: 0.800000011920929;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.otherSet{
+  font-size: 18.00px;
+  font-weight: 700;
+  font-style: normal;
+  font-family: raleway_bold, Arial;
+  color: rgba(41, 39, 36, 1);
+  opacity: 0.800000011920929;
+  padding: 3px;
+  cursor: pointer;
+}
+
+
+input[type="text"]
+{
+    background: transparent;
+    /* border-bottom: 1px solid #979797; for white background screens */
+    border-bottom: 1px solid #aa822a;
+    border-right:none;
+    border-left:none;
+    border-top: none;
+    font-size: 20.00px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: raleway_regular, Arial;
+} 
+
+.form-control.is-invalid{
+  border-bottom: 1px solid red;
+}
+
+.form-control.is-valid{
+  border-bottom: 1px solid green;
+}
+
+button {
+  width: 125px;
+  height: 43px;
+  cursor: pointer;
+  border-radius: 55px;
+  background-color: #3c3c3c;
+  color: #d8d8d8;
+  font-size: 26.00px;
+  font-weight: 500;
+  font-style: normal;
+  font-family: raleway_regular, Arial;
+  border:none;
+}
+
+::placeholder {
+  font-size: 20.00px;
+  font-weight: 400;
+  font-style: normal;
+  font-family: raleway_regular, Arial;
+  color: rgba(41, 39, 36, 1);
+  opacity:  0.5500000119;
+}
+
+@font-face {
+  font-family: raleway_bold;
+  src: url('/assets/raleway_bold.ttf');
+}
+
+@font-face {
+  font-family: raleway_regular;
+  src: url('/assets/raleway_regular.ttf');
+}
+
+input[type="text"], input[type="password"], textarea,button, select { 
+  outline: none;
+}
+
+.bg-color{
+  background-color: rgba(255, 195, 63, 1);
+  height: 100%;
+  width:100%;
+  left:0;
+  right:0;
+  top:0;
+  bottom: 0;
+  position: fixed;
+}
+
+.row {
+display: -ms-flexbox;
+display: flex;
+-ms-flex-wrap: wrap;
+flex-wrap: wrap;
+}
+
+.form-control {
+  width: 83%;
+  height: calc(1.5em + 0.75rem + 2px);
+  /* padding: 0.375rem 0.75rem;  */
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  border: 1px solid #ced4da;
+}
+
+.sidenav {
+  height: auto;
+  position: fixed;
+  z-index: 1;
+  top: 110px;
+  background-color: #ffc340;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.hr{
+  border-color: #3a2c0e;margin-left: 10px;margin-right: 10px;border-width: 0.5px;
+}
+
+.margin20{
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 12px;
+  display: block;
+  transition: 0.3s;
+  font-size: 20.00px;
+  font-weight: 400;
+  font-style: normal;
+  font-family: raleway_bold, Arial;
+  color: #2b2924;
+}
+.sidenav span {
+  padding: 8px 8px 8px 12px;
+  display: block;
+  transition: 0.3s;
+  font-size: 18px;
+  font-family: raleway_regular, Arial;
+  color: #2b2924;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;height: auto;}
+  .sidenav a {font-size: 18px;}
+}
+/*ul{
+    float: right;
+    margin-bottom: 40px;
+}*/
+.nav {
+    border: 1px solid #ffc33f;
+    border-radius: 63px;
+}
+.nav > li {
+  position: relative;
+  display: block;
+}
+.nav > li > a {
+  position: relative;
+    display: block;
+    padding: 2px 15px;
+    color: #000;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: #eee;
+}
+.nav > li.disabled > a {
+  color: #777;
+}
+.nav > li.disabled > a:hover,
+.nav > li.disabled > a:focus {
+  color: #777;
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+.nav-pills > li {
+  float: left;
+}
+.nav-pills > .active > a > .badge {
+  color: #337ab7;
+  background-color: #fff;
+}
+.list-group-item > .badge {
+  float: right;
+}
+.list-group-item > .badge + .badge {
+  margin-right: 5px;
+}
+.nav-pills > li > a > .badge {
+  margin-left: 3px;
+}
+.nav-pills > li > a {
+      position: relative;
+    display: block;
+    padding: 2px 15px;
+}
+.nav-pills > li.active > a {
+  color: #000;
+    background-color: #ffc33f;
+    border-radius: 100px;
+}
+.nav-pills > li + li {
+  margin-left: 2px;
+}
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #fff;
+  background-color: #337ab7;
+}
+.trans{
+    background: #f9ac19;
+    border-radius: 100px;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f0eeec;
+}
+.rounded{
+    margin: 0px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 36px;
+    text-transform: uppercase;
+    font-family: raleway_regular, Arial;
+}
+.span1{
+  display: block;
+  font-size: 14px;
+  font-family: raleway_regular, Arial;
+}
+.span2{
+    display: block;
+    font-size: 11px;
+    font-family: raleway_regular, Arial;
+    margin-top: 2px;
+}
+.span2{
+    display: block;
+    font-size: 11px;
+    font-family: raleway_regular, Arial;
+    margin-top: 2px;
+}
+.amount{
+   display: block;
+    font-size: 16px;
+    font-family: raleway_regular, Arial;
+}
+.amount2{
+   display: block;
+    color: #f9ac19;
+    font-weight: 900;
+    font-size: 16px;
+    font-family: raleway_regular, Arial;
+}
+.div2{
+ width: 45%;
+ margin-top: 5px;
+ margin-left: 5px;   
+}
+    
+@media screen and (max-width: 767px) and (min-width: 320px){
+.span1 {
+    font-size: 13px;
+}
+.span2 {
+    font-size: 9px;
+}
+.amount{
+  font-size: 11px;  
+}
+.amount2{
+  font-size: 11px;  
+}
+}

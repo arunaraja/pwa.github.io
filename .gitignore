@@ -9,8 +9,7 @@
 
 # dependencies
 /node_modules
- 
-src
+
 e2e
  
 # profiling files

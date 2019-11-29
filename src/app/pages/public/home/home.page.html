@@ -1,0 +1,115 @@
+<div style="background-color:white">
+    <div class="row" style="overflow:auto;height:100%">
+        <div class="columnHome"></div>
+        <div class="columnHome">
+            <div id="mySidenav" class="sidenav" style="position: absolute;">
+                <span><img src="assets/home.png" style="cursor: pointer;" alt="" width="18" height="18" align="top" (click)="home()"><label
+                        class="margin20" (click)="home()">Home</label></span>
+                <hr class="hr">
+                <span><img src="assets/home.png" style="cursor: pointer;" alt="" width="18" height="18" align="top"><label
+                        class="margin20">Send Money</label></span>
+                <hr class="hr">
+                <span><img src="assets/home.png" style="cursor: pointer;" alt="" width="18" height="18" align="top" (click)="transaction()"><label
+                        class="margin20" (click)="transaction()">Transactions</label></span>
+                <hr class="hr">
+                <span><img src="assets/home.png" style="cursor: pointer;" alt="" width="18" height="18" align="top"><label
+                        class="margin20">Manage Wallet</label></span>
+                <hr class="hr">
+                <span><img src="assets/home.png" style="cursor: pointer;" alt="" width="18" height="18" align="top"><label
+                        class="margin20">Settings</label></span>
+                <hr class="hr">
+                <span><img src="assets/home.png" style="cursor: pointer;" alt="" width="18" height="18" align="top" (click)="logOut()"><label
+                        class="margin20" (click)="logOut()">Logout</label></span>
+            </div>
+            <p><img src="assets/icon_ionic_md_menu.png" alt=""  align="top" (click)="openNav()"
+                    style="cursor: pointer;"> &nbsp;
+                <span class="otherSet">Welcome <b>Strader</b></span></p>
+            <p style="float: right;cursor: pointer;"><img src="assets/icon_ionic_md_grid.png" alt="" align="top"
+                                                          (click)="gridViewFunc()"> &nbsp;
+                <img src="assets/Icon open-list.png"  alt=""  align="top" style="margin-right: 10px;cursor: pointer;"
+                     (click)="listViewFunc()"></p>
+            <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
+            <div class="wrapper"  id="column" *ngIf="gridView" style="opacity:1"> 
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Polygon 12.png" />
+                    <label class="lal">One</label>
+                    <br><br>
+                    <span class="centerText">New Transfer</span>
+                </div>
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Group 1.png" />
+                    <label class="lal">One</label>
+                    <br><br>
+                    <span class="centerText">New Transfer</span>
+                </div>
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Group 3.png" />
+                    <label class="lal">One</label>
+                    <br><br>
+                    <span class="centerText">New Transfer</span>
+                </div>
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Group 4.png" />
+                    <label class="lal">One</label>
+                    <br><br>
+                    <span class="centerText">New Transfer</span>
+                </div>
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Group 5.png" />
+                    <label class="lal">One</label>
+                    <br><br>
+                    <span class="centerText">New Transfer</span>
+                </div>
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Group 6.png" />
+                    <label class="lal">One</label>
+                    <br><br>
+                    <span class="centerText">New Transfer</span>
+                </div>
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Group 7.png" />
+                    <label class="lal">One</label>
+                    <br><br>
+                    <span class="centerText">New Transfer</span>
+                </div>
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Group 8.png" />
+                    <label class="lal">One</label>
+                    <br><br>
+                    <span class="centerText">New Transfer</span>
+                </div>
+
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Group 9.png" />
+                    <label class="lal">One</label>
+                    <br><br>
+                    <span class="centerText">New Transfer</span>
+                </div>
+            </div>
+            <div class="ListWrapper" id="column" *ngIf="listView" >
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Polygon 12.png" />
+                    <label class="lalFirst">One</label>
+                    <br>
+                    <br>
+                    <span class="lal2">New Transfer</span>
+                </div>
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Polygon 12.png" />
+                    <label class="lalFirst">One</label>
+                    <br>
+                    <br>
+                    <span class="lal2">New Transfer</span>
+                </div>
+                <div style="margin: auto;">
+                    <img class="test" src="assets/Polygon 12.png" />
+                    <label class="lalFirst">One</label>
+                    <br>
+                    <br>
+                    <span class="lal2">New Transfer</span>
+                </div>
+            </div>
+        </div>
+        <div class="columnHome"></div>
+    </div>
+</div>
