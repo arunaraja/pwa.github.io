@@ -1,0 +1,110 @@
+<style>
+::placeholder {
+    font-size: 15.00px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: raleway_regular, Arial;
+    color: rgba(41, 39, 36, 1);
+    opacity:  0.5500000119;
+}
+</style>
+<div style="background-color:white">
+    <div class="row" style="overflow:auto;height:100%">
+        <div class="columnHome"></div>
+        <div class="columnHome">
+            <p><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;padding-top: 5px" (click)="wallet()">
+                &nbsp;
+                <span  class="otherSet_wel1">Welcome</span><span class="otherSet_wel2"> Strader</span></p>
+            <p class="otherSet" style="margin-top: 35px;background: gainsboro;text-align: center;">Wallet</p>
+            <div class="clear"></div>
+            <p class="head1" style="font-family: raleway_medium, Arial !important">Please fill in the required details
+            </p>
+
+            <table style="width:100%">
+                <tr>
+                    <td><span class="point16">Name on Card </span></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="text" class="form-control " name="cardname" placeholder="" autocomplete="off"
+                            required [ngClass]="{'is-invalid': 
+                            cardname.invalid  && submitted  ,'is-valid': cardname.valid  && submitted }"
+                            #cardname="ngModel" ngModel [(ngModel)]="sendMoney.cardname" style="text-indent: 10px;font-size: 15.00px;
+                            height: 25px;
+                            font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;
+                            border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;
+                            border-radius: 10px;width: 95%;border-bottom:0.5px solid #3C3C3C !important">
+                        <show-error [control]="cardname" [label]="{'labelName': 'Name on Card'}" [submitFlag]="submitted"></show-error>
+                    </td>
+                </tr>
+                <br>
+                <tr>
+                    <td><span class="point16">Credit/Debit Card Number </span></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="text" class="form-control" name="ccdc" placeholder="" autocomplete="off" required
+                            [ngClass]="{'is-invalid': 
+                                ccdc.invalid  && submitted  ,'is-valid': ccdc.valid  && submitted }"
+                            #ccdc="ngModel" ngModel [(ngModel)]="sendMoney.ccdc" style="text-indent: 10px;font-size: 15.00px;
+                                font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;
+                                border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;
+                                height: 25px;border-bottom:0.5px solid #3C3C3C !important">
+                        <show-error [control]="ccdc" [label]="{'labelName': 'Credit/Debit Card Number'}" [submitFlag]="submitted"></show-error>
+                    </td>
+                </tr>
+                <br>
+            </table>
+            <table style="width:100%">
+                <tr>
+                    <td width="50%"><span class="point16">Expiry Date </span></td>
+                    <td width="50%"><span class="point16">CVV </span></td>
+                </tr>
+                <tr>
+                    <td width="50%">
+                        <input type="text" class="form-control" name="ccdc" placeholder="MM/YYYY" autocomplete="off"
+                            required [ngClass]="{'is-invalid': 
+                                ccdc.invalid  && submitted  ,'is-valid': ccdc.valid  && submitted }"
+                            #ccdc="ngModel" ngModel [(ngModel)]="sendMoney.ccdc" style="text-indent: 10px;font-size: 15.00px;
+                                font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;
+                                border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 65%;
+                                height: 25px;border-bottom:0.5px solid #3C3C3C !important">
+                        <show-error [control]="ccdc" [label]="{'labelName': 'Credit/Debit Card Number'}" [submitFlag]="submitted"></show-error>
+                    </td>
+                    <td width="50%"> <input type="text" class="form-control" name="ccdc" placeholder="" autocomplete="off"
+                            required [ngClass]="{'is-invalid': 
+                                ccdc.invalid  && submitted  ,'is-valid': ccdc.valid  && submitted }"
+                            #ccdc="ngModel" ngModel [(ngModel)]="sendMoney.ccdc" style="text-indent: 10px;font-size: 15.00px;
+                                font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;
+                                border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 65%;
+                                height: 25px;border-bottom:0.5px solid #3C3C3C !important">
+                        <show-error [control]="ccdc" [label]="{'labelName': 'Credit/Debit Card Number'}" [submitFlag]="submitted"></show-error>
+                    </td>
+                </tr>
+            </table>
+            <div style="text-align: center;margin-top: 30px;">
+                <button class="nextbtn !important" (click)="wallet()">Save</button>
+            </div>
+            <br>
+            <div class="clear"></div>
+            <div class="wrapper4">
+                <div style="margin: auto;text-align: -webkit-center;">
+                    <img  src="assets/visa.png"/>
+                </div>
+                <div style="margin: auto;text-align: -webkit-center;">
+                    <img  src="assets/mastercard.png" />
+                </div>
+                <div style="margin: auto;text-align: -webkit-center;">
+                    <img src="assets/ae.png"  />
+                </div>
+                <div style="margin: auto;text-align: -webkit-center;">
+                    <img  src="assets/discover.png" />
+                </div>
+            </div>
+
+        </div>
+        <div class="columnHome"></div>
+    </div>
+</div>

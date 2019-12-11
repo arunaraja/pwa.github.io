@@ -26,6 +26,15 @@ transaction(){
 home(){
     this.router.navigate(["home"]); 
   }
+sendMoney(){
+    this.router.navigate(["sendmoney"]); 
+  }
+wallet(){
+    this.router.navigate(["managewallet"]); 
+  }
+  settings(){
+    this.router.navigate(["settings"]); 
+  }
 openNav() {
     if(!this.openNavBar){
       this.openNavBar = true;

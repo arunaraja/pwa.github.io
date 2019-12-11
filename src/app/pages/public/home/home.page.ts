@@ -30,11 +30,20 @@ export class homePage implements OnInit {
   logOut(){
     this.router.navigate(["logout"]); 
   }
-home(){
+  home(){
     this.router.navigate(["home"]); 
   }
   transaction(){
     this.router.navigate(["transactions"]); 
+  }
+  sendMoney(){
+    this.router.navigate(["sendmoney"]); 
+  }
+  wallet(){
+    this.router.navigate(["managewallet"]); 
+  }
+  settings(){
+    this.router.navigate(["settings"]); 
   }
 
   listViewFunc(){

@@ -22,16 +22,16 @@
           <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
           <!-- for  password input -->
-          <input type="text" name="pass" class="form-control" placeholder="Password" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
+          <input type="text" name="pass" class="form-control" placeholder="Pincode" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
             [ngClass]="{'is-invalid': 
           pass.invalid  && submitted  ,'is-valid': pass.valid  && submitted }" #pass="ngModel" ngModel
             [(ngModel)]="loginObj.pass" />
-          <show-error [control]="pass" [label]="{'labelName': 'Password'}" [submitFlag]="submitted">
+          <show-error [control]="pass" [label]="{'labelName': 'Pincode'}" [submitFlag]="submitted">
           </show-error>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || pass.valid"></svg>
           <!-- for submit button -->
           <p><img src="assets/rocket.png" alt="Smiley face" width="26" height="26" align="top">  <span class="otherSet"  (click)="onSubmit(loginform)">Go</span></p>
-          <p class="forgot" (click)="forgotPassword()">Forgot Password</p>
+          <p class="forgot" (click)="forgotPassword()">Forgot Pincode</p>
         </form>
         <!-- end of form -->
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

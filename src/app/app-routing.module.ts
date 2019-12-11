@@ -47,6 +47,30 @@ const routes: Routes = [
   {
     path: 'transactions',
     loadChildren: './pages/public/transactions/transactions.module#transactionPageModule'
+  },
+  {
+    path: 'verify',
+    loadChildren: './pages/public/verify/verify.module#verifyPageModule'
+  },
+  {
+    path: 'sendmoney',
+    loadChildren: './pages/public/sendmoney/sendmoney.module#sendmoneyPageModule'
+  },
+  {
+    path: 'sendconfirmation',
+    loadChildren: './pages/public/sendmoneyconfirmation/sendmoneyconfirmation.module#sendmoneyconfirmationPageModule'
+  },
+  {
+    path: 'sendmessage',
+    loadChildren: './pages/public/sendmessage/sendmessage.module#sendmessagePageModule'
+  },
+  {
+    path: 'managewallet',
+    loadChildren: './pages/public/managewallet/managewallet.module#managewalletPageModule'
+  },
+  {
+    path: 'settings',
+    loadChildren: './pages/public/settings/settings.module#settingsPageModule'
   }
   
 ];

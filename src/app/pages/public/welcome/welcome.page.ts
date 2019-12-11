@@ -23,7 +23,7 @@ export class welcomePage implements OnInit {
     }
     else{
       console.log("Next Navigation")  
-      this.router.navigate(["register"]);
+      this.router.navigate(["verify"]);
     }
   }
 }

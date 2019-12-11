@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { ComponentModule } from '../../../services/component/component.module';
 import { forgotpasswordPage } from './forgotpassword.page';
+
 const routes: Routes = [
   {
     path: '',

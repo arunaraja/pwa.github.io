@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\pages",
+    "\\src\\app\\pages\\public",
+    "\\src\\app\\pages\\public\\transactions"
+  ],
+  "SelectedNode": "\\src\\app\\pages\\public\\transactions\\transactions.page.html",
+  "PreviewInSolutionExplorer": true
+}

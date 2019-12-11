@@ -1,0 +1,69 @@
+<div style="background-color:white">
+    <div class="row" style="overflow:auto;height:100%">
+        <div class="columnHome"></div>
+        <div class="columnHome">
+            <p><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;padding-top: 2px" (click)="sendmoney()">
+                &nbsp;
+                <span  class="otherSet_wel1">Welcome</span><span class="otherSet_wel2"> Strader</span></p>
+            <p class="otherSet" style="margin-top: 35px;background: gainsboro;text-align: center;">Send Message</p>
+            <p style="float: right;">
+                <button style="cursor: pointer;width: 73px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px
+                        ;border-radius: 55px;background-color: #ffc33f;"
+                    (click)="getHistory()">History</button>&nbsp;
+                <button style="margin-right: 10px;width: 135px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px
+                        ;border-radius: 55px;background-color: #ffc33f;visibility: hidden;"
+                    (click)="sendMessage()">Send Message</button>
+            </p>
+            <div class="clear"></div>
+            <div><br><br><p></p></div>
+            <div id="viewpg" style="margin-left:10px;margin-right:10px;bottom:10px;
+            border:1px solid lightgray;padding-top: 12px;height: 23pc;">
+              <table style="width:100%" >
+                    <tr class="trspace">
+                        <td style="width:10%;padding-left: 10px;">
+                            <span class="tdLabelConf">To</span>
+                        </td>
+                        <td style="width:55%">
+                            <span class="tdDataConf"> Eric Thomson</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr class="hr" style="border-color: #ced4da;margin-left: 0;margin-right: 0  !important">
+                        </td>
+                    </tr> 
+                    <tr class="trspace">
+                            <td colspan="2">
+                                <div style="border: 1px solid lightgray;margin-left: 10px;margin-right:10px;
+                                height: 80px;border-radius: 19px;">
+                                    <p style="font-size: 16.00px;font-weight: 400;color: rgba(60, 60, 60, 1);opacity: 0.9900000095367432;
+                                    font-style: normal;font-family: raleway_regular, Arial;padding-left: 15px;">
+                                  Hi Eric I had transferred $3800 .
+                                        
+                            </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="trspace" style="text-align: right !important">
+                                <td colspan="2">
+                                        <div style="margin-left: 10px;margin-right:10px;;border-radius: 19px;">
+                                             <label style="opacity:0.800000011920929;font-size: 12.00px;
+                                             font-weight: 500;
+                                             font-style: normal;
+                                             font-family: raleway_medium, Arial;color: rgba(41, 39, 36, 1);">
+                                                 Message sent successfully
+                                             </label>
+                                        </div>
+                                   
+                                       
+                                </td>
+                            </tr>
+                </table> 
+            </div>
+            <div  style="text-align: center;margin-top: 30px;">
+                <button  class="nextbtn !important" (click)="onClickSend()">Send</button>
+            </div>
+        </div>
+        <div class="columnHome"></div>
+    </div>
+</div>
