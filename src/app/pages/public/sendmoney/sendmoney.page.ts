@@ -19,7 +19,7 @@ export class sendmoneyPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.sendMoney['country'] = "";
+    this.sendMoney['country'] = ""; 
     this.sendMoney['paymentMethod'] = "";
     this.sendMoney['vendor'] = "";
     this.sendMoney['deliveryMethod'] = "";

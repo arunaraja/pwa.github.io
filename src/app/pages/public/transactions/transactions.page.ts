@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {$} from 'jquery'
+declare var $ : any;
 
 @Component({
   selector: 'app-transactions',
@@ -21,7 +23,9 @@ export class transactionPage implements OnInit {
     this.router.navigate(["logout"]); 
   }
 transaction(){
-    this.router.navigate(["transactions"]); 
+  this.openNavBar = false;
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("column").style.opacity = "1";
   }
 home(){
     this.router.navigate(["home"]); 
@@ -56,5 +60,13 @@ openNav() {
       console.log("Next Navigation")  
       this.router.navigate(["register"]);
     }
+  }
+  click7days(){
+    $("#7day").css("background-color", "#ffc33f");
+    $("#30day").css("background-color", "#fff");
+  }
+  click30days(){
+    $("#7day").css("background-color", "#fff");
+    $("#30day").css("background-color", "#ffc33f");
   }
 }

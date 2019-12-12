@@ -1,3 +1,6 @@
+<style>body {background-color: blue;display: flex;align-items: center;justify-content: center;flex-direction: column;}
+.digit-group > input {width: 30px;height: 37px;line-height: 50px;text-align: center;background-color: white;font-size: 20px;border-radius:8px;font-weight: 200;margin: 0 5px;color: #000009;border: 1px solid #979797;}
+.prompt {margin-bottom: 20px;font-size: 20px;color: black;}</style>
 <div class="bg-color">
   <!-- header title -->
   <div class="title">
@@ -10,11 +13,11 @@
     <!-- section 2 -->
     <div class="column" style="text-align:center;padding-top: 25px;">
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
-        <p class="setUp">Verify your Mobile Number</p>
+        <p class="verify">Verify your Mobile Number</p>
         <!-- form starts -->
         <form #loginform="ngForm" name="loginform" novalidate>
           <!-- for phone number input -->
-          <input type="text" name="phone" class="form-control" placeholder="Phone Number" autocomplete="off"  required
+          <input type="text" name="phone" numbersOnly class="form-control" placeholder="Phone Number" autocomplete="off"  required
             [ngClass]="{
             'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel"
             ngModel [(ngModel)]="loginObj.phone" />
@@ -38,7 +41,7 @@
           <span class="notesVerify">Please enter the reference code to  </span><br>
           <span class="notesVerify">above Mobile Number</span>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" ></svg>
-          <button (click)="onSubmit(loginform)">Continue</button>
+          <button class="button" (click)="onSubmit(loginform)">Continue</button>
         </form>
         <!-- end of form -->
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

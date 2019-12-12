@@ -5,8 +5,7 @@ declare var $ : any;
 
 @Component({
   selector: 'app-verify',
-  templateUrl: './verify.page.html',
-  styleUrls: ['./verify.css']
+  templateUrl: './verify.page.html'
 })
 export class verifyPage implements OnInit {
   submitted = false ;

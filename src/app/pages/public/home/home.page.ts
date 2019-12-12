@@ -31,7 +31,9 @@ export class homePage implements OnInit {
     this.router.navigate(["logout"]); 
   }
   home(){
-    this.router.navigate(["home"]); 
+    this.openNavBar = false;
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("column").style.opacity = "1";
   }
   transaction(){
     this.router.navigate(["transactions"]); 

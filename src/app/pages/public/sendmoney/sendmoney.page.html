@@ -33,7 +33,7 @@
                                 <input type="text" class="form-control" name="payTo" placeholder="" autocomplete="off"
                                     required [ngClass]="{'is-invalid': 
                             payTo.invalid  && submitted  ,'is-valid': payTo.valid  && submitted }"
-                                    #payTo="ngModel" ngModel [(ngModel)]="sendMoney.payTo" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #payTo="ngModel" ngModel [(ngModel)]="sendMoney.payTo" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                 <show-error [control]="payTo" [label]="{'labelName': 'Pay To'}" [submitFlag]="submitted"></show-error>
                             </td>
                         </tr>
@@ -44,7 +44,7 @@
                             <td style="width:55%">
                                 <select type="text" class="form-control" name="country" required [ngClass]="{'is-invalid': 
                             country.invalid  && submitted  ,'is-valid': country.valid  && submitted }"
-                                    #country="ngModel" ngModel [(ngModel)]="sendMoney.country" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #country="ngModel" ngModel [(ngModel)]="sendMoney.country" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                     <option hidden value="" disabled selected>Choose country </option>
                                     <option value="australia">Australia</option>
                                     <option value="canada">Canada</option>
@@ -61,7 +61,7 @@
                                 <input type="text" class="form-control" name="phoneNumber" placeholder="" autocomplete="off"
                                     required [ngClass]="{'is-invalid': 
                             phoneNumber.invalid  && submitted  ,'is-valid': phoneNumber.valid  && submitted }"
-                                    #phoneNumber="ngModel" ngModel [(ngModel)]="sendMoney.phoneNumber" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #phoneNumber="ngModel" ngModel [(ngModel)]="sendMoney.phoneNumber" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                 <show-error [control]="phoneNumber" [label]="{'labelName': 'Phone Number'}"
                                     [submitFlag]="submitted"></show-error>
                             </td>
@@ -74,7 +74,7 @@
                                 <input type="text" class="form-control" name="amount" placeholder="" autocomplete="off"
                                     required [ngClass]="{'is-invalid': 
                             amount.invalid  && submitted  ,'is-valid': amount.valid  && submitted }"
-                                    #amount="ngModel" ngModel [(ngModel)]="sendMoney.amount" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #amount="ngModel" ngModel [(ngModel)]="sendMoney.amount" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                             </td>
                         </tr>
                     </table>
@@ -87,7 +87,7 @@
                                 <select type="text" class="form-control" autocomplete="off" name="paymentMethod"
                                     placeholder="" required [ngClass]="{'is-invalid': 
                             paymentMethod.invalid  && submitted  ,'is-valid': paymentMethod.valid  && submitted }"
-                                    #paymentMethod="ngModel" ngModel [(ngModel)]="sendMoney.paymentMethod" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #paymentMethod="ngModel" ngModel [(ngModel)]="sendMoney.paymentMethod" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                     <option hidden value="" disabled selected>Choose method </option>
                                     <option value="bankaccount">Bank Account</option>
                                     <option value="ccdc">Credit/Debit Card</option>
@@ -102,7 +102,7 @@
                                 <select type="text" class="form-control" autocomplete="off" name="vendor" placeholder=""
                                     required [ngClass]="{'is-invalid': 
                             vendor.invalid  && submitted  ,'is-valid': vendor.valid  && submitted }"
-                                    #vendor="ngModel" ngModel [(ngModel)]="sendMoney.vendor" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #vendor="ngModel" ngModel [(ngModel)]="sendMoney.vendor" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                     <option hidden value="" disabled selected>Choose vendor </option>
                                     <option value="bankaccount">Money Gram</option>
                                     <option value="ccdc">Western Union</option>
@@ -117,7 +117,7 @@
                                 <select type="text" class="form-control" autocomplete="off" name="deliveryMethod"
                                     placeholder="" required [ngClass]="{'is-invalid': 
                             deliveryMethod.invalid  && submitted  ,'is-valid': deliveryMethod.valid  && submitted }"
-                                    #deliveryMethod="ngModel" ngModel [(ngModel)]="sendMoney.deliveryMethod" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #deliveryMethod="ngModel" ngModel [(ngModel)]="sendMoney.deliveryMethod" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                     <option hidden value="" disabled selected>Choose method </option>
                                     <option value="bankaccount">Bank Account</option>
                                     <option value="cashPick">Cash Pickup</option>
@@ -132,7 +132,7 @@
                                 <select type="text" class="form-control" autocomplete="off" name="state" placeholder=""
                                     required [ngClass]="{'is-invalid': 
                             state.invalid  && submitted  ,'is-valid': state.valid  && submitted }"
-                                    #state="ngModel" ngModel [(ngModel)]="sendMoney.state" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #state="ngModel" ngModel [(ngModel)]="sendMoney.state" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                     <option hidden value="" disabled selected>Choose state </option>
                                     <option value="bankaccount">Alabama</option>
                                     <option value="bankaccount">Alaska</option>
@@ -148,7 +148,7 @@
                                 <select type="text" class="form-control" autocomplete="off" name="city" placeholder=""
                                     required [ngClass]="{'is-invalid': 
                             city.invalid  && submitted  ,'is-valid': city.valid  && submitted }"
-                                    #city="ngModel" ngModel [(ngModel)]="sendMoney.city" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #city="ngModel" ngModel [(ngModel)]="sendMoney.city" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                     <option hidden value="" disabled selected>Choose city </option>
                                     <option value="bankaccount">Adak</option>
                                     <option value="bankaccount">Akhiok</option>
@@ -164,7 +164,7 @@
                                 <select type="text" class="form-control" autocomplete="off" name="location" placeholder=""
                                     required [ngClass]="{'is-invalid': 
                             location.invalid  && submitted  ,'is-valid': location.valid  && submitted }"
-                                    #location="ngModel" ngModel [(ngModel)]="sendMoney.location" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #location="ngModel" ngModel [(ngModel)]="sendMoney.location" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                     <option hidden value="" disabled selected>Choose location </option>
                                     <option value="bankaccount">Money Gram - Swansons </option>
                                     <option value="bankaccount" disabled>830 RIVER ST,ADAK,AK 99546.</option>
@@ -182,7 +182,7 @@
                                 <select type="text" class="form-control" autocomplete="off" name="bank" placeholder=""
                                     required [ngClass]="{'is-invalid': 
                             bank.invalid  && submitted  ,'is-valid': bank.valid  && submitted }"
-                                    #bank="ngModel" ngModel [(ngModel)]="sendMoney.bank" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #bank="ngModel" ngModel [(ngModel)]="sendMoney.bank" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                     <option hidden value="" disabled selected>Choose bank </option>
                                     <option value="bankaccount">Bank of America</option>
                                     <option value="ccdc">Wells Fargo</option>
@@ -197,7 +197,7 @@
                                 <input type="text" class="form-control" autocomplete="off" name="accountName"
                                     placeholder="" required [ngClass]="{'is-invalid': 
                             accountName.invalid  && submitted  ,'is-valid': accountName.valid  && submitted }"
-                                    #accountName="ngModel" ngModel [(ngModel)]="sendMoney.accountName" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #accountName="ngModel" ngModel [(ngModel)]="sendMoney.accountName" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                             </td>
                         </tr>
                         <tr class="trspace" *ngIf="sendMoney.deliveryMethod === 'bankaccount'">
@@ -208,7 +208,7 @@
                                 <input type="text" class="form-control" autocomplete="off" name="accountNumber"
                                     placeholder="" required [ngClass]="{'is-invalid': 
                             accountNumber.invalid  && submitted  ,'is-valid': accountNumber.valid  && submitted }"
-                                    #accountNumber="ngModel" ngModel [(ngModel)]="sendMoney.accountNumber" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #accountNumber="ngModel" ngModel [(ngModel)]="sendMoney.accountNumber" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                             </td>
                         </tr>
                         <tr class="trspace" *ngIf="sendMoney.deliveryMethod === 'bankaccount'">
@@ -219,7 +219,7 @@
                                 <input type="text" class="form-control" autocomplete="off" name="routingNumber"
                                     placeholder="" required [ngClass]="{'is-invalid': 
                             routingNumber.invalid  && submitted  ,'is-valid': routingNumber.valid  && submitted }"
-                                    #routingNumber="ngModel" ngModel [(ngModel)]="sendMoney.routingNumber" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #routingNumber="ngModel" ngModel [(ngModel)]="sendMoney.routingNumber" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                             </td>
                         </tr>
                         <tr class="trspace">
@@ -230,7 +230,7 @@
                                 <input type="text" class="form-control" autocomplete="off" name="transactionFee"
                                     placeholder="" required [ngClass]="{'is-invalid': 
                             transactionFee.invalid  && submitted  ,'is-valid': transactionFee.valid  && submitted }"
-                                    #transactionFee="ngModel" ngModel [(ngModel)]="sendMoney.transactionFee" style="text-indent: 10px;font-size: 13.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    #transactionFee="ngModel" ngModel [(ngModel)]="sendMoney.transactionFee" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                             </td>
                         </tr>
                         <tr style="text-align:center">

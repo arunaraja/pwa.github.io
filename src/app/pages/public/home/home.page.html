@@ -24,10 +24,10 @@
             <p><img src="assets/icon_ionic_md_menu.png" alt=""  align="top" (click)="openNav()"
                     style="cursor: pointer;padding-top: 5px;"> &nbsp;
                 <span  class="otherSet_wel1">Welcome</span><span class="otherSet_wel2"> Strader</span></p>
-            <p style="float: right;cursor: pointer;"><img src="assets/icon_ionic_md_grid.png" alt="" align="top"
-                                                          (click)="gridViewFunc()"> &nbsp;
-                <img src="assets/Icon open-list.png"  alt=""  align="top" style="margin-right: 10px;cursor: pointer;"
-                     (click)="listViewFunc()"></p>
+            <p style="float: right;cursor: pointer;">
+                <span><img src="assets/icon_ionic_md_grid.png" alt="" align="top" (click)="gridViewFunc()"> &nbsp;</span>
+                <span><img src="assets/Icon open-list.png"  alt=""  align="top" style="margin-right: 10px;cursor: pointer;"(click)="listViewFunc()"></span>
+            </p>
             <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
             <div class="wrapper"  id="column" *ngIf="gridView" style="opacity:1"> 
                 <div style="margin: auto;text-align: -webkit-right;">

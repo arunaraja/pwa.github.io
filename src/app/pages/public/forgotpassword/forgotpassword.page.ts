@@ -4,8 +4,7 @@ import {$} from 'jquery'
 declare var $ : any;
 @Component({
   selector: 'app-forgotpassword',
-  templateUrl: './forgotpassword.page.html',
-  styleUrls: ['./forgot.css']
+  templateUrl: './forgotpassword.page.html'
 })
 export class forgotpasswordPage implements OnInit {
   submitted = false ;

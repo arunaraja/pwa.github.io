@@ -2,14 +2,18 @@
 * {
     box-sizing: border-box;
 }
-
+*lineHeight{
+    line-height: 1.618;
+}
+/* {
+    margin,spacing,padding : fontSize * 1.618 ;  value in px
+ } */
 .padding_5 {
     padding: 5px;
 }
 .padding_10 {
     padding: 10px;
 }
-
 .column {
     float: left;
     width: 33.33%;
@@ -20,33 +24,28 @@
     width: 33.33%;
     padding: 10px;
 }
-
+/* .continue{width: 162px;height:52px;} */
 .wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 10px;
     row-gap: 2.5em;
-
 }
 .wrapper4 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 10px;
-
 }
-
 .ListWrapper {
     display: inline-grid;
     grid-template-columns: repeat(1, 1fr);
 }
-
 .listData {
     height:71px;
     width:75px;
     text-align:center;
     margin-left: 25px;
 }
-
 .lal {
     position: relative;
     right: 38%;
@@ -57,19 +56,17 @@
 }
 .lalFirst {
     position: relative;
-    right: 41%;
+    right: 38%;
     top: -30%;
     color: white;
     font-size: 15px;
     font-family: raleway_regular, Arial;
 }
-/* right: 49%;
-top: -28%; */
 .lal2 {
     position: relative;
     right:-85%;
     top: -61%;
-    font-size: 15px;
+    font-size: 16px;
     font-family: raleway_regular, Arial;
 }
 .lalDef {
@@ -99,19 +96,16 @@ top: -28%; */
     position: relative;
     top: 145%;
 }
-
 .textDiv{
     text-align: start;
     padding-left: 55px;
 }
-
 .centerText{
     margin: auto;
     font-size: 16px;
     font-family: raleway_regular, Arial;
     color: #2b2924;
 }
-
 .centerTextDef{
     margin: auto;
     font-size: 16px;
@@ -134,7 +128,6 @@ top: -28%; */
     /*margin: auto;*/
     margin-right: -16px;
 }
-
 .testDef{
     height: 75px;
     width: 75px;
@@ -142,7 +135,6 @@ top: -28%; */
     margin: auto;
     margin-left: 10px;
 }
-
 @media screen and (max-width: 600px) {
     .column {
         width: -webkit-fill-available;
@@ -151,7 +143,6 @@ top: -28%; */
         width: -webkit-fill-available;
     }
 }
-
 @media only screen 
 and (max-device-width : 320px) and (orientation:portrait){ 
     .lal{
@@ -169,8 +160,6 @@ and (max-device-width : 320px) and (orientation:portrait){
         font-size: 15px;
     }
 }
-
-
 @media only screen and (device-width: 768px) {
     .column {
         width: -webkit-fill-available;
@@ -179,55 +168,37 @@ and (max-device-width : 320px) and (orientation:portrait){
         width: -webkit-fill-available;
     }
 }
-
-@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
-    .column {
-        width: -webkit-fill-available;
-    }
-    .columnHome {
-        width: -webkit-fill-available;
-    }
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) and (orientation:landscape){
+    .column { width: -webkit-fill-available;}
+    .columnHome {width: -webkit-fill-available;}
 }
-
-@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
-    .column {
-        width: -webkit-fill-available;
-    }
-    .columnHome {
-        width: -webkit-fill-available;
-    }
-}
-
-/* Desktop Styles */
 @media only screen and (min-width: 961px) {
     .columnHome {
         width: -webkit-fill-available;
     }
 }
-
 .bg-white{
     background-color: #ffff;
     border-radius: 65px;
     border: 1.5px solid gray;
 }
-
 .title{
     position: relative;
     display: block;
     color: rgba(41, 39, 36, 1);
     background-color: #fefdf9;
     padding:8px;
+    text-align: center;
 }
-
 .title-text{
     font-size: 32.00px;
     font-weight: 500;
     font-style: normal;
     font-family: raleway_medium, Arial;
     color: rgba(41, 39, 36, 1);
+    
     opacity: 0.800000011920929;
 }
-
 .setUp{
     font-size: 30.00px;
     font-weight: 700;
@@ -237,26 +208,23 @@ and (max-device-width : 320px) and (orientation:portrait){
     opacity: 0.800000011920929;
     padding: 3px;
 }
-
 .welcome{
-    font-size: 50.00px;
+    font-size: 46.00px;
     font-weight: 700;
     font-style: normal;
     font-family: raleway_bold, Arial;
     color: rgba(41, 39, 36, 1);
-    opacity: 0.800000011920929;
+    opacity: 1;
 }
-
 .lets{
-    font-size: 23.00px;
+    font-size: 36.00px;
     font-weight: 700;
     font-style: normal;
     font-family: raleway_bold, Arial;
     color: rgba(41, 39, 36, 1);
-    opacity: 0.800000011920929;
-    padding-top: 12px;
+    opacity: 1;
+    padding-top: 10px;
 }
-
 .notes{
     font-size: 14.00px;
     font-style: normal;
@@ -264,20 +232,44 @@ and (max-device-width : 320px) and (orientation:portrait){
     color: #bdb9ad;
     padding-top: 12px;
 }
-
-.notesVerify{font-size: 14.00px;font-style: normal;font-family: raleway_regular, Arial;color: black;padding-top: 12px;}
-
+.notesVerify{font-size: 16.00px;
+    font-weight: 400;    color: rgba(83, 74, 43, 1);
+    font-style: normal;font-family: raleway_regular, Arial;;padding-top: 12px;}
 .enterPhone{
-    font-size: 23.00px;
+    font-size: 24.00px;
     font-weight: 700;
     font-style: normal;
     font-family: raleway_bold, Arial;
-    color: white;
+    color: rgba(255, 255, 255, 1);
+    opacity: 1;
     padding-top: 12px;
 }
-
+.verify{
+    font-size: 24.00px;
+    font-weight: 700;
+    font-style: normal;
+    font-family: raleway_bold, Arial;
+    color: rgba(41, 39, 36, 1);
+    opacity: 1;
+    padding-top: 12px;
+}
 .forgot{
-    font-size: 22.00px;
+    font-size: 20.00px;
+    font-weight: 500;
+    font-style: normal;
+    font-family: raleway_medium;
+    color: rgba(41, 39, 36, 1);
+    /* font-size: 22.00px;
+    font-weight: 700;
+    font-style: normal;
+    font-family: raleway_regular, Arial;
+    color: rgba(41, 39, 36, 1); */
+    opacity: 1;
+    padding: 3px;
+    cursor: pointer;
+}
+.forgotNew{
+      font-size: 22.00px;
     font-weight: 700;
     font-style: normal;
     font-family: raleway_regular, Arial;
@@ -286,10 +278,8 @@ and (max-device-width : 320px) and (orientation:portrait){
     padding: 3px;
     cursor: pointer;
 }
-
-
 .otherSet{
-    font-size: 18.00px;
+    font-size: 20.00px;
     font-weight: 700;
     font-style: normal;
     font-family: raleway_bold, Arial;
@@ -314,16 +304,15 @@ and (max-device-width : 320px) and (orientation:portrait){
     color: rgba(41, 39, 36, 1);
     opacity: 0.800000011920929;
 }
-
 .inputNew{
     text-indent: 10px;font-size: 13.00px;height: 24px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;
     border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;
     border-radius: 10px;width: 95%;border-bottom:0.5px solid #3C3C3C !important
 }
-
+.digit-group > input {width: 30px;height: 30px;line-height: 50px;text-align: center;font-size: 20px; border-radius:8px;font-family: 'Raleway', sans-serif;
+    font-weight: 200;margin: 0 5px;border: 1px solid #979797;color: #000009 !important}  
 .point16{    
     line-height: 28.00px;
-    letter-spacing: -0.00px;
     color: rgba(60, 60, 60, 1);
     -webkit-text-stroke: unset;
     font-size: 16.00px;
@@ -331,7 +320,6 @@ and (max-device-width : 320px) and (orientation:portrait){
     font-style: normal;
     font-family: raleway_medium, Arial;
 }
-
 select{
     background-color: white;
     border: 0.5px solid lightslategray !important;
@@ -339,7 +327,6 @@ select{
 option:hover{
     background-color: #fff;
 }
-
 input[type="text"]
 {
     background: transparent;
@@ -352,29 +339,26 @@ input[type="text"]
     font-style: normal;
     font-family: raleway_regular, Arial;
 } 
-
 .form-control.is-invalid{
     border-bottom: 1px solid red;
 }
-
 .form-control.is-valid{
     border-bottom: 1px solid green;
 }
-
 button {
-    width: 125px;
-    height: 43px;
+    width: 162px;
+    height: 52px;
     cursor: pointer;
-    border-radius: 55px;
-    background-color: #3c3c3c;
-    color: #d8d8d8;
-    font-size: 26.00px;
+    border-radius: 30px;
+    background-color: rgba(60, 60, 60, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 24.00px;
     font-weight: 500;
     font-style: normal;
-    font-family: raleway_regular, Arial;
+    font-family: raleway_medium, Arial;
     border:none;
+    opacity: 1
 }
-
 ::placeholder {
     font-size: 20.00px;
     font-weight: 400;
@@ -383,21 +367,17 @@ button {
     color: rgba(41, 39, 36, 1);
     opacity:  0.5500000119;
 }
-
 @font-face {
     font-family: raleway_bold;
     src: url('/assets/raleway_bold.ttf');
 }
-
 @font-face {
     font-family: raleway_regular;
     src: url('/assets/raleway_regular.ttf');
 }
-
 input[type="text"], input[type="password"], textarea,button, select { 
     outline: none;
 }
-
 .bg-color{
     background-color: rgba(255, 195, 63, 1);
     height: 100%;
@@ -408,7 +388,6 @@ input[type="text"], input[type="password"], textarea,button, select {
     bottom: 0;
     position: fixed;
 }
-
 .row {
     display: -ms-flexbox;
     display: flex;
@@ -436,40 +415,32 @@ input[type="text"], input[type="password"], textarea,button, select {
     font-style: normal;
     font-family: raleway_bold, Arial; 
     line-height: 28.00px;
-    letter-spacing: -0.00px;
     padding-left: 15px;
     color: rgba(60, 60, 60, 1);
 }
 .head1{    color: rgba(41, 39, 36, 1);font-size: 18.00px;font-weight: 500;font-style: normal;font-family: raleway_regular, Arial;}
-
 .head_amt{    color: rgba(60, 60, 60, 1);;    font-size: 20.00px;    font-weight: 700;    font-style: normal;    font-family: raleway_bold, Arial;}
-
 .tdLabelConf{
     font-size: 15.00px;
     font-weight: 700;
     font-style: normal;
     font-family: raleway_bold, Arial;
 }
-
 .tdDataConf{
     font-size: 15.00px;
-    font-weight: 700;
+    font-weight: 400;
     font-style: normal;
     font-family: raleway_regular, Arial;
     color: rgba(60, 60, 60, 1);
 }
-
 .tdLabel{
-    font-size: 13.00px;
+    font-size: 15.00px;
     font-weight: 700;
     font-style: normal;
     font-family: raleway_bold, Arial;
 }
-
 .trspace{line-height: 40px;}
-
 .trspace_tran{line-height: 20px;}
-
 .form-control {
     width: 83%;
     height: calc(1.5em + 0.75rem + 2px);
@@ -509,16 +480,22 @@ input[type="text"], input[type="password"], textarea,button, select {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-
 .hr{
     border-color: #3a2c0e;margin-left: 10px;margin-right: 10px;border-width: 0.5px;
 }
-
 .margin20{
     margin-left: 20px;
     cursor: pointer;
 }
-
+.text20PxWith400 {
+    font-size: 20.00px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: raleway_regular,;
+    color: rgba(60, 60, 60, 1);
+    opacity: 1;
+    cursor: pointer;
+}
 .sidenav a {
     padding: 8px 8px 8px 12px;
     display: block;
@@ -529,7 +506,6 @@ input[type="text"], input[type="password"], textarea,button, select {
     font-family: raleway_bold, Arial;
     color: #2b2924;
 }
-
 .sidenav span {
     padding: 8px 8px 8px 12px;
     display: block;
@@ -538,11 +514,9 @@ input[type="text"], input[type="password"], textarea,button, select {
     font-family: raleway_regular, Arial;
     color: #2b2924;
 }
-
 .sidenav a:hover {
     color: #f1f1f1;
 }
-
 .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -550,80 +524,10 @@ input[type="text"], input[type="password"], textarea,button, select {
     font-size: 36px;
     margin-left: 50px;
 }
-
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;height: auto;}
     .sidenav a {font-size: 18px;}
 }
-/*ul{
-    float: right;
-    margin-bottom: 40px;
-}*/
-.nav {
-    border: 1px solid #ffc33f;
-    border-radius: 63px;
-}
-.nav > li {
-    position: relative;
-    display: block;
-}
-.nav > li > a {
-    position: relative;
-    display: block;
-    padding: 2px 15px;
-    color: #000;
-}
-.nav > li > a:hover,
-.nav > li > a:focus {
-    text-decoration: none;
-    background-color: #eee;
-}
-.nav > li.disabled > a {
-    color: #777;
-}
-.nav > li.disabled > a:hover,
-.nav > li.disabled > a:focus {
-    color: #777;
-    text-decoration: none;
-    cursor: not-allowed;
-    background-color: transparent;
-}
-.nav-pills > li {
-    float: left;
-}
-.nav-pills > .active > a > .badge {
-    color: #337ab7;
-    background-color: #fff;
-}
-.list-group-item > .badge {
-    float: right;
-}
-.list-group-item > .badge + .badge {
-    margin-right: 5px;
-}
-.nav-pills > li > a > .badge {
-    margin-left: 3px;
-}
-.nav-pills > li > a {
-    position: relative;
-    display: block;
-    padding: 2px 15px;
-}
-.nav-pills > li.active > a {
-    color: #000;
-    background-color: #ffc33f;
-    border-radius: 100px;
-}
-.nav-pills > li + li {
-    margin-left: 2px;
-}
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus {
-    color: #fff;
-    background-color: #337ab7;
-}
-
 .trans{
     background: #f9ac19;
     border-radius: 100px;
@@ -657,52 +561,47 @@ input[type="text"], input[type="password"], textarea,button, select {
     text-transform: uppercase;
     font-family: raleway_regular, Arial;
 }
-
 .span1{
-    display: block;
-    font-size: 14px;
-    font-family: raleway_regular, Arial;
-}
-
-.span2{
-    display: block;
-    font-size: 11px;
-    font-family: raleway_regular, Arial;
-    margin-top: 5px;
-}
-
-.amount{
     display: block;
     font-size: 16px;
     font-family: raleway_regular, Arial;
 }
-
+.span2{
+    display: block;
+    font-size: 12px;
+    font-family: raleway_regular, Arial;
+    margin-top: 5px;
+}
+.amount{
+    display: block;
+    font-size: 15px;
+    font-family: raleway_regular, Arial;
+}
 .amount2{
     display: block;
     color: #f9ac19;
     font-weight: 900;
-    font-size: 16px;
+    font-size: 15px;
     font-family: raleway_regular, Arial;
     margin-top: 5px;
 }
-
 .div2{
     width: 44%;
     margin-top: 5px;
     margin-left: 8px;
 }
-
 @media screen and (max-width: 767px) and (min-width: 320px){
+    
     .span1 {
-        font-size: 13px;
+        font-size: 15px;
     }
     .span2 {
-        font-size: 9px;
+        font-size: 11px;
     }
     .amount{
-        font-size: 11px;  
+        font-size: 14px;  
     }
     .amount2{
-        font-size: 11px;  
+        font-size: 14px;  
     }
 }

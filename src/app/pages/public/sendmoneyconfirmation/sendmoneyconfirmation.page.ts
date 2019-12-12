@@ -55,7 +55,9 @@ export class sendmoneyconfirmationPage implements OnInit {
     this.router.navigate(["transactions"]); 
   }
   sendMoney(){
-    this.router.navigate(["sendmoney"]); 
+    this.openNavBar = false;
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("column").style.opacity = "1";
   }
   settings(){
     this.router.navigate(["settings"]); 

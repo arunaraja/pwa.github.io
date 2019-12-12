@@ -9,11 +9,11 @@
     <div class="column"></div>
     <!-- section 2 -->
     <div class="column" style="text-align:center;padding-top: 25px;">
-      <p class="setUp">Set Up your Account</p>
+      <p class="verify">Set Up your Account</p>
       <!-- form starts -->
       <form #registerForm="ngForm" name="registerForm" novalidate>
       <!-- for phone number input -->
-      <input type="text" name="phone" class="form-control" placeholder="Phone Number" autocomplete="off"  required
+      <input type="text" numbersOnly name="phone" class="form-control" placeholder="Phone Number" autocomplete="off"  required
       [ngClass]="{
       'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel"
       ngModel [(ngModel)]="registrationObj.phone" />

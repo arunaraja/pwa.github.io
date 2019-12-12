@@ -16,7 +16,7 @@
       <!-- form starts -->
       <form #registerForm="ngForm" name="registerForm" novalidate>
         <!-- for phone number input -->
-        <input type="text" name="phone" class="form-control" placeholder="Phone Number" autocomplete="off" required [ngClass]="{
+        <input type="text" name="phone" numbersOnly class="form-control" placeholder="Phone Number" autocomplete="off" required [ngClass]="{
         'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel" ngModel
           [(ngModel)]="welcomeObj.phone" />
         <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
