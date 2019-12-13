@@ -22,7 +22,7 @@ export class homePage implements OnInit {
 
   ngOnInit() {
     this.gridView = true;
-    document.getElementById("mySidenav").style.width = "0";
+    // document.getElementById("mySidenav").style.width = "0";
   }
   
   async onSubmit(form) {
@@ -34,7 +34,7 @@ export class homePage implements OnInit {
   }
   home(){
     this.openNavBar = false;
-      document.getElementById("mySidenav").style.width = "0";
+      // document.getElementById("mySidenav").style.width = "0";
       document.getElementById("column").style.opacity = "1";
   }
   transaction(){
@@ -67,12 +67,12 @@ export class homePage implements OnInit {
   openNav() {
     if(!this.openNavBar){
       this.openNavBar = true;
-      document.getElementById("mySidenav").style.width = "250px";
+      // document.getElementById("mySidenav").style.width = "225px";
       document.getElementById("column").style.opacity = "45%";
     }
     else{
       this.openNavBar = false;
-      document.getElementById("mySidenav").style.width = "0";
+      // document.getElementById("mySidenav").style.width = "0";
       document.getElementById("column").style.opacity = "1";
     }
   }

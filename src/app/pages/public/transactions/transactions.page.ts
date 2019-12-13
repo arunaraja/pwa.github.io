@@ -16,7 +16,7 @@ export class transactionPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    document.getElementById("mySidenav").style.width = "0";
+    // document.getElementById("mySidenav").style.width = "0";
   }
 
     logOut(){
@@ -24,7 +24,7 @@ export class transactionPage implements OnInit {
   }
 transaction(){
   this.openNavBar = false;
-  document.getElementById("mySidenav").style.width = "0";
+  // document.getElementById("mySidenav").style.width = "0";
   document.getElementById("column").style.opacity = "1";
   }
 home(){
@@ -42,12 +42,12 @@ wallet(){
 openNav() {
     if(!this.openNavBar){
       this.openNavBar = true;
-      document.getElementById("mySidenav").style.width = "250px";
+      // document.getElementById("mySidenav").style.width = "250px";
       document.getElementById("column").style.opacity = "45%";
     }
     else{
       this.openNavBar = false;
-      document.getElementById("mySidenav").style.width = "0";
+      // document.getElementById("mySidenav").style.width = "0";
       document.getElementById("column").style.opacity = "1";
     }
   }

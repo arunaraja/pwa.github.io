@@ -513,13 +513,13 @@ input[type="text"], input[type="password"], textarea,button, select {
 }
 .sidenav {
     height: auto;
-    position: fixed;
+    position: absolute;
+    width: 225px;
     z-index: 1;
     top: 110px;
     background-color: #ffc340;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 10px;
     padding-bottom: 10px;
 }
 .hr{border-color: #3a2c0e;margin-left: 10px;margin-right: 10px;border-width: 0.5px;}
@@ -570,7 +570,7 @@ input[type="text"], input[type="password"], textarea,button, select {
     margin-left: 50px;
 }
 @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;height: auto;}
+    .sidenav {height: auto;}
     .sidenav a {font-size: 18px;}
 }
 .trans{

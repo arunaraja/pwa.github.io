@@ -19,7 +19,7 @@ export class sendmoneyconfirmationPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    document.getElementById("mySidenav").style.width = "0";
+    // document.getElementById("mySidenav").style.width = "0";
   }
 
   async onSubmit(form) {
@@ -36,12 +36,12 @@ export class sendmoneyconfirmationPage implements OnInit {
   openNav() {
     if(!this.openNavBar){
       this.openNavBar = true;
-      document.getElementById("mySidenav").style.width = "250px";
+      // document.getElementById("mySidenav").style.width = "250px";
       document.getElementById("column").style.opacity = "45%";
     }
     else{
       this.openNavBar = false;
-      document.getElementById("mySidenav").style.width = "0";
+      // document.getElementById("mySidenav").style.width = "0";
       document.getElementById("column").style.opacity = "1";
     }
   }
@@ -56,7 +56,7 @@ export class sendmoneyconfirmationPage implements OnInit {
   }
   sendMoney(){
     this.openNavBar = false;
-      document.getElementById("mySidenav").style.width = "0";
+      // document.getElementById("mySidenav").style.width = "0";
       document.getElementById("column").style.opacity = "1";
   }
   settings(){
