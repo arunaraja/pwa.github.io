@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   
 })
 export class walletaddPage implements OnInit {
-  sendMsg ={};
+  sendMoney ={};
   constructor(private router: Router) { }
 
   ngOnInit() {

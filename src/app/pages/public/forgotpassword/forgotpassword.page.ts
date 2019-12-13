@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {$} from 'jquery'
 declare var $ : any;
+
 @Component({
   selector: 'app-forgotpassword',
   templateUrl: './forgotpassword.page.html'
@@ -25,10 +26,10 @@ export class forgotpasswordPage implements OnInit {
     if(form.form.invalid){
       return;
     }
-    else if(!this.loginObj['digit1'] || !this.loginObj['digit2']|| !this.loginObj['digit3'] || !this.loginObj['digit4']
-      || !this.loginObj['digit5'] || !this.loginObj['digit6']){
-        this.invalidOTP = true;
-    }
+    // else if(!this.loginObj['digit1'] || !this.loginObj['digit2']|| !this.loginObj['digit3'] || !this.loginObj['digit4']
+    //   || !this.loginObj['digit5'] || !this.loginObj['digit6']){
+    //     this.invalidOTP = true;
+    // }
     else{
       this.router.navigate(["changepassword"]);
     }
@@ -71,6 +72,10 @@ export class forgotpasswordPage implements OnInit {
     var charLimit = 1;
     $(".inputs").keydown(function(e) {
         var keys = [8, 9, /*16, 17, 18,*/ 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 46, 144, 145];
+        console.log("e.which")
+        console.log(e.which)
+        console.log("this.value.substr(-1).charCodeAt(0)")
+        console.log(this.value.substr(-1).charCodeAt(0))
         if (e.which == 8 && this.value.length == 0) {
             $(this).prev('.inputs').focus();
         } else if ($.inArray(e.which, keys) >= 0) {

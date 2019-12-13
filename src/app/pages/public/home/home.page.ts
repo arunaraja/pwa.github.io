@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {$} from 'jquery'
+declare var $ : any;
 
 @Component({
   selector: 'app-home',
@@ -51,11 +53,15 @@ export class homePage implements OnInit {
   listViewFunc(){
     this.gridView = false;
     this.listView = true;
+    $("#list").attr('src',"assets/yellow-list.png");
+    $("#grid").attr('src',"assets/black-grid.png");
   }
 
   gridViewFunc(){
     this.gridView = true;
     this.listView = false;
+    $("#list").attr('src',"assets/black-list.png");
+    $("#grid").attr('src',"assets/yellow-grid.png");
   }
 
   openNav() {

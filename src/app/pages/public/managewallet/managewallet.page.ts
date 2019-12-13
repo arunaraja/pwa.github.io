@@ -22,18 +22,18 @@ export class managewalletPage implements OnInit {
   }
 
   click1(){
-    $('#click1').css('background-image', 'url(assets/radio_on.png)');
-    $('#click2').css('background-image', 'url(assets/radio_off.png)');
-    $('#click3').css('background-image', 'url(assets/radio_off.png)');
+    $('#click1').attr('src', 'assets/radio_on.png');
+    $('#click2').attr('src', 'assets/radio_off.png');
+    $('#click3').attr('src', 'assets/radio_off.png');
   }
   click2(){
-    $('#click1').css('background-image', 'url(assets/radio_off.png)');
-    $('#click2').css('background-image', 'url(assets/radio_on.png)');
-    $('#click3').css('background-image', 'url(assets/radio_off.png)');
+    $('#click1').attr('src', 'assets/radio_off.png');
+    $('#click2').attr('src', 'assets/radio_on.png');
+    $('#click3').attr('src', 'assets/radio_off.png');
   }
   click3(){
-    $('#click1').css('background-image', 'url(assets/radio_off.png)');
-    $('#click2').css('background-image', 'url(assets/radio_off.png)');
-    $('#click3').css('background-image', 'url(assets/radio_on.png)');
+    $('#click1').attr('src', 'assets/radio_off.png');
+    $('#click2').attr('src', 'assets/radio_off.png');
+    $('#click3').attr('src', 'assets/radio_on.png');
   }
 }
