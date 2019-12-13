@@ -369,7 +369,7 @@ input[type="text"]
     border-bottom: 1px solid red;
 }
 .form-control.is-valid{
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid #3C3C3C;
 }
 button {
     width: 162px;
