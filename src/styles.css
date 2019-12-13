@@ -168,7 +168,11 @@ and (max-device-width : 320px) and (orientation:portrait){
         width: -webkit-fill-available;
     }
 }
-@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) and (orientation:landscape){
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+    .column { width: -webkit-fill-available;}
+    .columnHome {width: -webkit-fill-available;}
+}
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and  (orientation:landscape){
     .column { width: -webkit-fill-available;}
     .columnHome {width: -webkit-fill-available;}
 }
@@ -355,6 +359,8 @@ input[type="text"]
     border-left:none;
     border-top: none;
     font-size: 20.00px;
+    line-height: 28.00px;
+    color: rgba(83, 74, 43, 1);
     font-weight: 400;
     font-style: normal;
     font-family: raleway_regular, Arial;
@@ -395,6 +401,10 @@ button {
     font-family: raleway_regular;
     src: url('/assets/raleway_regular.ttf');
 }
+@font-face {
+    font-family: raleway_medium;
+    src: url('assets/raleway_medium.ttf');
+  }
 input[type="text"], input[type="password"], textarea,button, select { 
     outline: none;
 }
