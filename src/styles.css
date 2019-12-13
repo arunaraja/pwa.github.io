@@ -168,11 +168,11 @@ and (max-device-width : 320px) and (orientation:portrait){
         width: 100%;
     }
 }
-@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 1024px) and (orientation:portrait) {
     .column { width: 100%;}
     .columnHome {width: 100%;}
 }
-@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and  (orientation:landscape){
+@media only screen and (min-device-width: 320px) and (max-device-width: 1024px) and  (orientation:landscape){
     .column { width: 100%;}
     .columnHome {width: 100%;}
 }
@@ -314,8 +314,8 @@ and (max-device-width : 320px) and (orientation:portrait){
     border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;
     border-radius: 10px;width: 95%;border-bottom:0.5px solid #3C3C3C !important
 }
-.digit-group > input {width: 30px;height: 30px;line-height: 50px;text-align: center;font-size: 20px; border-radius:8px;font-family: 'Raleway', sans-serif;
-    font-weight: 200;margin: 0 5px;border: 1px solid #979797;color: #000009 !important}  
+/* .digit-group > input {width: 30px;height: 30px;line-height: 50px;text-align: center;font-size: 20px; border-radius:8px;font-family: 'Raleway', sans-serif;
+    font-weight: 200;margin: 0 5px;border: 1px solid #979797;color: #000009 !important}   */
 
 .point16{    
     line-height: 28.00px;
