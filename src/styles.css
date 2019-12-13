@@ -310,7 +310,7 @@ and (max-device-width : 320px) and (orientation:portrait){
     opacity: 0.800000011920929;
 }
 .inputNew{
-    text-indent: 10px;font-size: 13.00px;height: 24px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;
+    text-indent: 3px;font-size: 13.00px;height: 24px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;
     border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;
     border-radius: 10px;width: 95%;border-bottom:0.5px solid #3C3C3C !important
 }
@@ -348,7 +348,7 @@ option:hover{
 .sent{opacity:0.800000011920929;font-size: 12.00px;
     font-weight: 500; font-style: normal;font-family: raleway_medium, Arial;
     color: rgba(41, 39, 36, 1);}    
-.inputChk{text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;
+.inputChk{text-indent: 3px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;
     border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;
     width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important}
 input[type="text"]
