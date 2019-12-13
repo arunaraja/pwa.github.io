@@ -71,6 +71,10 @@ const routes: Routes = [
   {
     path: 'settings',
     loadChildren: './pages/public/settings/settings.module#settingsPageModule'
+  },
+  {
+    path: 'otp',
+    loadChildren: './pages/public/otp/otp.module#otpPageModule'
   }
   
 ];

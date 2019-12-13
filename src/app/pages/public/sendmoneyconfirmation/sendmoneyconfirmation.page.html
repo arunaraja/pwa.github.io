@@ -24,7 +24,7 @@
             <p><img src="assets/icon_ionic_md_menu.png" alt="" align="top" style="cursor: pointer;padding-top: 5px" (click)="openNav()">
                 &nbsp;
                 <span  class="otherSet_wel1">Welcome</span><span class="otherSet_wel2"> Strader</span></p>
-            <p class="otherSet" style="margin-top: 35px;background: gainsboro;text-align: center;">Transaction Details</p>
+            <p class="otherSet_Pro">Transaction Details</p>
             <p class="head1" style="text-align: center;">Your transaction is successful .</p>
             <div style="text-align: -webkit-center;">
                 <div class="trans_1">
@@ -35,7 +35,7 @@
                 <label class="head_amt" style="text-align: center;">$3900.00</label>
             </div>
             <div class="clear"></div>
-            <div id="viewpg" style="margin-top: 10px;margin-left:10px;margin-right:10px;bottom:10px;border:1px solid lightgray;padding-top: 12px;">
+            <div id="viewpg" class="sendConf">
                 <table style="width:100%" *ngIf="firstPage">
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
@@ -74,7 +74,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <hr class="hr" style="border-color: gainsboro !important">
+                            <hr class="hrOnlyBorder">
                         </td>
                     </tr>
                     <tr class="trspace_tran">

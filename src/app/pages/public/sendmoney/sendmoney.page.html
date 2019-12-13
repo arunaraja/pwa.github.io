@@ -5,14 +5,10 @@
             <p><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;padding-top: 2px" (click)="home()">
                 &nbsp;
                 <span  class="otherSet_wel1">Welcome</span><span class="otherSet_wel2"> Strader</span></p>
-            <p class="otherSet" style="margin-top: 35px;background: gainsboro;text-align: center;">Send Money</p>
+            <p class="otherSet_Pro">Send Money</p>
             <p style="float: right;">
-                <button style="cursor: pointer;width: 73px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px
-                    ;border-radius: 55px;background-color: #ffc33f;"
-                    (click)="getHistory()">History</button>&nbsp;
-                <button style="margin-right: 10px;width: 135px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px
-                    ;border-radius: 55px;background-color: #ffc33f;"
-                    (click)="sendMessage()">Send Message</button>
+                <button  class="history" (click)="getHistory()">History</button>&nbsp;
+                <button class="send" (click)="sendMessage()">Send Message</button>
 
             </p>
             <div class="clear"></div>

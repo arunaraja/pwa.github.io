@@ -14,7 +14,7 @@ export class loginPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    localStorage.clear();
+    this.loginObj['phone'] = localStorage.getItem('phone');
   }
 
   async onSubmit(form) {

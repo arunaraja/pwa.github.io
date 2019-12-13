@@ -23,6 +23,7 @@ export class welcomePage implements OnInit {
     }
     else{
       console.log("Next Navigation")  
+      localStorage.setItem('phone',this.welcomeObj['phone'] );
       this.router.navigate(["verify"]);
     }
   }

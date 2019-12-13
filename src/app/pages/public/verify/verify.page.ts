@@ -16,7 +16,7 @@ export class verifyPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    localStorage.clear();
+    this.loginObj['phone'] = localStorage.getItem('phone');
     this.click();
   }
 
@@ -40,8 +40,9 @@ export class verifyPage implements OnInit {
     $('.digit-group').find('input').each(function() {
     $(this).attr('maxlength', 1);
     $(this).on('keyup', function(e) {
-      if(!isNaN(e.originalEvent.key))
-      {
+      console.log("HIT????")
+      // if(!isNaN(e.originalEvent.key))
+      // {
       var parent = $($(this).parent());
       
       if(e.keyCode === 8 || e.keyCode === 37) {
@@ -59,7 +60,7 @@ export class verifyPage implements OnInit {
           if(parent.data('autosubmit')) {
             parent.submit();
           }
-        }
+        // }
         }
       }
     });

@@ -14,7 +14,7 @@ export class registerPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    localStorage.clear();
+    this.registrationObj['phone'] = localStorage.getItem('phone');
   }
 
   async onSubmit(form) {

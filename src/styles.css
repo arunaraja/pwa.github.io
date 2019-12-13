@@ -259,15 +259,12 @@ and (max-device-width : 320px) and (orientation:portrait){
     font-style: normal;
     font-family: raleway_medium;
     color: rgba(41, 39, 36, 1);
-    /* font-size: 22.00px;
-    font-weight: 700;
-    font-style: normal;
-    font-family: raleway_regular, Arial;
-    color: rgba(41, 39, 36, 1); */
     opacity: 1;
     padding: 3px;
     cursor: pointer;
 }
+.sendConf{margin-top: 10px;margin-left:10px;margin-right:10px;bottom:10px;border:1px solid lightgray;padding-top: 12px;}
+
 .forgotNew{
       font-size: 22.00px;
     font-weight: 700;
@@ -287,6 +284,10 @@ and (max-device-width : 320px) and (orientation:portrait){
     opacity: 0.800000011920929;
     padding: 3px;
     cursor: pointer;
+}
+.otherSet_Pro{
+    font-size: 20.00px;    font-weight: 700;    font-style: normal;    font-family: raleway_bold, Arial;    color: rgba(41, 39, 36, 1);
+    opacity: 0.800000011920929;    padding: 3px;    cursor: pointer;    margin-top: 35px;background: gainsboro;text-align: center;
 }
 .otherSet_wel1{
     font-size: 24.00px;
@@ -311,6 +312,7 @@ and (max-device-width : 320px) and (orientation:portrait){
 }
 .digit-group > input {width: 30px;height: 30px;line-height: 50px;text-align: center;font-size: 20px; border-radius:8px;font-family: 'Raleway', sans-serif;
     font-weight: 200;margin: 0 5px;border: 1px solid #979797;color: #000009 !important}  
+
 .point16{    
     line-height: 28.00px;
     color: rgba(60, 60, 60, 1);
@@ -327,6 +329,24 @@ select{
 option:hover{
     background-color: #fff;
 }
+
+.history{cursor: pointer;width: 73px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px
+    ;border-radius: 55px;background-color: #ffc33f;}
+
+.sendMesg{margin-left:10px;margin-right:10px;bottom:10px;
+        border:1px solid lightgray;padding-top: 12px;height: 23pc;}
+.msg{font-size: 16.00px;font-weight: 400;color: rgba(60, 60, 60, 1);opacity: 0.9900000095367432;
+    font-style: normal;font-family: raleway_regular, Arial;padding-left: 15px;}
+.send{margin-right: 10px;width: 135px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px
+    ;border-radius: 55px;background-color: #ffc33f;}
+.divMsg{border: 1px solid lightgray;margin-left: 10px;margin-right:10px;
+    height: 80px;border-radius: 19px;}
+.sent{opacity:0.800000011920929;font-size: 12.00px;
+    font-weight: 500; font-style: normal;font-family: raleway_medium, Arial;
+    color: rgba(41, 39, 36, 1);}    
+.inputChk{text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;
+    border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;
+    width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important}
 input[type="text"]
 {
     background: transparent;
@@ -439,8 +459,20 @@ input[type="text"], input[type="password"], textarea,button, select {
     font-style: normal;
     font-family: raleway_bold, Arial;
 }
+.day7{cursor: pointer;width: 75px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px ;border-radius: 55px;
+    background-color: #ffc33f;margin-right: -34px;position: relative;border: 1px solid #ffc33f;cursor: pointer;}
+
+.day30{width: 96px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px;border-radius: 55px;
+    background-color: #fff;text-align: end;border: 1px solid #ffc33f;cursor: pointer;}    
+
+.tb1{width:100%;padding-left:25px;padding-right:25px;}    
+
+.tb2{width:100%;padding-left:25px;padding-right:25px;padding-top: 10px;}    
+
 .trspace{line-height: 40px;}
+
 .trspace_tran{line-height: 20px;}
+
 .form-control {
     width: 83%;
     height: calc(1.5em + 0.75rem + 2px);
@@ -480,9 +512,12 @@ input[type="text"], input[type="password"], textarea,button, select {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-.hr{
-    border-color: #3a2c0e;margin-left: 10px;margin-right: 10px;border-width: 0.5px;
-}
+.hr{border-color: #3a2c0e;margin-left: 10px;margin-right: 10px;border-width: 0.5px;}
+
+.hr1{border-color: #ced4da;margin-left: 0px;margin-right: 0px;border-width: 0.5px;}
+
+.hrOnlyBorder{border-color: #ced4da;margin-left: 0px;margin-right: 0px;border-width: 0.5px;}
+
 .margin20{
     margin-left: 20px;
     cursor: pointer;
