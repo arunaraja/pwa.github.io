@@ -55,9 +55,7 @@ export class sendmoneyconfirmationPage implements OnInit {
     this.router.navigate(["transactions"]); 
   }
   sendMoney(){
-    this.openNavBar = false;
-      // document.getElementById("mySidenav").style.width = "0";
-      document.getElementById("column").style.opacity = "1";
+    this.router.navigate(["sendmoney"]); 
   }
   settings(){
     this.router.navigate(["settings"]); 
@@ -67,5 +65,8 @@ export class sendmoneyconfirmationPage implements OnInit {
   }
   onClickSend(){
     this.router.navigate(["sendmoney"]); 
+  }
+  onClickMsg(){
+    this.router.navigate(["sendmessage"]); 
   }
 }

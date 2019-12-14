@@ -1,3 +1,7 @@
+<style>
+    .digit-group > input {height: 40px;    width: 35px;text-indent: 1px;text-align: center;
+      background-color: white;font-size: 19px;border-radius:8px;
+    font-weight: 200;margin: 0 5px;color: #000009;border: 1px solid #979797 !important;}</style>
 <div class="bg-color">
   <!-- header title -->
   <div class="title">
@@ -8,10 +12,16 @@
     <!-- section1 -->
     <div class="column"></div>
     <!-- section 2 -->
-    <div class="column" style="text-align:center;padding-top: 25px;">
+    <div class="column" style="text-align:center;padding-top: 5px;">
+        <span class="verify">Thank you for registering  </span>
+        <br>
+        <span class="verify">with envia Major </span>
+        <br>
+        <br>
       <div class="bg-white">
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
         <p class="verify">Login</p>
+       
         <!-- form starts -->
         <form #loginform="ngForm" name="loginform" novalidate>
           <!-- for phone number input -->
@@ -21,14 +31,25 @@
             ngModel [(ngModel)]="loginObj.phone" />
           <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
+          <form  class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
+              <input class="inputs" type="text"   class="inputs"/>
+              <input class="inputs" type="text"  class="inputs"/>
+              <input class="inputs" type="text" class="inputs" />
+              <input class="inputs" type="text"  class="inputs"/>
+              <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
+                <span>Invalid OTP !</span>
+              </p>
+            </form>
+          
+            <p class="pincode">Pincode</p>
           <!-- for  password input -->
-          <input type="text" name="pass" class="form-control" placeholder="Pincode" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
+          <!-- <input type="text" name="pass" class="form-control" placeholder="Pincode" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
             [ngClass]="{'is-invalid': 
           pass.invalid  && submitted  ,'is-valid': pass.valid  && submitted }" #pass="ngModel" ngModel
             [(ngModel)]="loginObj.pass" />
           <show-error [control]="pass" [label]="{'labelName': 'Pincode'}" [submitFlag]="submitted">
           </show-error>
-          <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || pass.valid"></svg>
+          <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || pass.valid"></svg> -->
           <!-- for submit button -->
           <p><img src="assets/rocket.png" alt="Smiley face" width="26" height="26" align="top">  <span class="verify" style=" cursor: pointer;" (click)="onSubmit(loginform)">Go</span></p>
           <p class="text20PxWith400" (click)="forgotPassword()">Forgot Pincode</p>

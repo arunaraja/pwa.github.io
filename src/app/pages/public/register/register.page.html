@@ -1,3 +1,7 @@
+<style>
+    .digit-group1>input,.digit-group > input {height: 40px;    width: 35px;text-indent: 1px;text-align: center;
+      background-color: white;font-size: 19px;border-radius:8px;
+    font-weight: 200;margin: 0 5px;color: #000009;border: 1px solid #979797 !important;}</style>
 <div class="bg-color">
   <!-- header title -->
   <div class="title">
@@ -19,16 +23,38 @@
       ngModel [(ngModel)]="registrationObj.phone" />
     <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
     <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
-         <!-- for new password input -->
+    <form  class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
+        <input class="inputs" type="text"   class="inputs"/>
+        <input class="inputs" type="text"  class="inputs"/>
+        <input class="inputs" type="text" class="inputs" />
+        <input class="inputs" type="text"  class="inputs"/>
+        <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
+          <span>Invalid OTP !</span>
+        </p>
+      </form>
+    
+      <p class="pincode">Enter new pincode</p>
+    <form  class="digit-group1" data-group-name="digits" data-autosubmit="false" autocomplete="off">
+        <input class="inputs1" type="text"   class="inputs1"/>
+        <input class="inputs1" type="text"  class="inputs1"/>
+        <input class="inputs1" type="text" class="inputs1" />
+        <input class="inputs1" type="text"  class="inputs1"/>
+        <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
+          <span>Invalid OTP !</span>
+        </p>
+      </form>
+      <p class="pincode">Confirm pincode</p>
+
+         <!-- for new password input
         <input type="text" name="newPass" class="form-control" placeholder="New pincode" autocomplete="off"  required [ngClass]="{'is-invalid': 
         newPass.invalid  && submitted  ,'is-valid': newPass.valid  && submitted }" #newPass="ngModel" ngModel [(ngModel)]="registrationObj.newPass" />
         <show-error [control]="newPass" [label]="{'labelName': 'New pincode'}" [submitFlag]="submitted"></show-error>
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"  *ngIf="!submitted || newPass.valid"></svg>
-         <!-- for confirm password input -->
-        <input type="text" name="conPass" class="form-control" placeholder="Confirm pincode" autocomplete="off" required [ngClass]="{'is-invalid': 
+        for confirm password input -->
+        <!-- <input type="text" name="conPass" class="form-control" placeholder="Confirm pincode" autocomplete="off" required [ngClass]="{'is-invalid': 
         conPass.invalid  && submitted  ,'is-valid': conPass.valid  && submitted }" #conPass="ngModel" ngModel [(ngModel)]="registrationObj.conPass" />
-        <show-error [control]="conPass" [label]="{'labelName': 'Confirm pincode'}" [submitFlag]="submitted"></show-error>
-        <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"  *ngIf="!submitted || conPass.valid"></svg>
+        <show-error [control]="conPass" [label]="{'labelName': 'Confirm pincode'}" [submitFlag]="submitted"></show-error> -->
+        <!-- <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"  *ngIf="!submitted || conPass.valid"></svg> --> 
         <!-- for submit button -->
         <button (click)="onSubmit(registerForm)">Submit</button>
       </form>
