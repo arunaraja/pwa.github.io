@@ -4,20 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { ComponentModule } from '../../../services/component/component.module';
 import { sendmoneyPage } from './sendmoney.page';
-const routes: Routes = [
-  {
-    path: '',
-    component: sendmoneyPage
-  }
-];
+import { previewPage } from './preview/preview.page';
+import { sendMoneyRouter } from './sendmoney.route';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ComponentModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(sendMoneyRouter)
   ],
-  declarations: [sendmoneyPage]
+  declarations: [sendmoneyPage,previewPage]
 })
 export class sendmoneyPageModule {}

@@ -11,8 +11,14 @@ declare var $ : any;
 export class sendmoneyPage implements OnInit {
   submitted = false ;
   openNavBar = false;
+  hide = true;
+  hideView = true;
+  seeView = false;
+  transmissionInfo = true;
+  receiverInfo = false;
+  see = false;
   nextPage = false;
-  firstPage = true;
+  firstPage = false;
   sendMoney = {};
   constructor(
     private router: Router
@@ -32,7 +38,26 @@ export class sendmoneyPage implements OnInit {
   home(){
     this.router.navigate(["home"]);
   }
-  
+  transmission(){ 
+    if(!this.firstPage){
+      this.firstPage = true;
+    }
+      else{
+        this.firstPage = false;
+      }
+  }
+  seeEye(){
+    this.see = false;
+    this.hide = true;
+    this.hideView = true;
+    this.seeView = false;
+  }
+  hideEye(){
+    this.hide = true;
+    this.see = true;
+    this.hideView = false;
+    this.seeView = true;
+  }
   nextPageClick(){
    this.nextPage = true;
   //  if(this.sendMoney['deliveryMethod'] === 'bankaccount'){
@@ -64,5 +89,19 @@ export class sendmoneyPage implements OnInit {
   }
   sendMessage(){
     this.router.navigate(["sendmessage"]);
+  }
+  onPreviewClick(){
+    this.router.navigate(['/sendmoney/preview']) ;
+  }
+  receiver(){
+    if(!this.receiverInfo){
+      this.transmissionInfo = false;
+      this.receiverInfo = true;
+    }
+    else{
+      this.transmissionInfo = true;
+      this.receiverInfo = false;
+    }
+    
   }
 }
