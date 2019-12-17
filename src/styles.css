@@ -419,7 +419,7 @@ option:hover{
     background-color: #fff;
 }
 
-.history{cursor: pointer;width: 73px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px
+.history{cursor: pointer;width: 95px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px
     ;border-radius: 55px;background-color: #ffc33f;}
 
 .sendMesg{margin-left:10px;margin-right:10px;bottom:10px;
