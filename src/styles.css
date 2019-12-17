@@ -112,19 +112,19 @@
     left: 0;
     bottom: 10px;
     width: 100%;
-    text-align: center;
+    text-align: center;text-align: -moz-center;
  }
 .test{
     height: 75px;
     width: 75px;
-    text-align: center;
+    text-align: center;text-align: -moz-center;
     /*margin: auto;*/
     margin-right: -16px;
 }
 .testDef{
     height: 75px;
     width: 75px;
-    text-align: center;
+    text-align: center;text-align: -moz-center;
     margin: auto;
     margin-left: 10px;
 }
@@ -187,7 +187,7 @@ and (max-device-width : 320px) and (orientation:portrait){
     color: rgba(41, 39, 36, 1);
     background-color: #fefdf9;
     padding:8px;
-    text-align: center;
+    text-align: center;text-align: -moz-center;
 }
 .title-text{
     font-size: 32.00px;
@@ -241,7 +241,7 @@ and (max-device-width : 320px) and (orientation:portrait){
     height: 43px;
     color: rgba(0, 0, 0, 1);
     opacity: 1;
-    text-align: center;
+    text-align: center;text-align: -moz-center;
 }
 
 .sendmoneyBtn{   
@@ -281,7 +281,7 @@ and (max-device-width : 320px) and (orientation:portrait){
     }
   }
 .pincode{
-    text-align: center;
+    text-align: center;text-align: -moz-center;
     line-height: 28.00px;
     letter-spacing: -0.00px;
     color: rgba(83, 74, 43, 1);
@@ -362,7 +362,7 @@ and (max-device-width : 320px) and (orientation:portrait){
 }
 .otherSet_Pro{
     font-size: 20.00px;    font-weight: 700;    font-style: normal;    font-family: raleway_bold, Arial;    color: rgba(41, 39, 36, 1);
-    opacity: 0.800000011920929;    padding: 3px;    cursor: pointer;    margin-top: 35px;background: gainsboro;text-align: center;filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.1607843137254902));
+    opacity: 0.800000011920929;    padding: 3px;    cursor: pointer;    margin-top: 35px;background: gainsboro;text-align: center;text-align: -moz-center;filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.1607843137254902));
 }
 .otherSet_Pro_New{
     font-size: 20.00px;    font-weight: 700;    font-style: normal;    font-family: raleway_bold, Arial;    color: rgba(41, 39, 36, 1);
@@ -389,7 +389,7 @@ and (max-device-width : 320px) and (orientation:portrait){
     border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;
     border-radius: 10px;width: 95%;border-bottom:0.5px solid #3C3C3C !important
 }
-/* .digit-group > input {width: 30px;height: 30px;line-height: 50px;text-align: center;font-size: 20px; border-radius:8px;font-family: 'Raleway', sans-serif;
+/* .digit-group > input {width: 30px;height: 30px;line-height: 50px;text-align: center;text-align: -moz-center;font-size: 20px; border-radius:8px;font-family: 'Raleway', sans-serif;
     font-weight: 200;margin: 0 5px;border: 1px solid #979797;color: #000009 !important}   */
 .filterSend{
     filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.1607843137254902));
@@ -496,6 +496,7 @@ button {
     font-family: raleway_regular, Arial;
     color: rgba(41, 39, 36, 1);
     opacity:  0.5500000119;
+    text-align: center; 
 }
 @font-face {
     font-family: raleway_bold;
@@ -573,10 +574,10 @@ input[type="text"], input[type="password"], textarea,button, select {
     font-style: normal;
     font-family: raleway_bold, Arial;
 }
-.day7{cursor: pointer;width: 75px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px ;border-radius: 55px;
+.day7{cursor: pointer;width: 100px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px ;border-radius: 55px;
     background-color: #ffc33f;margin-right: -34px;position: relative;border: 1px solid #ffc33f;cursor: pointer;}
 
-.day30{width: 96px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px;border-radius: 55px;
+.day30{width: 100px;height: 22px;color: rgba(60, 60, 60, 1);font-size: 16px;border-radius: 55px;
     background-color: #fff;text-align: end;border: 1px solid #ffc33f;cursor: pointer;}    
 
 .tb1{width:100%;padding-left:25px;padding-right:25px;}    
@@ -697,7 +698,7 @@ input[type="text"], input[type="password"], textarea,button, select {
     font-family: raleway_bold, Arial;
     color: rgba(254, 253, 249, 1);
     letter-spacing: -0.50px;
-    text-align: center;
+    text-align: center;text-align: -moz-center;
     margin: 11px;
     opacity: 0.800000011920929;}
 .rounded{
@@ -705,7 +706,7 @@ input[type="text"], input[type="password"], textarea,button, select {
     color: #fff;
     font-size: 14px;
     font-weight: 600;
-    text-align: center;
+    text-align: center;text-align: -moz-center;
     line-height: 36px;
     text-transform: uppercase;
     font-family: raleway_regular, Arial;
