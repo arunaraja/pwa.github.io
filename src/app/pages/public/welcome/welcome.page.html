@@ -20,7 +20,7 @@
         'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel" ngModel
           [(ngModel)]="welcomeObj.phone" />
         <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
-        <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" id="error1" *ngIf="!submitted || phone.valid"></svg>
+        <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
         <!-- for submit button -->
