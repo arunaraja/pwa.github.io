@@ -2,8 +2,13 @@
 var responseUtils = require('./../helpers/responseUtils');
 var log = require('./../helpers/log');
 var database = require('./../helpers/database')
+var queryUtils = require('./../helpers/queryUtils')
+var async = require('async');
+var _ = require("lodash")
+var ip = require('ip');
 
 exports.getProfile = function (req, res) {
+	
   var service = {
     requestData: req.query
   };
@@ -19,10 +24,12 @@ exports.getProfile = function (req, res) {
 async function handleGetProfile(service, callback) {
   try {
     const getProfileQuery = {
-      sql: 'SELECT * FROM ' + queryUtils.TABLES.profile.name + ' WHERE phoneNumber=?;',
-      data: [service.requestData.phoneNumber]
+      sql: 'SELECT * FROM em_profile WHERE profileId=?;',
+      data: [service.requestData.id]
     };
     const getProfileQueryResult = await database.executeSelect(getProfileQuery);
+	console.log("getProfileQueryResult")
+	console.log(getProfileQueryResult[0][0])
     return callback(null, responseUtils.getResponse(getProfileQueryResult[0][0], 'PROFILE_FETCH_SUCCESSFUL', 'Profile fetched for user'));
   } catch (e) {
     log.error(e);
@@ -89,7 +96,7 @@ exports.loginUser = function (req, res) {
   });
 };
 
-exports._handleLoginUser = async function(service, callback) {
+async function handleLoginUser(service, callback) {
   try {
     const isValidLoginQuery = {
       sql: 'SELECT profileId FROM ' + queryUtils.TABLES.login.name + ' WHERE phoneNumber=? AND pin=?;',
@@ -110,3 +117,78 @@ exports._handleLoginUser = async function(service, callback) {
   }
 };
 
+exports.createProfileFromVendorUser = async function(req, res) {
+  var service = {
+    requestData: req.body.profile
+  };
+ handleCreationOfProfile(service, function(err, data) {
+		if (err) {
+		  return responseUtils.sendResponse(err, res);
+		}
+		log.debug(data);
+		responseUtils.sendResponse(data, res);
+    });
+  }
+
+  async function handleCreationOfProfile(service,callback){
+    var arrCreation = [] ;
+    try {
+      for(var i=0;i<=service.requestData.length;i++){
+        var obj = service.requestData[i];
+        obj.createdBy = "From Vendor Profile Creation";
+        obj.createdDateTime = new Date();
+        const profileQueryData = {
+          tableName: "em_profile",
+          data: obj
+        };
+        var profileIdArr = await database.insertToTable(profileQueryData);
+        var profileId = profileIdArr[0];
+        var phoneNumber = obj['phoneNumber'];
+        const inviteUrl = await exports.createInviteUrl();
+        var loginObj = {
+          phoneNumber : phoneNumber,
+          profileId : profileId,
+          vendorId : "1",
+          pincode : null,
+          inviteUrl : inviteUrl,
+          isActive : "No",
+          isFirstTime : "Yes",
+          createdBy:"From Vendor Profile Creation",
+          createdDateTime:new Date()
+        }
+        const loginQueryData = {
+          tableName : "em_login",
+          data : loginObj
+        };
+        var loginIdArr = await database.insertToTable(loginQueryData);
+        // arrCreation.push()
+      }
+      return callback(null, responseUtils.getResponse({ inviteUrl }, 'Profile Create Suucess', 'Profile is successfully created for the user'));
+    } catch (e) {
+      log.error(e);
+      let userError;
+      if (e.code === 'ER_DUP_ENTRY') {
+        userError = responseUtils.getErrorResponse('ALREADY_ENABLED_PROFILE', 'Profile already enabled for this user');
+      } else {
+        userError = responseUtils.getErrorResponse(e.message, e);
+      }
+      return callback(userError);
+    }
+  }
+
+exports.createInviteUrl = async function(service) {
+  // var appUrl = 'http://' + ip.address() + ':4200/welcome';
+  var appUrl = 'http://localhost:4200/welcome';
+  // var data = _.pick(service.requestData, ['vendorId', 'vendorCustomerId', 'phoneNumber', 'homeStoreNumber']);
+  // appUrl += 'refToken=' + (await tokenUtils.getToken(data));
+  return appUrl;
+};
+
+
+exports._createReferenceCode = function() {
+  return Math.floor(100000 + Math.random() * 900000);
+};
+
+// exports.validateRefCode = function() {
+//   return Math.floor(100000 + Math.random() * 900000);
+// };

@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var client;
 var log = require('./log');
+
 exports.initialize = async function () {
   log.info('Initializing database');
   client = require('knex')({
@@ -10,7 +11,7 @@ exports.initialize = async function () {
     connection: {
       host: '127.0.0.1',
       user: 'root',
-      password: 'Password@123',
+      password: 'Admin@123',
       database: 'enviamejor_db'
     }
   });
@@ -22,8 +23,10 @@ exports.executeSelect = async function (query) {
 };
 
 exports.insertToTable = async function (query) {
-  return client(query.tableName).insert(query.data);
+    return client(query.tableName).insert(query.data).returning('*')
+    .catch((err) => { console.log(err); return {err:err.sqlMessage,code:500} })
 };
+
 exports.updateTable = async function (query) {
   return client(query.tableName).update(query.data);
 };

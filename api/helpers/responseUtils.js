@@ -2,8 +2,9 @@
 
 exports.getDbErrorResponse = function (error) {
   return {
-    status: 500,
+   
     response: {
+      status: 500,
       userMessage: error,
       internalMessage: 'DATABASE_ERROR'
     }
@@ -12,8 +13,9 @@ exports.getDbErrorResponse = function (error) {
 
 exports.getErrorResponse = function (internalMessage, userMessage) {
   return {
-    status: 500,
+    
     response: {
+      status: 500,
       userMessage: userMessage,
       internalMessage: internalMessage
     }
@@ -22,8 +24,8 @@ exports.getErrorResponse = function (internalMessage, userMessage) {
 
 exports.getResponse = function (data, internalMessage, userMessage) {
   return {
-    status: 200,
     response: {
+      status: 200,
       data: data,
       userMessage: userMessage,
       internalMessage: internalMessage
@@ -33,8 +35,9 @@ exports.getResponse = function (data, internalMessage, userMessage) {
 
 exports.getSuccessResponse = function (internalMessage, userMessage) {
   return {
-    status: 200,
+    
     response: {
+      status: 200,
       userMessage: userMessage,
       internalMessage: internalMessage
     }
@@ -43,8 +46,9 @@ exports.getSuccessResponse = function (internalMessage, userMessage) {
 
 exports.getOtherResponse = function (internalMessage, userMessage) {
   return {
-    status: 200,
+    
     response: {
+      status: 200,
       userMessage: userMessage,
       internalMessage: internalMessage
     }
