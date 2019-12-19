@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {AuthService} from './../../../../services/api/api.service'
+import { environment } from "./../../../../../environments/environment";
 
 @Component({
   selector: 'app-profile',
@@ -7,10 +9,17 @@ import { Router } from '@angular/router';
   
 })
 export class profilePage implements OnInit {
-
-  constructor(private router: Router) { }
+  user : any ;
+  baseUrl = environment.baseUrl;
+  constructor(private router: Router , private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.get(this.baseUrl+"/api/user/profile?id=" + "1").subscribe((res) => {
+      if(res['data']){
+      }
+      }, (error) => {
+      console.log(error);
+      });
   }
  
   settings(){

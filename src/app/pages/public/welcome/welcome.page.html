@@ -16,7 +16,7 @@
       <!-- form starts -->
       <form #registerForm="ngForm" name="registerForm" novalidate>
         <!-- for phone number input -->
-        <input type="text" name="phone" numbersOnly class="form-control" placeholder="Phone Number" autocomplete="off" required [ngClass]="{
+        <input type="text"  id="phone"  name="phone" numbersOnly class="form-control" placeholder="Phone Number" autocomplete="off" required [ngClass]="{
         'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel" ngModel
           [(ngModel)]="welcomeObj.phone" />
         <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
@@ -24,7 +24,7 @@
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
         <!-- for submit button -->
-        <button (click)="onSubmit(registerForm)">Continue</button>
+        <button id="submitBtn" (click)="onSubmit(registerForm)">Continue</button>
       </form>
       <!-- end of form -->
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

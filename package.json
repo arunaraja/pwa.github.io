@@ -16,6 +16,7 @@
     "@angular/compiler": "~8.2.14",
     "@angular/core": "~8.2.14",
     "@angular/forms": "~8.2.14",
+    "@angular/http": "^7.2.15",
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/pwa": "^0.803.19",
@@ -23,7 +24,7 @@
     "@angular/service-worker": "~8.2.14",
     "classlist.js": "^1.1.20150312",
     "jquery": "^3.4.1",
-    "rxjs": "~6.4.0",
+    "rxjs": "^6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

@@ -176,6 +176,55 @@ and (max-device-width : 320px) and (orientation:portrait){
         width: 100%;
     }
 }
+.columnContainer {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+  }
+  .lab{
+      bottom: -45px;
+  position: relative;
+  font-size: 16px;
+  font-family: raleway_regular, Arial;
+  color: #000000;
+  }
+  .lab1{
+    bottom: 41px;
+  position: relative;
+  font-size: 16px;
+  font-family: raleway_regular, Arial;
+  color: #000000;
+  }
+  .imageContainer {
+    flex-basis: 33%;
+    text-align: center;
+    width: 99px;
+    height: 99px;
+    margin-bottom: 60px;
+  }
+  .imageContainerList {
+    flex-basis: 100%;
+    text-align: center;
+    width: 99px;
+    height: 99px;
+  }
+  .eh4{
+      top: 7.5px;
+      position: relative;
+      font-size: 20px;
+      font-family: raleway_regular,arial;
+      font-weight: 700;
+      color: white;
+  }
+  .eh41{
+      top: 7.5px;
+      right: 128px;
+      position: relative;
+      font-size: 20px;
+      font-family: raleway_regular,arial;
+      font-weight: 700;
+      color: white;
+  }
 .bg-white{
     background-color: #ffff;
     border-radius: 65px;
@@ -278,6 +327,9 @@ and (max-device-width : 320px) and (orientation:portrait){
 @-moz-document url-prefix() {
     .sendmoneyBtn,.sendmoneyBtn1{   
     margin-top:0px  !important;
+    }
+    .eh41{
+    right: 249px;
     }
   }
 .pincode{

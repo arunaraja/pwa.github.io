@@ -17,17 +17,17 @@
       <!-- form starts -->
       <form #registerForm="ngForm" name="registerForm" novalidate>
       <!-- for phone number input -->
-      <input type="text" numbersOnly name="phone" class="form-control" placeholder="Phone Number" autocomplete="off"  required
+      <input type="text" numbersOnly id="phone" name="phone" class="form-control" placeholder="Phone Number" autocomplete="off"  required
       [ngClass]="{
       'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel"
       ngModel [(ngModel)]="registrationObj.phone" />
     <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
     <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
     <form  class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-        <input class="inputs" type="text"   class="inputs"/>
-        <input class="inputs" type="text"  class="inputs"/>
-        <input class="inputs" type="text" class="inputs" />
-        <input class="inputs" type="text"  class="inputs"/>
+        <input class="inputs" id="input1" type="text"   class="inputs"/>
+        <input class="inputs" id="input2" type="text"  class="inputs"/>
+        <input class="inputs" id="input3" type="text" class="inputs" />
+        <input class="inputs" id="input4" type="text"  class="inputs"/>
         <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
           <span>Invalid OTP !</span>
         </p>
@@ -35,10 +35,10 @@
     
       <p class="pincode">Enter new pincode</p>
     <form  class="digit-group1" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-        <input class="inputs1" type="text"   class="inputs1"/>
-        <input class="inputs1" type="text"  class="inputs1"/>
-        <input class="inputs1" type="text" class="inputs1" />
-        <input class="inputs1" type="text"  class="inputs1"/>
+        <input class="inputs1" type="text" id="inputConf1"  class="inputs1"/>
+        <input class="inputs1" type="text" id="inputConf2"  class="inputs1"/>
+        <input class="inputs1" type="text" id="inputConf3" class="inputs1" />
+        <input class="inputs1" type="text" id="inputConf4"  class="inputs1"/>
         <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
           <span>Invalid OTP !</span>
         </p>
@@ -56,7 +56,7 @@
         <show-error [control]="conPass" [label]="{'labelName': 'Confirm pincode'}" [submitFlag]="submitted"></show-error> -->
         <!-- <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"  *ngIf="!submitted || conPass.valid"></svg> --> 
         <!-- for submit button -->
-        <button (click)="onSubmit(registerForm)">Submit</button>
+        <button id="submitBtn" (click)="onSubmit(registerForm)">Submit</button>
       </form>
       <!-- end of form -->
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

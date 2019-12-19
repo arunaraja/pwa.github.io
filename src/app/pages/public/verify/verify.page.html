@@ -18,7 +18,7 @@ color: #000009;border: 1px solid #979797 !important;}</style>
         <!-- form starts -->
         <form #loginform="ngForm" name="loginform" novalidate>
           <!-- for phone number input -->
-          <input type="text" name="phone" numbersOnly class="form-control" placeholder="Phone Number" autocomplete="off"  required
+          <input type="text" name="phone" id="phone" numbersOnly class="form-control" placeholder="Phone Number" autocomplete="off"  required
             [ngClass]="{
             'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel"
             ngModel [(ngModel)]="loginObj.phone" />
@@ -27,12 +27,12 @@ color: #000009;border: 1px solid #979797 !important;}</style>
           <!-- for  password input -->
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
           <form  class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-            <input class="inputs" type="text"   class="inputs"/>
-            <input class="inputs" type="text"  class="inputs"/>
-            <input class="inputs" type="text"  class="inputs"/>
-            <input class="inputs" type="text"  class="inputs"/>
-            <input class="inputs" type="text" class="inputs" />
-            <input class="inputs" type="text"  class="inputs"/>
+            <input class="inputs" id="input1" type="text"   class="inputs"/>
+            <input class="inputs" id="input2" type="text"  class="inputs"/>
+            <input class="inputs" id="input3" type="text"  class="inputs"/>
+            <input class="inputs" id="input4" type="text"  class="inputs"/>
+            <input class="inputs" id="input5" type="text" class="inputs" />
+            <input class="inputs" id="input6" type="text"  class="inputs"/>
             <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
               <span>Invalid OTP !</span>
             </p>
@@ -42,7 +42,7 @@ color: #000009;border: 1px solid #979797 !important;}</style>
           <span class="notesVerify">Please enter the reference code to  </span><br>
           <span class="notesVerify">above Mobile Number</span>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" ></svg>
-          <button class="button" (click)="onSubmit(loginform)">Continue</button>
+          <button class="button" id="submitBtn" (click)="onSubmit(loginform)">Continue</button>
         </form>
         <!-- end of form -->
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

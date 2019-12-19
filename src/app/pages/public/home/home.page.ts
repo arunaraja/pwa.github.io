@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {AuthService} from './../../../services/api/api.service'
+import { environment } from "./../../../../environments/environment";
 import {$} from 'jquery'
 declare var $ : any;
 
@@ -10,6 +12,7 @@ declare var $ : any;
 })
 
 export class homePage implements OnInit {
+  baseUrl = environment.baseUrl;
   submitted = false ;
   loginObj = {} ;
   openNavBar = false;
@@ -17,10 +20,18 @@ export class homePage implements OnInit {
   listView = false;
   
   constructor(
-    private router: Router
+    private router: Router , private authService: AuthService
   ) {}
 
   ngOnInit() {
+    // + "&receiverName=" + "Eric"
+    this.authService.get(this.baseUrl+"/api/transaction/getTransaction?action=" + "H" + "&days=" + "All" + "&profileId=" + "1" ).subscribe((res) => {
+      if(res['data']){
+      }
+      }, (error) => {
+      console.log(error);
+      });
+
     this.gridView = true;
     // document.getElementById("mySidenav").style.width = "0";
   }

@@ -25,17 +25,17 @@
         <!-- form starts -->
         <form #loginform="ngForm" name="loginform" novalidate>
           <!-- for phone number input -->
-          <input type="text" numbersOnly name="phone" class="form-control" placeholder="Phone Number" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
+          <input type="text" numbersOnly id="phone" name="phone" class="form-control" placeholder="Phone Number" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
             [ngClass]="{
             'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel"
             ngModel [(ngModel)]="loginObj.phone" />
           <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
           <form  class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-              <input class="inputs" type="text"   class="inputs"/>
-              <input class="inputs" type="text"  class="inputs"/>
-              <input class="inputs" type="text" class="inputs" />
-              <input class="inputs" type="text"  class="inputs"/>
+              <input class="inputs" type="text" id="input1"   class="inputs"/>
+              <input class="inputs" type="text" id="input2" class="inputs"/>
+              <input class="inputs" type="text" id="input3" class="inputs" />
+              <input class="inputs" type="text" id="input4"  class="inputs"/>
               <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
                 <span>Invalid OTP !</span>
               </p>
@@ -51,8 +51,8 @@
           </show-error>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || pass.valid"></svg> -->
           <!-- for submit button -->
-          <p><img src="assets/rocket.png" alt="Smiley face" width="26" height="26" align="top">  <span class="verify" style=" cursor: pointer;" (click)="onSubmit(loginform)">Go</span></p>
-          <p class="text20PxWith400" (click)="forgotPassword()">Forgot Pincode</p>
+          <p><img src="assets/rocket.png" alt="Smiley face" width="26" height="26" align="top">  <span class="verify" style=" cursor: pointer;" id="loginInBtn"  (click)="onSubmit(loginform)">Go</span></p>
+          <p class="text20PxWith400" id="forgotBtn" (click)="forgotPassword()">Forgot Pincode</p>
         </form>
         <!-- end of form -->
       </div>
