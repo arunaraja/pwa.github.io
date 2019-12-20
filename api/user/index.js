@@ -10,4 +10,7 @@ router.post('/registerUser', controller.registerUser);
 router.post('/loginUser', controller.loginUser);
 router.post('/profileFromVendor', controller.createProfileFromVendorUser);
 
+// router.post('/validateMobileNo', controller.validateMobileNo);
+
+
 module.exports = router;

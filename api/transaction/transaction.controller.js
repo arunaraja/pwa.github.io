@@ -9,28 +9,29 @@ var _ = require("lodash")
 var ip = require('ip');
 
 exports.getTransaction = function (req, res) {
-	console.log("req.body")
+  console.log("req.body")
   console.log(req.query)
   var service = {
     requestData: req.query
   };
- getTransactionData(service, function(err, data) {
-		if (err) {
-		  return responseUtils.sendResponse(err, res);
-		}
-		log.debug(data);
-		responseUtils.sendResponse(data, res);
-	  });
+  getTransactionData(service, function (err, data) {
+    if (err) {
+      return responseUtils.sendResponse(err, res);
+    }
+    log.debug(data);
+    responseUtils.sendResponse(data, res);
+  });
 };
 
 async function getTransactionData(service, callback) {
   try {
     var action = service.requestData.action;
+    var st;
     if (service.requestData.days !== "All" && service.requestData.days === "7") {
       if (service.requestData.receiverName && service.requestData.receiverName.length > 0) {
         st = 'WHERE profileId=? AND receiverName=? AND createdDateTime >= DATE(NOW()) - INTERVAL 7 DAY;'
       }
-      else{
+      else {
         st = 'WHERE profileId=?  AND createdDateTime >= DATE(NOW()) - INTERVAL 7 DAY;'
       }
     }
@@ -38,11 +39,11 @@ async function getTransactionData(service, callback) {
       if (service.requestData.receiverName && service.requestData.receiverName.length > 0) {
         st = 'WHERE profileId=? AND receiverName=? AND createdDateTime >= DATE(NOW()) - INTERVAL 30 DAY;'
       }
-      else{
+      else {
         st = 'WHERE profileId=?  AND createdDateTime >= DATE(NOW()) - INTERVAL 30 DAY;'
       }
     }
-    else if (service.requestData.receiverName && service.requestData.receiverName.length > 0 && service.requestData.days === "All" ) {
+    else if (service.requestData.receiverName && service.requestData.receiverName.length > 0 && service.requestData.days === "All") {
       st = 'WHERE profileId=? AND receiverName=?;'
     }
     else {
@@ -64,9 +65,9 @@ async function getTransactionData(service, callback) {
     if (action === "H") { //For home screen
       var groupDt = _.groupBy(transactionResult[0], 'receiverName');
       arr = _.map(groupDt, function (trans) {
-        return trans[0].receiverName;
+        return { name: trans[0].receiverName };
       });
-      data = { receiverNames: arr };
+      data = arr;
     } else {
       data = _.groupBy(transactionResult[0], function (el) {
         var dt = new Date(el.createdDateTime);
@@ -80,11 +81,11 @@ async function getTransactionData(service, callback) {
   }
 };
 
-exports.createTransaction = function(req,res){
+exports.createTransaction = function (req, res) {
   var service = {
     requestData: req.body
   };
-  handleCreateTransaction(service, function(err, data) {
+  handleCreateTransaction(service, function (err, data) {
     if (err) {
       return responseUtils.sendResponse(err, res);
     }
@@ -101,28 +102,28 @@ async function handleCreateTransaction(service, callback) {
     };
     const transactionId = await database.insertToTable(createTransactionQuery);
     log.info(transactionId);
-     await exports.vendorTransactionAPI(service, function(err, data) {
-    console.log("data")
-    console.log(data)
-    if(data.status == 200){
-      const transactionQuery = {
-        sql: 'UPDATE em_transaction SET transactionStatus="Success" WHERE transactionId=?;',
-        data : transactionId[0]
-      };
-      const transactionResult =  database.executeSelect(transactionQuery);
-      log.info(transactionResult);
-      return callback(null, responseUtils.getResponse({ transactionId}, 'Transaction Created', 'Transaction Record Created For the User'));
-    }
-    else{
-      const transactionQuery = {
-        sql: 'UPDATE em_transaction SET transactionStatus="Failed" WHERE transactionId=?;',
-        data : transactionId[0]
-      };
-      const transactionResult =   database.executeSelect(transactionQuery);
-      log.info(transactionResult);
-      return callback(null, responseUtils.getResponse({ transactionId}, 'Transaction Created', 'Transaction Record Created For the User'));
-    }
-  });
+    await exports.vendorTransactionAPI(service, function (err, data) {
+      console.log("data")
+      console.log(data)
+      if (data.status == 200) {
+        const transactionQuery = {
+          sql: 'UPDATE em_transaction SET transactionStatus="Success" WHERE transactionId=?;',
+          data: transactionId[0]
+        };
+        const transactionResult = database.executeSelect(transactionQuery);
+        log.info(transactionResult);
+        return callback(null, responseUtils.getResponse({ transactionId }, 'Transaction Created', 'Transaction Record Created For the User'));
+      }
+      else {
+        const transactionQuery = {
+          sql: 'UPDATE em_transaction SET transactionStatus="Failed" WHERE transactionId=?;',
+          data: transactionId[0]
+        };
+        const transactionResult = database.executeSelect(transactionQuery);
+        log.info(transactionResult);
+        return callback(null, responseUtils.getResponse({ transactionId }, 'Transaction Created', 'Transaction Record Created For the User'));
+      }
+    });
   } catch (e) {
     log.error(e);
     let userError;
@@ -135,64 +136,60 @@ async function handleCreateTransaction(service, callback) {
   }
 };
 
-exports.vendorTransactionAPI = async function(service,callback){
+exports.vendorTransactionAPI = async function (service, callback) {
   try {
     request.post({
-    "headers": { "content-type": "application/json" },
-    // "url": "http://localhost:8080/api/transaction/createTransaction",
-    "url": "http://13.126.254.48:8080/api/common/mobAppLog",
-    "body": JSON.stringify(service.requestData)
-}, (error, response, body) => {
-    if(error) {
-      console.log("ERER>>>>>")
-        return callback(null,{status:500});
-    }
-    if (body) {
-      console.log("IFFF>>>>>")
-      console.log({status:200})
-      return callback(null,{status:200});
-    } else {
-      console.log("ELSE>>>>>")
-      return callback(null,{status:500});
-	}
-});
+      "headers": { "content-type": "application/json" },
+      // "url": "http://localhost:8080/api/transaction/createTransaction",
+      "url": "http://13.126.254.48:8080/api/common/mobAppLog",
+      "body": JSON.stringify(service.requestData)
+    }, (error, response, body) => {
+      if (error) {
+        return callback(null, { status: 500 });
+      }
+      if (body) {
+        console.log({ status: 200 })
+        return callback(null, { status: 200 });
+      } else {
+        return callback(null, { status: 500 });
+      }
+    });
   } catch (e) {
-    console.log("CATDCH>>>>>")
-    callback(null,{status:500});
+    callback(null, { status: 500 });
   }
 
 }
 
-exports.transactionHistoryFromVendor = async function(req, res) {
+exports.transactionHistoryFromVendor = async function (req, res) {
 
   var service = {
     requestData: req.body.transactions
   };
- handleTransactionCreation(service, function(err, data) {
-		if (err) {
-		  return responseUtils.sendResponse(err, res);
-		}
-		log.debug(data);
-		responseUtils.sendResponse(data, res);
-    });
-  }
-  async function handleTransactionCreation(service,callback){
+  handleTransactionCreation(service, function (err, data) {
+    if (err) {
+      return responseUtils.sendResponse(err, res);
+    }
+    log.debug(data);
+    responseUtils.sendResponse(data, res);
+  });
+}
+async function handleTransactionCreation(service, callback) {
 
   try {
-    for(var i=0;i<=service.requestData.length;i++){
+    for (var i = 0; i <= service.requestData.length; i++) {
       // const obj = new Map();
       const obj = service.requestData[i];
-        obj.createdBy = "From Vendor Profile Creation";
-        obj.createdDateTime = new Date();
-        obj.transactionStatus = "Success";
-        const transactionQueryData = {
-          tableName: "em_transaction",
-          data: obj
-        };
-        var transactionArr = await database.insertToTable(transactionQueryData);
+      obj.createdBy = "From Vendor Profile Creation";
+      obj.createdDateTime = new Date();
+      obj.transactionStatus = "Success";
+      const transactionQueryData = {
+        tableName: "em_transaction",
+        data: obj
+      };
+      var transactionArr = await database.insertToTable(transactionQueryData);
     }
-    return callback(null, responseUtils.getResponse({service}, 'Transaction Records Created', 'Transaction Records Created for the user'));
-  }catch(e){
+    return callback(null, responseUtils.getResponse({ service }, 'Transaction Records Created', 'Transaction Records Created for the user'));
+  } catch (e) {
     log.error(e);
     let userError;
     if (e.code === 'ER_DUP_ENTRY') {
@@ -201,5 +198,52 @@ exports.transactionHistoryFromVendor = async function(req, res) {
       userError = responseUtils.getErrorResponse(e.message, e);
     }
     return callback(userError);
+  }
+}
+exports.getTransactionStatusFromVendor = async function (req, res) {
+
+  var service = {
+    requestData: req.body
+  };
+  getTransactionStatus(service, function (err, data) {
+    if (err) {
+      return responseUtils.sendResponse(err, res);
+    }
+    log.debug(data);
+    responseUtils.sendResponse(data, res);
+  });
+}
+
+
+async function getTransactionStatus(service, callback) {
+  try {
+    request.post({
+      "headers": { "content-type": "application/json" },
+      // "url": "http://localhost:8080/api/transaction/createTransaction",
+      "url": "http://13.126.254.48:8080/api/common/mobAppLog",
+      "body": JSON.stringify(service.requestData)
+    }, (error, response, body) => {
+      if (error) {
+        return callback(null, { status: 500 });
+      }
+      if (body) {
+        const transactionQuery = {
+          tableName: "em_transaction",
+          condition: {
+            transactionId: service.requestData.transactionId
+          },
+          data: {
+            transactionStatus:body.data.status
+          }
+        };
+        const transactionResult = database.executeSelect(transactionQuery);
+        log.info(transactionResult);
+        return callback(null, { status: 200 });
+      } else {
+        return callback(null, { status: 500 });
+      }
+    });
+  } catch (e) {
+    callback(null, { status: 500 });
   }
 }
