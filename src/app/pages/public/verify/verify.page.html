@@ -5,7 +5,7 @@ color: #000009;border: 1px solid #979797 !important;}</style>
 <div class="bg-color">
   <!-- header title -->
   <div class="title">
-    <label class="title-text"> ENVIA MEJOR</label>
+    <label class="title-text" id="verfiyTitle"> ENVIA MEJOR</label>
   </div>
   <!-- overall div -->
   <div class="row" style="overflow:auto;height:100%;padding-right:15px;padding-left:15px;">
@@ -14,35 +14,35 @@ color: #000009;border: 1px solid #979797 !important;}</style>
     <!-- section 2 -->
     <div class="column" style="text-align:center;padding-top: 25px;">
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
-        <p class="verify">Verify your Mobile Number</p>
+        <p class="verify" id="verifyMobile">Verify your Mobile Number</p>
         <!-- form starts -->
         <form #loginform="ngForm" name="loginform" novalidate>
           <!-- for phone number input -->
-          <input type="text" name="phone" id="phone" numbersOnly class="form-control" placeholder="Phone Number" autocomplete="off"  required
+          <input type="text" name="phone" id="verifyPhone" numbersOnly class="form-control" placeholder="Phone Number" autocomplete="off"  required
             [ngClass]="{
             'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel"
             ngModel [(ngModel)]="loginObj.phone" />
-          <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
+          <show-error [control]="phone" id="verfiyMobileErr" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
           <!-- for  password input -->
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
           <form  class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-            <input class="inputs" id="input1" type="text"   class="inputs"/>
-            <input class="inputs" id="input2" type="text"  class="inputs"/>
-            <input class="inputs" id="input3" type="text"  class="inputs"/>
-            <input class="inputs" id="input4" type="text"  class="inputs"/>
-            <input class="inputs" id="input5" type="text" class="inputs" />
-            <input class="inputs" id="input6" type="text"  class="inputs"/>
+            <input class="inputs" id="verifyInput1" type="text"   class="inputs"/>
+            <input class="inputs" id="verifyInput2" type="text"  class="inputs"/>
+            <input class="inputs" id="verifyInput3" type="text"  class="inputs"/>
+            <input class="inputs" id="verifyInput4" type="text"  class="inputs"/>
+            <input class="inputs" id="verifyInput5" type="text" class="inputs" />
+            <input class="inputs" id="verifyInput6" type="text"  class="inputs"/>
             <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
-              <span>Invalid OTP !</span>
+              <span id="verifyInvalidOtp">Invalid OTP !</span>
             </p>
           </form>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
           <!-- for submit button -->
-          <span class="notesVerify">Please enter the reference code to  </span><br>
-          <span class="notesVerify">above Mobile Number</span>
+          <span class="notesVerify" id="verifyNote1">Please enter the reference code to  </span><br>
+          <span class="notesVerify" id="verifyNote2">above Mobile Number</span>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" ></svg>
-          <button class="button" id="submitBtn" (click)="onSubmit(loginform)">Continue</button>
+          <button class="button" id="verifySubmitBtn" (click)="onSubmit(loginform)">Continue</button>
         </form>
         <!-- end of form -->
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

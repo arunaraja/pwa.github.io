@@ -1,7 +1,7 @@
 <div class="bg-color">
   <!-- header title -->
   <div class="title">
-    <label class="title-text"> ENVIA MEJOR</label>
+    <label class="title-text" id="welcomeTitle"> ENVIA MEJOR</label>
   </div>
   <!-- overall div -->
   <div class="row" style="overflow:auto;height:100%">
@@ -9,22 +9,22 @@
     <div class="column"></div>
     <!-- section 2 -->
     <div class="column" style="text-align:center;padding-top: 25px;">
-      <span class="welcome">Welcome</span>
-      <p class="lets">Let's get started </p>
-      <p class="enterPhone">Enter your Mobile Number</p>
+      <span class="welcome" id="welcome">Welcome</span>
+      <p class="lets" id="lestStart">Let's get started </p>
+      <p class="enterPhone" id="enterPhoneNo">Enter your Mobile Number</p>
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
       <!-- form starts -->
       <form #registerForm="ngForm" name="registerForm" novalidate>
         <!-- for phone number input -->
-        <input type="text"  id="phone"  name="phone" numbersOnly class="form-control" placeholder="Phone Number" autocomplete="off" required [ngClass]="{
+        <input type="text"  id="welcomePhone"  name="phone" numbersOnly class="form-control" placeholder="Phone Number" autocomplete="off" required [ngClass]="{
         'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel" ngModel
           [(ngModel)]="welcomeObj.phone" />
-        <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
+        <show-error [control]="phone" id="welcomePhoneNoErr" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
         <!-- for submit button -->
-        <button id="submitBtn" (click)="onSubmit(registerForm)">Continue</button>
+        <button id="welcomeSubmitBtn" (click)="onSubmit(registerForm)">Continue</button>
       </form>
       <!-- end of form -->
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

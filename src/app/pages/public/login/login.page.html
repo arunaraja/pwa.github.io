@@ -5,7 +5,7 @@
 <div class="bg-color">
   <!-- header title -->
   <div class="title">
-    <label class="title-text"> ENVIA MEJOR</label>
+    <label class="title-text" id="loginTitle"> ENVIA MEJOR</label>
   </div>
   <!-- overall div -->
   <div class="row" style="overflow:auto;height:100%;padding-right:15px;padding-left:15px;">
@@ -13,35 +13,35 @@
     <div class="column"></div>
     <!-- section 2 -->
     <div class="column" style="text-align:center;padding-top: 5px;">
-        <span class="verify">Thank you for registering  </span>
+        <span class="verify" id="thankYouReg">Thank you for registering  </span>
         <br>
-        <span class="verify">with envia Major </span>
+        <span class="verify" id="thankYouRegEM">with envia Major </span>
         <br>
         <br>
       <div class="bg-white">
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
-        <p class="verify">Login</p>
+        <p class="verify" id="loginPage">Login</p>
        
         <!-- form starts -->
         <form #loginform="ngForm" name="loginform" novalidate>
           <!-- for phone number input -->
-          <input type="text" numbersOnly id="phone" name="phone" class="form-control" placeholder="Phone Number" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
+          <input type="text" numbersOnly id="loginPhone" name="phone" class="form-control" placeholder="Phone Number" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
             [ngClass]="{
             'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel"
             ngModel [(ngModel)]="loginObj.phone" />
-          <show-error [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
+          <show-error [control]="phone" id="loginMobErr" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
           <form  class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-              <input class="inputs" type="text" id="input1"   class="inputs"/>
-              <input class="inputs" type="text" id="input2" class="inputs"/>
-              <input class="inputs" type="text" id="input3" class="inputs" />
-              <input class="inputs" type="text" id="input4"  class="inputs"/>
+              <input class="inputs" type="text" id="loginInput1"   class="inputs"/>
+              <input class="inputs" type="text" id="loginInput2" class="inputs"/>
+              <input class="inputs" type="text" id="loginInput3" class="inputs" />
+              <input class="inputs" type="text" id="loginInput4"  class="inputs"/>
               <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
-                <span>Invalid OTP !</span>
+                <span id="loginInvalidOtp">Invalid OTP !</span>
               </p>
             </form>
           
-            <p class="pincode">Pincode</p>
+            <p class="pincode"  id="loginPincode">Pincode</p>
           <!-- for  password input -->
           <!-- <input type="text" name="pass" class="form-control" placeholder="Pincode" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
             [ngClass]="{'is-invalid': 
