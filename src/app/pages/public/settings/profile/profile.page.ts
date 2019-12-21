@@ -11,11 +11,13 @@ import { environment } from "./../../../../../environments/environment";
 export class profilePage implements OnInit {
   user : any ;
   baseUrl = environment.baseUrl;
+  profile = localStorage.getItem("profileId");
   constructor(private router: Router , private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.get(this.baseUrl+"/api/user/profile?id=" + "1").subscribe((res) => {
+    this.authService.get(this.baseUrl+"/api/user/profile?profileId=" + this.profile).subscribe((res) => {
       if(res['data']){
+      this.user = res['data']
       }
       }, (error) => {
       console.log(error);

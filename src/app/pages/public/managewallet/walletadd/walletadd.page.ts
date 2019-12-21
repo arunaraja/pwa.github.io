@@ -1,20 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from "src/environments/environment";
+import { AuthService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-walletadd',
   templateUrl: './walletadd.page.html'
-  
 })
 export class walletaddPage implements OnInit {
-  sendMoney ={};
-  constructor(private router: Router) { }
-
+  sendMoney = {};
+  profile;
+  submitted = false;
+  constructor(private router: Router, private authService: AuthService) { }
+  baseUrl = environment.baseUrl;
   ngOnInit() {
+    this.profile = localStorage.getItem("profileId");
   }
 
-  wallet(){
-    this.router.navigate(['managewallet']);
+  wallet(form) {
+    this.submitted = true;
+    if (form.form.invalid) {
+      return;
+    }
+    else {
+      var obj = {
+        nameOnCard: this.sendMoney['cardname'],
+        cardNumber: this.sendMoney['ccdc'],
+        cardExpiryDate: this.sendMoney['expiry'],
+        cardCvv: this.sendMoney['cvv'],
+        walletType: "card",
+        isPrimary: "Yes",
+        profileId: this.profile,
+        createdBy: "EM APP WALLET ADD",
+        createdOn: new Date(),
+        action: "Add"
+      }
+      this.authService.post(this.baseUrl + "/api/wallet/manageWallet", obj).subscribe((res) => {
+        if (res['data']) {
+          console.log(res['data'])
+          this.router.navigate(["managewallet"]);
+        }
+        else {
+          return;
+        }
+      }, (error) => {
+        console.log(error);
+      });
+    }
   }
- 
+
+  walletBack() {
+    this.router.navigate(["home"]);
+  }
 }

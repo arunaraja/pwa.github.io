@@ -12,12 +12,12 @@
     <div class="row" style="overflow:auto;height:100%">
         <!-- <div class="columnHome"></div> -->
         <div class="columnHome">
-            <p class="otherSet_Pro_New"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer" (click)="wallet()">
+            <p class="otherSet_Pro_New"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer" (click)="walletBack()">
                 &nbsp;Wallet</p>
             <div class="clear"></div>
             <p class="head1" style="font-family: raleway_medium, Arial !important">Please fill in the required details
             </p>
-
+            <form #walletForm="ngForm" name="registerForm" novalidate>
             <table style="width:100%">
                 <tr>
                     <td><span class="point16">Name on Card </span></td>
@@ -62,29 +62,32 @@
                 </tr>
                 <tr>
                     <td width="50%">
-                        <input type="text" class="form-control" name="ccdc" placeholder="MM/YYYY" autocomplete="off"
+                        <input type="text" class="form-control" name="expiry" placeholder="MM/YYYY" autocomplete="off"
                             required [ngClass]="{'is-invalid': 
-                                ccdc.invalid  && submitted  ,'is-valid': ccdc.valid  && submitted }"
-                            #ccdc="ngModel" ngModel [(ngModel)]="sendMoney.ccdc" style="text-indent: 10px;font-size: 15.00px;
+                            expiry.invalid  && submitted  ,'is-valid': expiry.valid  && submitted }"
+                            #expiry="ngModel" ngModel [(ngModel)]="sendMoney.expiry" style="text-indent: 10px;font-size: 15.00px;
                                 font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;
                                 border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 65%;
                                 height: 25px;border-bottom:0.5px solid #3C3C3C !important">
-                        <show-error [control]="ccdc" [label]="{'labelName': 'Credit/Debit Card Number'}" [submitFlag]="submitted"></show-error>
+                        <show-error [control]="expiry" [label]="{'labelName': 'Expiry Date'}" [submitFlag]="submitted"></show-error>
                     </td>
-                    <td width="50%"> <input type="text" class="form-control" name="ccdc" placeholder="" autocomplete="off"
+                    <td width="50%"> <input type="text" class="form-control" name="cvv" placeholder="" autocomplete="off"
                             required [ngClass]="{'is-invalid': 
-                                ccdc.invalid  && submitted  ,'is-valid': ccdc.valid  && submitted }"
-                            #ccdc="ngModel" ngModel [(ngModel)]="sendMoney.ccdc" style="text-indent: 10px;font-size: 15.00px;
+                                cvv.invalid  && submitted  ,'is-valid': cvv.valid  && submitted }"
+                            #cvv="ngModel" ngModel [(ngModel)]="sendMoney.cvv" style="text-indent: 10px;font-size: 15.00px;
                                 font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;
                                 border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 65%;
                                 height: 25px;border-bottom:0.5px solid #3C3C3C !important">
-                        <show-error [control]="ccdc" [label]="{'labelName': 'Credit/Debit Card Number'}" [submitFlag]="submitted"></show-error>
+                        <show-error [control]="cvv" [label]="{'labelName': 'CVV'}" [submitFlag]="submitted"></show-error>
                     </td>
                 </tr>
             </table>
+
             <div style="text-align: center;margin-top: 30px;">
-                <button class="nextbtn !important" (click)="wallet()">Save</button>
+                <button class="nextbtn !important" (click)="wallet(walletForm)">Save</button>
             </div>
+            </form>
+
             <br>
             <div class="clear"></div>
             <div class="wrapper4">

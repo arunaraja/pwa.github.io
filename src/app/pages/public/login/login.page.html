@@ -25,7 +25,7 @@
         <!-- form starts -->
         <form #loginform="ngForm" name="loginform" novalidate>
           <!-- for phone number input -->
-          <input type="text" numbersOnly id="loginPhone" name="phone" class="form-control" placeholder="Phone Number" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
+          <input type="text"  id="loginPhone" name="phone" class="form-control" placeholder="Phone Number" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
             [ngClass]="{
             'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel"
             ngModel [(ngModel)]="loginObj.phone" />

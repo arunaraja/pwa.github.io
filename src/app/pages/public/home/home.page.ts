@@ -15,6 +15,7 @@ export class homePage implements OnInit {
   baseUrl = environment.baseUrl;
   submitted = false ;
   loginObj = {} ;
+  homeArr = [];
   openNavBar = false;
   gridView = true;
   listView = false;
@@ -24,9 +25,10 @@ export class homePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // + "&receiverName=" + "Eric"
-    this.authService.get(this.baseUrl+"/api/transaction/getTransaction?action=" + "H" + "&days=" + "All" + "&profileId=" + "1" ).subscribe((res) => {
+    var profile = localStorage.getItem("profileId");
+    this.authService.get(this.baseUrl+"/api/transaction/getTransaction?action=" + "H" + "&days=" + "All" + "&profileId=" + profile).subscribe((res) => {
       if(res['data']){
+        this.homeArr = res['data'];
       }
       }, (error) => {
       console.log(error);
@@ -43,6 +45,9 @@ export class homePage implements OnInit {
   logOut(){
     this.router.navigate(["logout"]); 
   }
+  getSplit(fullName){
+    return fullName.split(' ').map(n => n[0]).join('');
+  }
   home(){
     this.openNavBar = false;
       // document.getElementById("mySidenav").style.width = "0";
@@ -51,8 +56,8 @@ export class homePage implements OnInit {
   transaction(){
     this.router.navigate(["transactions"]); 
   }
-  sendMoney(){
-    this.router.navigate(["sendmoney"]); 
+  sendMoney(name){
+    this.router.navigate(["sendmoney"],{queryParams:{"receiverName":name}}); 
   }
   wallet(){
     this.router.navigate(["managewallet"]); 
@@ -87,4 +92,8 @@ export class homePage implements OnInit {
       document.getElementById("column").style.opacity = "1";
     }
   }
+  
+  // getUrl(i){
+
+  // }
 }

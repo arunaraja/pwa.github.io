@@ -14,6 +14,7 @@ export class welcomePage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.welcomeObj["phone"] = "+1";
   }
   
   async onSubmit(form) {

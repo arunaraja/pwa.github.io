@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {AuthService} from './../../../services/api/api.service'
+import { environment } from "./../../../../environments/environment";
 import {$} from 'jquery'
 declare var $ : any;
 
@@ -10,28 +12,52 @@ declare var $ : any;
 })
 export class loginPage implements OnInit {
   submitted = false ;
+  baseUrl = environment.baseUrl;
+  invalidOTP = false ;
   loginObj = {} ;
+
   constructor(
-    private router: Router
+    private router: Router ,private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.loginObj['phone'] = localStorage.getItem('phone');
+    this.loginObj['phone'] = "+1";
     this.click();
   }
 
   async onSubmit(form) {
     this.submitted = true;
+    this.invalidOTP = false;
     if(form.form.invalid){
       return;
     }
     else{
+      var otp1 = $("#loginInput1").val()+""+$("#loginInput2").val()+""+$("#loginInput3").val()+""+$("#loginInput4").val(); 
+        if(otp1.length<4){
+            this.invalidOTP = true;
+            return;
+        }
+        this.authService.post(this.baseUrl+"/api/user/loginUser",{phoneNumber:this.loginObj['phone'],pin:otp1}).subscribe((res) => {
+            if(res['data']){
+                console.log(res['data'])
+                localStorage.setItem("phone",this.loginObj['phone']);
+                localStorage.setItem("profileId",res['data'].profileId);
+                this.router.navigate(["home"]);
+            }
+            else{
+              this.invalidOTP = true;
+              return;
+            }
+            }, (error) => {
+            console.log(error);
+            });
+
       console.log("Next Navigation")  
-      this.router.navigate(["home"]);
+      
     }
   }
   click(){
-    // this.invalidOTP = false ;
+    this.invalidOTP = false ;
     var charLimit = 1;
     $(".inputs").keydown(function(e) {
         var keys = [8, 9, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40,48, 45, 46, 144, 145];

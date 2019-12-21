@@ -20,41 +20,32 @@
                     <span class="addAcc" style="padding-left: 0px !important">Bank Accounts</span>
                 </div>
             </div>
-            <div class="row">
+            <!-- <div class="row" >  -->
+            <div class="row" *ngFor="let bank of bankArr"> 
                 <div style="width:12%">
                 </div>
                 <div class="div2">
-                    <span class="pt16_1">Bank of America</span>
-                    <span class="pt16_2">XXXX XXXX XXXX 7869</span>
+                    <span class="pt16_1">{{bank.bankName}}</span>
+                    <span class="pt16_2">{{bank.cardNumber}}</span>
                 </div>
-                <div style="margin-left: 10px;width:6%">
-                    <img src="assets/radio_on.png" id="click1" (click)="click1()" alt="" align="middle" style="margin-right: 10px;">
+                <div style="margin-left: 10px;width:6%" *ngIf="bank.isPrimary === 'Yes'">
+                    <img src="assets/radio_on.png" id="click1" (click)="click1('Update',bank.walletId)" alt="" align="middle" style="margin-right: 10px;">
                 </div>
-                <div style="margin-left: 10px;width:20%">
+                <div style="margin-left: 10px;width:20%" *ngIf="bank.isPrimary === 'Yes'"> 
                     <span class="pt16_2"> Primary</span>
                 </div>
-                <div style="width:5%">
-                    <img src="assets/delete_acc.png"  alt="" align="middle" style="margin-right: 10px;">
+                <div style="margin-left: 10px;width:6%" *ngIf="bank.isPrimary === 'No'">
+                    <img src="assets/radio_off.png" id="click1"  (click)="click1('Update',bank.walletId)" alt="" align="middle" style="margin-right: 10px;">
                 </div>
-            </div>
-            <br>
-            <div class="row">
-                <div style="width:12%">
-                </div>
-                <div class="div2">
-                    <span class="pt16_1">Wells Forgo</span>
-                    <span class="pt16_2">XXXX XXXX XXXX 3217</span>
-                </div>
-                <div style="margin-left: 10px;width:6%">
-                    <img src="assets/radio_off.png" id="click2"  (click)="click2()" alt="" align="middle" style="margin-right: 10px;">
-                </div>
-                <div style="margin-left: 10px;width:20%">
+                <div style="margin-left: 10px;width:20%" *ngIf="bank.isPrimary === 'No'">
                     <span class="pt16_2"> Not primary</span>
                 </div>
                 <div style="width:5%">
-                    <img src="assets/delete_acc.png" alt="" align="middle" style="margin-right: 10px;">
+                    <img src="assets/delete_acc.png"  (click)="manageWallet('Delete',bank.walletId)"  alt="" align="middle" style="margin-right: 10px;">
                 </div>
+                <br>
             </div>
+<br>           
 
             <div class="row" style="margin-top: 12px;">
                 <div style="width:12%">
@@ -66,22 +57,30 @@
 
             </div>
             <br>
-            <div class="row">
+            <!-- <div class="row" > -->
+            <div class="row" *ngFor="let bank of cardArr">
                 <div style="width:12%">
                 </div>
                 <div class="div2">
-                    <span class="pt16_1">Citi Bank</span>
-                    <span class="pt16_2">XXXX XXXX XXXX 5612</span>
+                    <span class="pt16_1">{{bank.bankName}}</span>
+                    <span class="pt16_2">{{bank.cardNumber}}</span>
                 </div>
-                <div style="margin-left: 10px;width:6%">
-                    <img src="assets/radio_off.png" alt="" align="middle"  id="click3" (click)="click3()" style="margin-right: 10px;">
+                <div style="margin-left: 10px;width:6%" *ngIf="bank.isPrimary === 'Yes'">
+                    <img src="assets/radio_on.png" id="click1" (click)="click1('Update',bank.walletId)" alt="" align="middle" style="margin-right: 10px;">
                 </div>
-                <div style="margin-left: 10px;width:20%">
+                <div style="margin-left: 10px;width:20%" *ngIf="bank.isPrimary === 'Yes'"> 
+                    <span class="pt16_2"> Primary</span>
+                </div>
+                <div style="margin-left: 10px;width:6%" *ngIf="bank.isPrimary === 'No'">
+                    <img src="assets/radio_off.png" id="click1"  (click)="click1('Update',bank.walletId)" alt="" align="middle" style="margin-right: 10px;">
+                </div>
+                <div style="margin-left: 10px;width:20%" *ngIf="bank.isPrimary === 'No'">
                     <span class="pt16_2"> Not primary</span>
                 </div>
                 <div style="width:5%">
-                    <img src="assets/delete_acc.png" alt=""  align="middle" style="margin-right: 10px;">
+                    <img src="assets/delete_acc.png" (click)="manageWallet('Delete',bank.walletId)" alt="" align="middle" style="margin-right: 10px;">
                 </div>
+                <br>
             </div>
         </div>
         <!-- <div class="columnHome"></div> -->

@@ -10,7 +10,7 @@
                 <table class="tb1">
                         <tr>
                           <td style="width:35%"><span><img src="assets/photo.png" /></span> </td>
-                          <td><span class="point18">Joel Strader</span></td>
+                          <td><span class="point18">{{user.firstName+" "+user.lastName}}</span></td>
                         </tr>
                         <tr>
                             <td colspan="2"> <hr class="hr1"></td>
@@ -19,16 +19,16 @@
                       <table class="tb2">  
                         <tr class="trspace">
                           <td  style="width:30%"><span><img src="assets/telephone.png" /></span> </td>
-                          <td><span class="point18 ">+1 309 310 3693</span></td>
+                          <td><span class="point18 ">{{user.phoneNumber}}</span></td>
                         </tr>
                         <tr class="trspace">
                           <td  style="width:30%"><span><img src="assets/mail.png" /></span> </td>
-                          <td><span class="point18">joel.enviamejor@gmail.com</span></td>
+                          <td><span class="point18">{{user.email}}</span></td>
                         </tr>
                         <tr class="trspace">
                           <td  style="width:30%"><span><img src="assets/address.png" /></span> </td>
-                          <td><span class="point18" style="display:block">2535 Springdale</span>
-                            <span class="point18" style="display:block">Arkansas,71360,US</span>
+                          <td><span class="point18" style="display:block">{{user.address1 +" "+user.address2}} </span>
+                            <span class="point18" style="display:block">{{user.city+" "+user.zip+" "+user.country}}</span>
                         </td>
                         </tr>
                       </table>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {AuthService} from './../../../services/api/api.service'
+import { environment } from "./../../../../environments/environment";
 import {$} from 'jquery'
 declare var $ : any;
 
@@ -10,9 +12,14 @@ declare var $ : any;
 })
 export class registerPage implements OnInit {
   submitted = false ;
+  baseUrl = environment.baseUrl;
+  otpMismatch = false ;
+  invalidOTP = false ;
+  invalidConfOTP = false ;
+  mobileNo = localStorage.getItem('phone');
   registrationObj = {} ;
   constructor(
-    private router: Router
+    private router: Router, private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -23,17 +30,47 @@ export class registerPage implements OnInit {
 
   async onSubmit(form) {
     this.submitted = true;
+    
+    this.invalidOTP = false;
+    this.invalidConfOTP = false;
+    this.otpMismatch = false;
     if(form.form.invalid){
       return;
     }
     else{
-      console.log("Next Navigation")  
-      this.router.navigate(["thankyou"]);
+        var otp1 = $("#registerInput1").val()+""+$("#registerInput2").val()+""+$("#registerInput3").val()+""+$("#registerInput4").val(); 
+        var otp2 = $("#registerInputConf1").val()+""+$("#registerInputConf2").val()+""+$("#registerInputConf3").val()+""+$("#registerInputConf4").val(); 
+        if(otp1.length<4){
+            this.invalidOTP = true;
+            return;
+        }
+        if(otp2.length<4){
+            this.invalidConfOTP = true;
+            return;
+        }
+        if(otp1 !== otp2){
+            this.otpMismatch = true;
+            return;
+        }
+        this.authService.post(this.baseUrl+"/api/user/registerUser",{phoneNumber:this.mobileNo,pin:otp1}).subscribe((res) => {
+            if(res['data']){
+                console.log(res['data'])
+                this.router.navigate(["thankyou"]);
+            // if(res['status'] === 200){
+               
+            // }
+            // else{
+            // }
+            }
+            }, (error) => {
+            console.log(error);
+            });      
     }
       
   }
   click(){
-    // this.invalidOTP = false ;
+    this.invalidOTP = false ;
+    this.invalidConfOTP = false;
     var charLimit = 1;
     $(".inputs").keydown(function(e) {
         var keys = [8, 9, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40,48, 45, 46, 144, 145];
@@ -55,7 +92,8 @@ export class registerPage implements OnInit {
     });
   }
   click1(){
-    // this.invalidOTP = false ;
+    this.invalidOTP = false ;
+    this.invalidConfOTP = false;
     var charLimit = 1;
     $(".inputs1").keydown(function(e) {
         var keys = [8, 9, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40,48, 45, 46, 144, 145];

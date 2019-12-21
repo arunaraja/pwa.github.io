@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {AuthService} from './../../../services/api/api.service'
+import { environment } from "./../../../../environments/environment";
 import {$} from 'jquery'
 declare var $ : any;
 
@@ -9,34 +11,62 @@ declare var $ : any;
 })
 export class verifyPage implements OnInit {
   submitted = false ;
-  invalidOTP = false ;
+  verifyInvalidOtp = false ;
+  matchOtp = true ;
+   mobileNo = localStorage.getItem('phone');
+  verified = false ;
+  baseUrl = environment.baseUrl;
   loginObj = {} ;
   constructor(
-    private router: Router
+    private router: Router  , private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.loginObj['phone'] = localStorage.getItem('phone');
+    
+    this.loginObj['phone'] = this.mobileNo;
+    if(this.mobileNo){
+      this.authService.post(this.baseUrl+"/api/utility/createRefCode",{phoneNumber:this.mobileNo}).subscribe((res) => {
+        if(res['data']){
+        }
+        }, (error) => {
+        console.log(error);
+        });
+    }
     this.click();
   }
 
   async onSubmit(form) {
-    this.invalidOTP = false ;
+    this.verifyInvalidOtp = false ;
     this.submitted = true;
     if(form.form.invalid){
       return;
     }
-    // else if(!this.loginObj['digit1'] || !this.loginObj['digit2']|| !this.loginObj['digit3'] || !this.loginObj['digit4']
-    //   || !this.loginObj['digit5'] || !this.loginObj['digit6']){
-    //     this.invalidOTP = true;
-    // }
     else{
-      this.router.navigate(["register"]);
+      var otp = $("#verifyInput1").val()+""+$("#verifyInput2").val()+""+$("#verifyInput3").val()+""+$("#verifyInput4").val()+""+$("#verifyInput5").val()+""+$("#verifyInput6").val();
+      if(otp.length<6){
+        this.verifyInvalidOtp = true;
+      }
+      this.verifyInvalidOtp = false;
+      this.authService.post(this.baseUrl+"/api/utility/validateRefCode",{phoneNumber:this.mobileNo,referenceCode:otp}).subscribe((res) => {
+        if(res['data']){
+          console.log(res['data'])
+        if(res['status'] === 200 && ( res['data'].result  === "Matched"|| res['data'].result  === "Code Matched")){
+          this.matchOtp = true;
+          this.router.navigate(["register"]);
+        }
+        else{
+          this.matchOtp = false;
+        }
+        }
+        }, (error) => {
+        console.log(error);
+        });
+     
     }
   }
 
   click(){
-    this.invalidOTP = false ;
+    this.verifyInvalidOtp = false ;
     var charLimit = 1;
     $(".inputs").keydown(function(e) {
         var keys = [8, 9, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 46,48, 144, 145];
