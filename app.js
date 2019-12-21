@@ -2,7 +2,7 @@ const express = require('express');
 var cors = require('cors');
 var database = require('./api/helpers/database');
 console.log('Server initialization starts');
-var port = process.env.PORT || 8090;
+var port = process.env.PORT || 3000;
 console.log('Server initialization starts on port '+port);
 const app = express();
 app.use(require('express-domain-middleware'));
