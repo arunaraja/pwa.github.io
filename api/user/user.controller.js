@@ -19,7 +19,7 @@ exports.getProfile = function (req, res) {
     log.debug(data);
     responseUtils.sendResponse(data, res);
   });*/
-  res.json("PM2 Test2");
+  res.json("PM2 Test2 3");
 };
 
 async function handleGetProfile(service, callback) {
