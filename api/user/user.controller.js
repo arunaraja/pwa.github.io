@@ -12,13 +12,14 @@ exports.getProfile = function (req, res) {
   var service = {
     requestData: req.query
   };
-  handleGetProfile(service, function (err, data) {
+  /*handleGetProfile(service, function (err, data) {
     if (err) {
       return responseUtils.sendResponse(err, res);
     }
     log.debug(data);
     responseUtils.sendResponse(data, res);
-  });
+  });*/
+  res.json("PM2 Test2);
 };
 
 async function handleGetProfile(service, callback) {
