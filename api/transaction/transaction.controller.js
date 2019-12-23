@@ -71,8 +71,16 @@ async function getTransactionData(service, callback) {
     } else {
       data = _.groupBy(transactionResult[0], function (el) {
         var dt = new Date(el.createdDateTime);
-        return (dt.getFullYear() + '-') + (dt.getMonth() + '-') + (dt.getDate() + '-');
+        return  (dt.getDate() + '-') +  (dt.getMonth() + '-')+ (dt.getFullYear());
       });
+      var newArr= [] ;
+      _.filter(data,function(each){
+        var obj = {date : each[0].createdDateTime}
+        obj.resultArr = [] ;
+        _.filter(each,function(data){obj.resultArr.push(data);})
+        newArr.push(obj);
+      });
+      data = newArr;
     }
     return callback(null, responseUtils.getResponse(data, 'Transaction Data Fetch Succcess', 'Transaction fetched'));
   } catch (e) {

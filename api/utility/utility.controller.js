@@ -21,23 +21,48 @@ exports.createRefCode = function (req, res) {
 
 async function handleRefCode(service, callback) {
   try {
-    var phoneNumber = service.requestData.phoneNumber;
-    var currentDate = new Date();
-    var expiry = currentDate.setMinutes(currentDate.getMinutes() + 30);
-    var obj = {
-      phoneNumber: phoneNumber,
-      referenceCode: Math.floor(100000 + Math.random() * 900000),
-      expiryDateTime: new Date(expiry),
-      isVerified: "No",
-      createdDateTime: new Date(),
-      createdBy: "EM APP VERFICATION CODE CREATION"
-    }
-    const createTransactionQuery = {
-      tableName: "em_login_code",
-      data: obj
+    const queryNew = {
+      sql: 'SELECT * from em_login_code WHERE phoneNumber=? AND isVerified="Yes";',
+      data: [service.requestData.phoneNumber]
     };
-    const respQueryResult = await database.insertToTable(createTransactionQuery);
-    return callback(null, responseUtils.getResponse(respQueryResult[0][0], 'VerificationCode Create Success', 'VerificationCode is successfully created for the user'));
+    const queryResultNew = await database.executeSelect(queryNew);
+    console.log("queryResultNew")
+    console.log(queryResultNew)
+    if(queryResultNew && queryResultNew[0].length > 0){
+      return callback(null, responseUtils.getResponse({code:"Already Verified"}, 'Verification done Already', 'Verfication already done for the user'));
+    }
+    else{
+      const query1 = {
+        sql: 'SELECT * from em_login_code WHERE phoneNumber=? ',
+        data: [service.requestData.phoneNumber]
+      };
+      const queryResult1 = await database.executeSelect(query1);
+      if(queryResult1 && queryResult1[0].length > 0){
+        const query2= {
+          sql: 'UPDATE em_login_code SET isExpired="Yes" WHERE phoneNumber=? ',
+          data: [service.requestData.phoneNumber]
+        };
+        const queryResult2 = await database.executeSelect(query2);
+      }
+      var phoneNumber = service.requestData.phoneNumber;
+      var currentDate = new Date();
+      var expiry = currentDate.setMinutes(currentDate.getMinutes() + 30);
+      var obj = {
+        phoneNumber: phoneNumber,
+        referenceCode: Math.floor(100000 + Math.random() * 900000),
+        expiryDateTime: new Date(expiry),
+        isVerified: "No",
+        isExpired: "No",
+        createdDateTime: new Date(),
+        createdBy: "EM APP VERFICATION CODE CREATION"
+      }
+      const createTransactionQuery = {
+        tableName: "em_login_code",
+        data: obj
+      };
+      const respQueryResult = await database.insertToTable(createTransactionQuery);
+      return callback(null, responseUtils.getResponse(respQueryResult[0][0], 'VerificationCode Create Success', 'VerificationCode is successfully created for the user'));
+    }
   } catch (e) {
     log.error(e);
     return callback(responseUtils.getErrorResponse(require('util').inspect(e)));
@@ -56,37 +81,13 @@ exports.validateRefCode = function (req, res) {
 };
 
 async function handleValidateRefCode(service, callback) {
-  console.log("service.requestData")
-  console.log(service.requestData)
   const transactionQuery1 = {
-    sql: 'SELECT * from em_login_code WHERE phoneNumber=? AND referenceCode=?;',
+    sql: 'SELECT * from em_login_code WHERE phoneNumber=? AND referenceCode=? AND isExpired="No";',
     data: [service.requestData.phoneNumber, service.requestData.referenceCode]
   };
   const transactionResult = await database.executeSelect(transactionQuery1);
-  if (transactionResult[0][0]) {
-    const updateLoginQuery = {
-      tableName: queryUtils.TABLES.login.name,
-      condition: {
-        phoneNumber: service.requestData.phoneNumber
-      },
-      data: {
-        isFirstTime: "No",
-        isActive: "Yes"
-      }
-    };
-    const updateLoginResult = await database.updateTable(updateLoginQuery);
-    const updateLoginQuery1 = {
-      tableName: "em_login_code",
-      condition: {
-        phoneNumber: service.requestData.phoneNumber
-      },
-      data: {
-        isVerified: "Yes",
-        updatedBy: "On Registration",
-        updatedOn: new Date()
-      }
-    };
-    const updateLoginResult1 = await database.updateTable(updateLoginQuery1);
+  if (transactionResult[0][0]) {   
+    
     return callback(null, responseUtils.getResponse({ result: "Code Matched" }, 'Code Matched', 'Code Matched'));
   }
   else {

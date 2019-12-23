@@ -54,13 +54,15 @@ async function handleRegisterUser(service, callback) {
       data: [service.requestData.phoneNumber]
     };
     const isFirstTimeQueryResult = await database.executeSelect(isFirstTimeQuery);
+    console.log("isFirstTimeQueryResult")
+    console.log(isFirstTimeQueryResult)
     if (_.isEmpty(isFirstTimeQueryResult[0])) {
       return callback(responseUtils.getErrorResponse('USER_PROFILE_NOT_ENABLED', 'User profile has not been enabled. Please check with the store.'));
     }
-    else if (isFirstTimeQueryResult[0][0].isActive === "No") {
-      return callback(responseUtils.getErrorResponse('USER_IS_NOT_ACTIVE', 'User profile is not enabled in our system. Please check with the store.'));
+    else if (isFirstTimeQueryResult[0][0].isActive === "Yes") {
+      return callback(responseUtils.getErrorResponse('USER_IS_ACTIVE', 'User profile is already enabled in our system. Please proceed with login.'));
     }
-    else if (isFirstTimeQueryResult[0][0].isFirstTime === "Yes") {
+    else if (isFirstTimeQueryResult[0][0].isFirstTime === "No") {
       return callback(responseUtils.getErrorResponse('USER_ALREADY_REGISTERED', 'User can be registerd only once. Please check with the store.'));
     } else {
       const updateLoginQuery = {
@@ -69,11 +71,27 @@ async function handleRegisterUser(service, callback) {
           phoneNumber: service.requestData.phoneNumber
         },
         data: {
-          pin: service.requestData.pin,
+          pincode: service.requestData.pin,
         }
       };
       const updateLoginResult = await database.updateTable(updateLoginQuery);
       log.info(updateLoginResult);
+      const updateLoginQuery2 = {
+        tableName: queryUtils.TABLES.login.name,
+        condition: {
+          phoneNumber: service.requestData.phoneNumber
+        },
+        data: {
+          isFirstTime: "No",
+          isActive: "Yes"
+        }
+      };
+      const updateLoginResult2 = await database.updateTable(updateLoginQuery2);
+      const updateLoginQuery1 = {
+        sql: 'UPDATE em_login_code SET  isVerified="Yes" ,updatedBy="On Registration" ,updatedDateTime=? WHERE phoneNumber=? ORDER BY expiryDateTime DESC LIMIT 1;',
+        data: [new Date(),service.requestData.phoneNumber]
+      };
+      const updateLoginResult1 = await database.executeSelect(updateLoginQuery1);
       return callback(null, responseUtils.getSuccessResponse('USER_REGISTRATION_SUCCESSFUL', 'User registered successfully.'));
     }
   } catch (e) {
