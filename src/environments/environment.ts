@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   /*baseUrl: 'http://192.168.1.6:8090'*/
-  baseUrl: 'https://emapi.innoart.in:3000'
+  baseUrl: 'https://emapi.innoart.in'
 };
 
 /*
