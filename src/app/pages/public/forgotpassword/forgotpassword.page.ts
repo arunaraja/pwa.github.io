@@ -17,6 +17,7 @@ export class forgotpasswordPage implements OnInit {
 
   ngOnInit() {
     localStorage.clear();
+    this.loginObj['phone'] = "+1";
     this.click();
   }
 
@@ -26,10 +27,11 @@ export class forgotpasswordPage implements OnInit {
     if(form.form.invalid){
       return;
     }
-    // else if(!this.loginObj['digit1'] || !this.loginObj['digit2']|| !this.loginObj['digit3'] || !this.loginObj['digit4']
-    //   || !this.loginObj['digit5'] || !this.loginObj['digit6']){
-    //     this.invalidOTP = true;
-    // }
+    var otp1 = $("#forgotInput1").val()+""+$("#forgotInput2").val()+""+$("#forgotInput3").val()+""+$("#forgotInput4").val()+""+$("#forgotInput5").val()+""+$("#forgotInput6").val(); 
+        if(otp1.length<6){
+            this.invalidOTP = true;
+            return;
+        }
     else{
       this.router.navigate(["changepassword"]);
     }

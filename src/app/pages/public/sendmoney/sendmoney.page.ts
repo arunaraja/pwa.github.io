@@ -33,14 +33,14 @@ export class sendmoneyPage implements OnInit {
   }
 
   ngOnInit() {
-    this.sendMoney['country'] = ""; 
-    this.sendMoney['paymentMethod'] = "";
-    this.sendMoney['vendor'] = "";
-    this.sendMoney['deliveryMethod'] = "";
-    this.sendMoney['state'] = "";
-    this.sendMoney['city'] = "";
-    this.sendMoney['location'] = "";
-    this.sendMoney['bank'] = "";
+    // this.sendMoney['country'] = ""; 
+    // this.sendMoney['paymentMethod'] = "";
+    // this.sendMoney['vendor'] = "";
+    // this.sendMoney['deliveryMethod'] = "";
+    // this.sendMoney['state'] = "";
+    // this.sendMoney['city'] = "";
+    // this.sendMoney['location'] = "";
+    // this.sendMoney['bank'] = "";
   }
   
   home(){
@@ -132,7 +132,7 @@ export class sendmoneyPage implements OnInit {
       this.authService.post(this.baseUrl + "/api/transaction/createTransaction", this.sendMoney).subscribe((res) => {
         if (res['data']) {
           console.log(res['data'])
-          this.router.navigate(["managewallet"]);
+          this.router.navigate(['/sendmoney/preview']) ;
         }
         else {
           return;

@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="text" class="form-control " name="cardname" placeholder="" autocomplete="off"
+                        <input type="text" class="form-control " name="cardname" maxlength="50" placeholder="" autocomplete="off" pattern="[A-Za-z ]+"
                             required [ngClass]="{'is-invalid': 
                             cardname.invalid  && submitted  ,'is-valid': cardname.valid  && submitted }"
                             #cardname="ngModel" ngModel [(ngModel)]="sendMoney.cardname" style="text-indent: 10px;font-size: 15.00px;
@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="text" class="form-control" name="ccdc" placeholder="" autocomplete="off" required
+                        <input type="text" class="form-control" name="ccdc"  maxlength="16" pattern="[0-9]{16}" placeholder="" maxlength="16" autocomplete="off" required
                             [ngClass]="{'is-invalid': 
                                 ccdc.invalid  && submitted  ,'is-valid': ccdc.valid  && submitted }"
                             #ccdc="ngModel" ngModel [(ngModel)]="sendMoney.ccdc" style="text-indent: 10px;font-size: 15.00px;
@@ -62,7 +62,7 @@
                 </tr>
                 <tr>
                     <td width="50%">
-                        <input type="text" class="form-control" name="expiry" placeholder="MM/YYYY" autocomplete="off"
+                        <input type="text" class="form-control" name="expiry" placeholder="MM/YYYY" maxlength="7"   autocomplete="off"
                             required [ngClass]="{'is-invalid': 
                             expiry.invalid  && submitted  ,'is-valid': expiry.valid  && submitted }"
                             #expiry="ngModel" ngModel [(ngModel)]="sendMoney.expiry" style="text-indent: 10px;font-size: 15.00px;
@@ -71,7 +71,7 @@
                                 height: 25px;border-bottom:0.5px solid #3C3C3C !important">
                         <show-error [control]="expiry" [label]="{'labelName': 'Expiry Date'}" [submitFlag]="submitted"></show-error>
                     </td>
-                    <td width="50%"> <input type="text" class="form-control" name="cvv" placeholder="" autocomplete="off"
+                    <td width="50%"> <input type="text" class="form-control" name="cvv" maxlength="3" placeholder="" autocomplete="off"
                             required [ngClass]="{'is-invalid': 
                                 cvv.invalid  && submitted  ,'is-valid': cvv.valid  && submitted }"
                             #cvv="ngModel" ngModel [(ngModel)]="sendMoney.cvv" style="text-indent: 10px;font-size: 15.00px;

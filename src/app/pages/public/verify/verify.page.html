@@ -26,17 +26,21 @@ color: #000009;border: 1px solid #979797 !important;}</style>
           <!-- for  password input -->
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
           <form  class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-            <input class="inputs" id="verifyInput1" type="text" [disabled]="verified"  class="inputs" />
-            <input class="inputs" id="verifyInput2" type="text" [disabled]="verified" class="inputs"/>
-            <input class="inputs" id="verifyInput3" type="text"  [disabled]="verified" class="inputs"/>
-            <input class="inputs" id="verifyInput4" type="text" [disabled]="verified"  class="inputs"/>
-            <input class="inputs" id="verifyInput5" type="text" [disabled]="verified" class="inputs"/>
-            <input class="inputs" id="verifyInput6" type="text" [disabled]="verified"  class="inputs" />
+            <input class="inputs" id="verifyInput1" type="text"  maxlength="1" autocomplete="off" [disabled]="alreadyVerified" (change)="callChange()"  class="inputs" />
+            <input class="inputs" id="verifyInput2" type="text"  maxlength="1" autocomplete="off" [disabled]="alreadyVerified" (change)="callChange()" class="inputs"/>
+            <input class="inputs" id="verifyInput3" type="text"  maxlength="1" autocomplete="off" [disabled]="alreadyVerified" (change)="callChange()" class="inputs"/>
+            <input class="inputs" id="verifyInput4" type="text"  maxlength="1" autocomplete="off" [disabled]="alreadyVerified"  (change)="callChange()" class="inputs"/>
+            <input class="inputs" id="verifyInput5" type="text" maxlength="1" autocomplete="off" [disabled]="alreadyVerified" (change)="callChange()" class="inputs"/>
+            <input class="inputs" id="verifyInput6" type="text"  maxlength="1" autocomplete="off" [disabled]="alreadyVerified" (change)="callChange()" class="inputs" />
             <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
               <span id="verifyInvalidOtp">Invalid OTP !</span>
+              <span id="verifyNoOtp">Enter OTP !</span>
             </p>
             <p style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;" *ngIf="!matchOtp">
-             OTP Mismatch!
+            Invalid OTP!
+            </p>
+            <p style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;" *ngIf="alreadyVerified">
+             Already Verified!
             </p>
           </form>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
@@ -44,7 +48,7 @@ color: #000009;border: 1px solid #979797 !important;}</style>
           <span class="notesVerify" id="verifyNote1">Please enter the reference code to  </span><br>
           <span class="notesVerify" id="verifyNote2">above Mobile Number</span>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" ></svg>
-          <button class="button" id="verifySubmitBtn" [disabled]="verified" (click)="onSubmit(loginform)">Continue</button>
+          <button class="button" id="verifySubmitBtn" [disabled]="alreadyVerified" (click)="onSubmit(loginform)">Continue</button>
         </form>
         <!-- end of form -->
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

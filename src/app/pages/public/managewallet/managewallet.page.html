@@ -26,7 +26,7 @@
                 </div>
                 <div class="div2">
                     <span class="pt16_1">{{bank.bankName}}</span>
-                    <span class="pt16_2">{{bank.cardNumber}}</span>
+                    <span class="pt16_2">{{getNumberView(bank.cardNumber)}}</span>
                 </div>
                 <div style="margin-left: 10px;width:6%" *ngIf="bank.isPrimary === 'Yes'">
                     <img src="assets/radio_on.png" id="click1" (click)="click1('Update',bank.walletId)" alt="" align="middle" style="margin-right: 10px;">
@@ -63,7 +63,7 @@
                 </div>
                 <div class="div2">
                     <span class="pt16_1">{{bank.bankName}}</span>
-                    <span class="pt16_2">{{bank.cardNumber}}</span>
+                    <span class="pt16_2">{{getNumberView(bank.cardNumber)}}</span>
                 </div>
                 <div style="margin-left: 10px;width:6%" *ngIf="bank.isPrimary === 'Yes'">
                     <img src="assets/radio_on.png" id="click1" (click)="click1('Update',bank.walletId)" alt="" align="middle" style="margin-right: 10px;">

@@ -11,10 +11,11 @@ declare var $ : any;
 })
 export class verifyPage implements OnInit {
   submitted = false ;
+  alreadyVerified = false ;
+  verifyNoOtp = false ;
   verifyInvalidOtp = false ;
   matchOtp = true ;
    mobileNo = localStorage.getItem('phone');
-  verified = false ;
   baseUrl = environment.baseUrl;
   loginObj = {} ;
   constructor(
@@ -26,13 +27,22 @@ export class verifyPage implements OnInit {
     this.loginObj['phone'] = this.mobileNo;
     if(this.mobileNo){
       this.authService.post(this.baseUrl+"/api/utility/createRefCode",{phoneNumber:this.mobileNo}).subscribe((res) => {
-        if(res['data']){
+        if(res['data']){4
+          if(res['data'].code === "Already Verified"){
+            this.alreadyVerified = true;
+            return;
+          }  
         }
         }, (error) => {
         console.log(error);
         });
     }
     this.click();
+  }
+
+  callChange(){
+    this.matchOtp = true ;
+    this.verifyInvalidOtp = false ;
   }
 
   async onSubmit(form) {
@@ -43,8 +53,15 @@ export class verifyPage implements OnInit {
     }
     else{
       var otp = $("#verifyInput1").val()+""+$("#verifyInput2").val()+""+$("#verifyInput3").val()+""+$("#verifyInput4").val()+""+$("#verifyInput5").val()+""+$("#verifyInput6").val();
+      if(otp.length<=0){
+        console.log("otp.length")
+        console.log(otp.length)
+        this.verifyNoOtp = true;
+        return;
+      }
       if(otp.length<6){
         this.verifyInvalidOtp = true;
+        return;
       }
       this.verifyInvalidOtp = false;
       this.authService.post(this.baseUrl+"/api/utility/validateRefCode",{phoneNumber:this.mobileNo,referenceCode:otp}).subscribe((res) => {
@@ -66,6 +83,8 @@ export class verifyPage implements OnInit {
   }
 
   click(){
+    console.log("HIT>>>>>>")
+    this.matchOtp = true ;
     this.verifyInvalidOtp = false ;
     var charLimit = 1;
     $(".inputs").keydown(function(e) {

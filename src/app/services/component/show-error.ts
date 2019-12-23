@@ -27,7 +27,7 @@ export class ShowerrormessageComponent {
     'maxlength': (params) => 'The max allowed number of characters is ' + params.requiredLength,
     'min': (params) => 'The min number of characters is ' + params.requiredLength,
     'max': (params) => 'The max allowed number of characters is ' + params.requiredLength,
-    'pattern': (params) => 'The required pattern is: ' + params.requiredPattern,
+    'pattern': (params) => 'Invalid pattern!',
     'selectBoxValidator': (params) => params.message,
     'customerPatterValidator': (params) => params.message,
     'compareValidator': (params) => params.message,

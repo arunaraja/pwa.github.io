@@ -1,13 +1,9 @@
 <div class="bg-color">
-  <!-- header title -->
   <div class="title">
     <label class="title-text"> ENVIA MEJOR</label>
   </div>
-  <!-- overall div -->
   <div class="row" style="overflow:auto;height:100%">
-    <!-- section1 -->
     <div class="column"></div>
-    <!-- section 2 -->
     <div class="column" style="text-align:center;padding-top: 100px;">
       <span class="verify">Your Pincode has been </span>
       <br>
@@ -16,7 +12,30 @@
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
       <span  class="forgot" (click)="logIn()" style="border-bottom: 2px solid #544629;">Click here</span><span class="forgot"> to Login  </span>
     </div>
-    <!-- section 3 -->
     <div class="column"></div>
   </div>
 </div>
+<!-- <style>
+#scroller {
+  height: 90%;
+  width: auto;
+  overflow: scroll;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+ 
+.news {
+  padding: 30px;
+}
+</style>
+<ul id="scroller"
+    ngxInfiniteScroller
+    strategy="scrollingToBoth"
+    (onScrollUp)="onScrollUp()"
+    (onScrollDown)="onScrollDown()">
+  <li class="news"
+      *ngFor="let item of news">
+    {{item.title}}
+  </li>
+</ul> -->

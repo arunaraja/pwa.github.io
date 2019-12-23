@@ -23,8 +23,6 @@ export class managewalletPage implements OnInit {
     console.log("profile",profile)
     this.authService.get(this.baseUrl+"/api/wallet/getWallet?profileId=" + profile ).subscribe((res) => {
       if(res['data']){
-        console.log("res['data']")
-        console.log(res['data'])
         this.bankArr = _.filter(res['data'],{walletType:"bank"});
         this.cardArr = _.filter(res['data'],{walletType:"card"});
       }
@@ -50,9 +48,12 @@ export class managewalletPage implements OnInit {
       profileId: profile
     }
     this.authService.post(this.baseUrl + "/api/wallet/manageWallet", obj).subscribe((res) => {
-      if (res['data']) {
-        console.log(res['data'])
-        this.router.navigate(["managewallet"]);
+      if (res) {
+        console.log(res)
+        this.router.navigate(['/managewallet/walletadd'],{skipLocationChange:true}).then(() => {
+          this.router.navigate(['managewallet']);
+        });
+        // this.router.navigate(["managewallet"]);
       }
       else {
         return;
@@ -65,6 +66,11 @@ export class managewalletPage implements OnInit {
     $('#click3').attr('src', 'assets/radio_off.png');
   }
  
+  getNumberView(num){
+    var NumberValue = num.replace(/^.{12}/g, 'XXXX XXXX XXXX ');
+    return NumberValue;
+  }
+
   manageWallet(action,id){
     var profile = localStorage.getItem("profileId");
     var obj = {
@@ -75,9 +81,13 @@ export class managewalletPage implements OnInit {
       profileId: profile
     }
     this.authService.post(this.baseUrl + "/api/wallet/manageWallet", obj).subscribe((res) => {
-      if (res['data']) {
-        console.log(res['data'])
-        this.router.navigate(["managewallet"]);
+      if (res) {
+        console.log(res)
+        // this.router.navigate(["managewallet"]);
+        this.router.navigate(['/managewallet/walletadd'],{skipLocationChange:true}).then(() => {
+          this.router.navigate(['managewallet']);
+        });
+        
       }
       else {
         return;

@@ -14,6 +14,7 @@ export class loginPage implements OnInit {
   submitted = false ;
   baseUrl = environment.baseUrl;
   invalidOTP = false ;
+  invalidOTPPhone = false ;
   loginObj = {} ;
 
   constructor(
@@ -28,6 +29,7 @@ export class loginPage implements OnInit {
   async onSubmit(form) {
     this.submitted = true;
     this.invalidOTP = false;
+    this.invalidOTPPhone = false;
     if(form.form.invalid){
       return;
     }
@@ -39,21 +41,17 @@ export class loginPage implements OnInit {
         }
         this.authService.post(this.baseUrl+"/api/user/loginUser",{phoneNumber:this.loginObj['phone'],pin:otp1}).subscribe((res) => {
             if(res['data']){
-                console.log(res['data'])
                 localStorage.setItem("phone",this.loginObj['phone']);
                 localStorage.setItem("profileId",res['data'].profileId);
                 this.router.navigate(["home"]);
             }
             else{
-              this.invalidOTP = true;
+              this.invalidOTPPhone = true;
               return;
             }
             }, (error) => {
             console.log(error);
             });
-
-      console.log("Next Navigation")  
-      
     }
   }
   click(){

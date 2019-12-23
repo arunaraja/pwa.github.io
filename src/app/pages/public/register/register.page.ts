@@ -14,6 +14,7 @@ export class registerPage implements OnInit {
   submitted = false ;
   baseUrl = environment.baseUrl;
   otpMismatch = false ;
+  alreadyRegisterd = false ;
   invalidOTP = false ;
   invalidConfOTP = false ;
   mobileNo = localStorage.getItem('phone');
@@ -32,6 +33,7 @@ export class registerPage implements OnInit {
     this.submitted = true;
     
     this.invalidOTP = false;
+    this.alreadyRegisterd = false;
     this.invalidConfOTP = false;
     this.otpMismatch = false;
     if(form.form.invalid){
@@ -53,14 +55,11 @@ export class registerPage implements OnInit {
             return;
         }
         this.authService.post(this.baseUrl+"/api/user/registerUser",{phoneNumber:this.mobileNo,pin:otp1}).subscribe((res) => {
-            if(res['data']){
-                console.log(res['data'])
+            if(res['status'] === 200 && res['internalMessage'] === 'USER_REGISTRATION_SUCCESSFUL'){
                 this.router.navigate(["thankyou"]);
-            // if(res['status'] === 200){
-               
-            // }
-            // else{
-            // }
+            }
+            if(res['status'] === 500 && res['internalMessage'] === 'USER_IS_ACTIVE'){
+               this.alreadyRegisterd = true;
             }
             }, (error) => {
             console.log(error);

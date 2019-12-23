@@ -29,16 +29,15 @@ export class walletaddPage implements OnInit {
         cardExpiryDate: this.sendMoney['expiry'],
         cardCvv: this.sendMoney['cvv'],
         walletType: "card",
-        isPrimary: "Yes",
+        isPrimary: "No",
         profileId: this.profile,
-        createdBy: "EM APP WALLET ADD",
-        createdOn: new Date(),
         action: "Add"
       }
       this.authService.post(this.baseUrl + "/api/wallet/manageWallet", obj).subscribe((res) => {
         if (res['data']) {
-          console.log(res['data'])
+          console.log(res)
           this.router.navigate(["managewallet"]);
+          
         }
         else {
           return;
@@ -50,6 +49,6 @@ export class walletaddPage implements OnInit {
   }
 
   walletBack() {
-    this.router.navigate(["home"]);
+    this.router.navigate(["managewallet"]);
   }
 }
