@@ -9,7 +9,7 @@ exports.initialize = async function () {
   client = require('knex')({
     client: 'mysql',
     connection: {
-      host: '34.93.150.213',
+      host: '35.200.252.104',
       user: 'root',
       password: 'Admin@123',
       database: 'enviamejor_db'
