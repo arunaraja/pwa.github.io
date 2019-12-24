@@ -115,7 +115,7 @@ async function handleCreateTransaction(service, callback) {
       console.log(data)
       if (data.status == 200) {
         const transactionQuery = {
-          sql: 'UPDATE em_transaction SET transactionStatus="Success" , WHERE transactionId=?;',
+          sql: 'UPDATE em_transaction SET transactionStatus="Success"  WHERE transactionId=?;',
           data: transactionId[0]
         };
         const transactionResult = database.executeSelect(transactionQuery);
