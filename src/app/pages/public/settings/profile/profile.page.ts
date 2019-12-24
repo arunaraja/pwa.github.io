@@ -15,7 +15,7 @@ export class profilePage implements OnInit {
   constructor(private router: Router , private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.get(this.baseUrl+"/api/user/profile?profileId=" + this.profile).subscribe((res) => {
+    this.authService.get(this.baseUrl+"/api/user/getProfile?profileId=" + this.profile).subscribe((res) => {
       if(res['data']){
       this.user = res['data']
       }
