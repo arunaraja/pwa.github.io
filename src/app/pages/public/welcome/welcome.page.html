@@ -1,3 +1,5 @@
+
+
 <div class="bg-color">
   <!-- header title -->
   <div class="title">
@@ -16,9 +18,12 @@
       <!-- form starts -->
       <form #registerForm="ngForm" name="registerForm" novalidate>
         <!-- for phone number input -->
-        <input type="text"  id="welcomePhone"  name="phone"  class="form-control" placeholder="Phone Number" maxlength="15" pattern="[+][0-9]+" autocomplete="off" required [ngClass]="{
-        'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel" ngModel
-          [(ngModel)]="welcomeObj.phone" />
+        
+          <input type="text"  id="welcomePhone"  name="phone"  class="form-control" placeholder="Phone Number"  minlength="10" maxlength="15" pattern="[+][0-9]+" autocomplete="off" required [ngClass]="{
+            'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel" ngModel
+              [(ngModel)]="welcomeObj.phone" />
+       
+        
         <show-error [control]="phone" id="welcomePhoneNoErr" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
         <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

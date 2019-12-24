@@ -15,7 +15,7 @@
     <div class="column" style="text-align:center;padding-top: 5px;">
         <span class="verify" id="thankYouReg">Thank you for registering  </span>
         <br>
-        <span class="verify" id="thankYouRegEM">with envia Major </span>
+        <span class="verify" id="thankYouRegEM">with Envia Mejor </span>
         <br>
         <br>
       <div class="bg-white">
@@ -25,7 +25,7 @@
         <!-- form starts -->
         <form #loginform="ngForm" name="loginform" novalidate>
           <!-- for phone number input -->
-          <input type="text"  id="loginPhone" name="phone" class="form-control" maxlength="15" pattern="[+][0-9]+" placeholder="Phone Number" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
+          <input type="text"  id="loginPhone" name="phone" class="form-control" maxlength="15" pattern="[+][0-9]+" minlength="10" placeholder="Phone Number" autocomplete="off" style="border-bottom: 1px solid #979797 !important" required
             [ngClass]="{
             'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel"
             ngModel [(ngModel)]="loginObj.phone" />

@@ -5,72 +5,73 @@ import { PreloadAllModules,Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
+    // redirectTo: 'login',
+    loadChildren:  () => import('./pages/public/login/login.module').then(mod=>mod.loginPageModule)
+    // pathMatch: 'full'
   },
   {
     path: 'welcome',
-    loadChildren: './pages/public/welcome/welcome.module#welcomePageModule'
+    loadChildren: () => import('./pages/public/welcome/welcome.module').then(mod => mod.welcomePageModule)
   },
   {
     path: 'register',
-    loadChildren: './pages/public/register/register.module#registerPageModule'
+    loadChildren:  () => import('./pages/public/register/register.module').then(mod=>mod.registerPageModule)
   },
   {
     path: 'changepassword',
-    loadChildren: './pages/public/changepassword/changepassword.module#changePasswordPageModule'
+    loadChildren:  () => import('./pages/public/changepassword/changepassword.module').then(mod=>mod.changePasswordPageModule)
   },
   {
     path: 'changepasssuccess',
-    loadChildren: './pages/public/changepasssuccess/changepasssuccess.module#changepasssuccessPageModule'
+    loadChildren:  () => import('./pages/public/changepasssuccess/changepasssuccess.module').then(mod=>mod.changepasssuccessPageModule)
   },
   {
     path: 'forgotpassword',
-    loadChildren: './pages/public/forgotpassword/forgotpassword.module#forgotpasswordPageModule'
+    loadChildren:  () => import('./pages/public/forgotpassword/forgotpassword.module').then(mod=>mod.forgotpasswordPageModule)
   },
   {
     path: 'login',
-    loadChildren: './pages/public/login/login.module#loginPageModule'
+    loadChildren:  () => import('./pages/public/login/login.module').then(mod=>mod.loginPageModule)
   },
   {
     path: 'logout',
-    loadChildren: './pages/public/logout/logout.module#logoutPageModule'
+    loadChildren:  () => import('./pages/public/logout/logout.module').then(mod=>mod.logoutPageModule)
   },
   {
     path: 'home',
-    loadChildren: './pages/public/home/home.module#homePageModule'
+    loadChildren:  () => import('./pages/public/home/home.module').then(mod=>mod.homePageModule)
   },
   {
     path: 'thankyou',
-    loadChildren: './pages/public/thankyou/thankyou.module#thankyouPageModule'
+    loadChildren:  () => import('./pages/public/thankyou/thankyou.module').then(mod=>mod.thankyouPageModule)
   },
   {
     path: 'transactions',
-    loadChildren: './pages/public/transactions/transactions.module#transactionPageModule'
+    loadChildren:  () => import('./pages/public/transactions/transactions.module').then(mod=>mod.transactionPageModule)
   },
   {
     path: 'verify',
-    loadChildren: './pages/public/verify/verify.module#verifyPageModule'
+    loadChildren:  () => import('./pages/public/verify/verify.module').then(mod=>mod.verifyPageModule)
   },
   {
     path: 'sendmoney',
-    loadChildren: './pages/public/sendmoney/sendmoney.module#sendmoneyPageModule'
+    loadChildren:  () => import('./pages/public/sendmoney/sendmoney.module').then(mod=>mod.sendmoneyPageModule)
   },
   {
     path: 'sendconfirmation',
-    loadChildren: './pages/public/sendmoneyconfirmation/sendmoneyconfirmation.module#sendmoneyconfirmationPageModule'
+    loadChildren:  () => import('./pages/public/sendmoneyconfirmation/sendmoneyconfirmation.module').then(mod=>mod.sendmoneyconfirmationPageModule)
   },
   {
     path: 'sendmessage',
-    loadChildren: './pages/public/sendmessage/sendmessage.module#sendmessagePageModule'
+    loadChildren:  () => import('./pages/public/sendmessage/sendmessage.module').then(mod=>mod.sendmessagePageModule)
   },
   {
     path: 'managewallet',
-    loadChildren: './pages/public/managewallet/managewallet.module#managewalletPageModule'
+    loadChildren:  () => import('./pages/public/managewallet/managewallet.module').then(mod=>mod.managewalletPageModule)
   },
   {
     path: 'settings',
-    loadChildren: './pages/public/settings/settings.module#settingsPageModule'
+    loadChildren:  () => import('./pages/public/settings/settings.module').then(mod=>mod.settingsPageModule)
   },
   // {
   //   path: 'otp',

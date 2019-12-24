@@ -18,7 +18,7 @@ export class registerPage implements OnInit {
   invalidOTP = false ;
   invalidConfOTP = false ;
   mobileNo = localStorage.getItem('phone');
-  registrationObj = {} ;
+  registrationObj = {phone:""} ;
   constructor(
     private router: Router, private authService: AuthService
   ) {}

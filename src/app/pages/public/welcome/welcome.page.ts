@@ -8,13 +8,15 @@ import { Router } from '@angular/router';
 })
 export class welcomePage implements OnInit {
   submitted = false ;
-  welcomeObj = {} ;
+  welcomeObj = {phone:""} ;
+
   constructor(
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
-    this.welcomeObj["phone"] = "+1";
+    this.welcomeObj['phone'] = "+1";
   }
   
   async onSubmit(form) {

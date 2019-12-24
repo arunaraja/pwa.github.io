@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http' 
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
 @NgModule({
   declarations: [
     AppComponent
@@ -15,8 +13,6 @@ import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    InfiniteScrollModule,
-    NgxInfiniteScrollerModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

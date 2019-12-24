@@ -15,7 +15,7 @@ export class loginPage implements OnInit {
   baseUrl = environment.baseUrl;
   invalidOTP = false ;
   invalidOTPPhone = false ;
-  loginObj = {} ;
+  loginObj = {phone:""} ;
 
   constructor(
     private router: Router ,private authService: AuthService

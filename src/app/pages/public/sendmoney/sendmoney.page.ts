@@ -14,6 +14,9 @@ export class sendmoneyPage implements OnInit {
   submitted = false ;
   baseUrl = environment.baseUrl;
   openNavBar = false;
+  sendMon = true;
+  preview = false;
+
   hide = true;
   hideView = true;
   seeView = false;
@@ -24,7 +27,7 @@ export class sendmoneyPage implements OnInit {
   nextPage = false;
   name ="";
   firstPage = false;
-  sendMoney = {};
+  sendMoney = {paymentMethod:"Wire Transfer",transactionReferenceCode:"TRAN001"};
   constructor(
     private router: Router , public activatedRoute : ActivatedRoute ,private authService :AuthService
   ) {
@@ -92,15 +95,20 @@ export class sendmoneyPage implements OnInit {
   sendMessage(){
     this.router.navigate(["sendmessage"]);
   }
+  getSplit(fullName){
+    return fullName.split(' ').map(n => n[0]).join('');
+  }
   onPreviewClick(form){
     this.submitted = true;
     if (form.form.invalid) {
       return;
     }
     else {
-      var obj= {};
-      obj['profileId'] = this.sendMoney['profile'];
-      obj['vendorId'] = this.sendMoney['vendor'];
+      this.sendMon = false;
+          this.preview = true;
+      // var obj= {};
+      // obj['profileId'] = this.sendMoney['profile'];
+      // obj['vendorId'] = this.sendMoney['vendor'];
       // obj['paymentMethodId'] = 
       // obj['deliveryMethodId'] = 
       // obj['vendorAgentId'] = 
@@ -127,21 +135,36 @@ export class sendmoneyPage implements OnInit {
       // obj['transactionTotalAmount'] = 
       // obj['totalAmountSentToReceiver'] = 
       // obj['transactionStatus'] = 
-      obj['createdDateTime'] = new Date();
-      obj['createdBy'] = "EM APP WALLET ADD";
-      this.authService.post(this.baseUrl + "/api/transaction/createTransaction", this.sendMoney).subscribe((res) => {
-        if (res['data']) {
-          console.log(res['data'])
-          this.router.navigate(['/sendmoney/preview']) ;
-        }
-        else {
-          return;
-        }
-      }, (error) => {
-        console.log(error);
-      });
+      // obj['createdDateTime'] = new Date();
+      // obj['createdBy'] = "EM APP WALLET ADD";
+      // this.authService.post(this.baseUrl + "/api/transaction/createTransaction", this.sendMoney).subscribe((res) => {
+      //   if (res['data']) {
+      //     console.log(res['data'])
+      //     // this.router.navigate(['/sendmoney/preview']) ;
+      //     this.sendMon = false;
+      //     this.preview = true;
+      //   }
+      //   else {
+      //     return;
+      //   }
+      // }, (error) => {
+      //   console.log(error);
+      // });
     }
-    this.router.navigate(['/sendmoney/preview']) ;
+    // this.router.navigate(['/sendmoney/preview']) ;
+  }
+  onSendClick(){
+    this.authService.post(this.baseUrl + "/api/transaction/createTransaction", this.sendMoney).subscribe((res) => {
+      if (res['data']) {
+        console.log(res['data'])
+        this.router.navigate(["sendconfirmation"]);
+      }
+      else {
+        return;
+      }
+    }, (error) => {
+      console.log(error);
+    });
   }
   receiver(){
     if(!this.receiverInfo){

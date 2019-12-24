@@ -18,6 +18,6 @@ const routes: Routes = [
     ComponentModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [walletaddPage]
+  declarations: []
 })
 export class walletaddPageModule {}

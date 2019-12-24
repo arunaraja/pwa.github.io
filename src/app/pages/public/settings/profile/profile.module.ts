@@ -19,6 +19,6 @@ const routes: Routes = [
     ComponentModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [profilePage]
+  declarations: []
 })
 export class profilePageModule {}
