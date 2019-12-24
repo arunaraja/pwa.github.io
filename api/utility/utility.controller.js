@@ -95,3 +95,15 @@ async function handleValidateRefCode(service, callback) {
   }
 
 };
+
+
+exports.createInviteUrl = async function (req,res) {
+  var appUrl = 'http://localhost:4200/welcome';
+  responseUtils.getResponse({ url: appUrl }, res);
+  // return appUrl;
+};
+exports.createSMS = async function (req,res) {
+  // var appUrl = 'http://localhost:4200/welcome';
+  responseUtils.getResponse({ result: "Message Created" }, res);
+  // return appUrl;
+};

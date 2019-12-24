@@ -198,6 +198,10 @@ exports.createInviteUrl = async function (service) {
   var appUrl = 'http://localhost:4200/welcome';
   return appUrl;
 };
+exports.createSMS = async function (service) {
+  // var appUrl = 'http://localhost:4200/welcome';
+  // return appUrl;
+};
 
 exports.validateMobileNo = function (req, res) {
 
