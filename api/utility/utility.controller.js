@@ -97,13 +97,45 @@ async function handleValidateRefCode(service, callback) {
 };
 
 
-exports.createInviteUrl = async function (req,res) {
+// exports.createInviteUrl = async function (req,res) {
+//   console.log("HIT")
+//   var appUrl = 'http://localhost:4200/welcome';
+//  return responseUtils.getResponse({ url: appUrl }, res);
+//   // return appUrl;
+// };
+
+exports.createInviteUrl = function (req, res) {
+  var service = {
+  };
+  handleInviteUrlRefCode(service, function (err, data) {
+    if (err) {
+      return responseUtils.sendResponse(err, res);
+    }
+    responseUtils.sendResponse(data, res);
+  });
+};
+
+async function handleInviteUrlRefCode(service, callback) {
   var appUrl = 'http://localhost:4200/welcome';
-  responseUtils.getResponse({ url: appUrl }, res);
-  // return appUrl;
+    return callback(null, responseUtils.getResponse({ result:appUrl }, 'Welcome URL Created', 'Welcome URL Created'));
 };
-exports.createSMS = async function (req,res) {
-  // var appUrl = 'http://localhost:4200/welcome';
-  responseUtils.getResponse({ result: "Message Created" }, res);
-  // return appUrl;
+exports.createSMS = function (req, res) {
+  var service = {
+  };
+  handleSMSCode(service, function (err, data) {
+    if (err) {
+      return responseUtils.sendResponse(err, res);
+    }
+    responseUtils.sendResponse(data, res);
+  });
 };
+
+async function handleSMSCode(service, callback) {
+    return callback(null, responseUtils.getResponse({ result:"Message Created" }, 'Welcome URL Created', 'Welcome URL Created'));
+};
+
+// exports.createSMS = async function (req,res) {
+//   // var appUrl = 'http://localhost:4200/welcome';
+//   responseUtils.getResponse({ result: "Message Created" }, res);
+//   // return appUrl;
+// };
