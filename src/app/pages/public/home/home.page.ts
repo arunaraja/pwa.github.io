@@ -16,6 +16,8 @@ export class homePage implements OnInit {
   submitted = false ;
   loginObj = {} ;
   homeArr = [];
+  firstName = localStorage.getItem('firstName');
+  lastName = localStorage.getItem('lastName');
   openNavBar = false;
   gridView = true;
   listView = false;

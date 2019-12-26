@@ -33,14 +33,14 @@ color: #000009;border: 1px solid #979797 !important;}</style>
             <input class="inputs" id="verifyInput5" type="text" maxlength="1" autocomplete="off" [disabled]="alreadyVerified" (change)="callChange()" class="inputs"/>
             <input class="inputs" id="verifyInput6" type="text"  maxlength="1" autocomplete="off" [disabled]="alreadyVerified" (change)="callChange()" class="inputs" />
             <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
-              <span id="verifyInvalidOtp">Invalid OTP !</span>
-              <span id="verifyNoOtp">Enter OTP !</span>
+              <span id="verifyInvalidOtp">Invalid reference code !</span>
+              <span id="verifyNoOtp">Enter reference code !</span>
             </p>
             <p style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;" *ngIf="!matchOtp">
-            Invalid OTP!
+            Invalid reference code!
             </p>
             <p style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;" *ngIf="alreadyVerified">
-             Already Verified!
+             Already reference code verified!
             </p>
           </form>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

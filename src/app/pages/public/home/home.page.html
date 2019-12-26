@@ -23,7 +23,7 @@
             </div>
             <p><img src="assets/icon_ionic_md_menu.png" alt="" align="top" (click)="openNav()" style="cursor: pointer;padding-top: 5px;">
                 &nbsp;
-                <span class="otherSet_wel1">Welcome</span><span class="otherSet_wel2"> Strader</span></p>
+                <span class="otherSet_wel1">Welcome</span><span class="otherSet_wel2"> {{firstName+" "+lastName}}</span></p>
             <p style="float: right;padding-left: 10px;">
                 <span><img src="assets/black-list.png" id="list" alt="" align="top" style="margin-right: 10px;cursor: pointer;"
                         (click)="listViewFunc()"></span>
@@ -99,7 +99,7 @@
                     </label>
                 </div>
                 <div class="imageContainerList" style="background: url('assets/Polygon 12.png') center no-repeat;"  style="background: url('assets/Polygon 12.png')  no-repeat;" *ngFor="let home of homeArr;let i=index" > 
-                    <h4 class="eh41" style="cursor:pointer" (click)="sendMoney(home.name)">{{home.name}}</h4>
+                    <h4 class="eh41" style="cursor:pointer" (click)="sendMoney(home.name)">{{getSplit(home.name)}}</h4>
                     <label class="lab1" style="cursor:pointer" (click)="sendMoney(home.name)">
                    {{home.name}}
                     </label>

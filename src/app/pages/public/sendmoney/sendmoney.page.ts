@@ -27,12 +27,14 @@ export class sendmoneyPage implements OnInit {
   nextPage = false;
   name ="";
   firstPage = false;
-  sendMoney = {paymentMethod:"Wire Transfer",transactionReferenceCode:"TRAN001"};
+  sendMoney1 = {} ;
+  sendMoney = {paymentMethod:"Wire Transfer"};
   constructor(
     private router: Router , public activatedRoute : ActivatedRoute ,private authService :AuthService
   ) {
     this.profile = localStorage.getItem("profileId");
     this.name = activatedRoute.snapshot.queryParams["receiverName"];
+    this.sendMoney['profileId'] = this.profile;
   }
 
   ngOnInit() {
@@ -96,7 +98,17 @@ export class sendmoneyPage implements OnInit {
     this.router.navigate(["sendmessage"]);
   }
   getSplit(fullName){
-    return fullName.split(' ').map(n => n[0]).join('');
+    if(fullName.includes(' ')){
+      return fullName.split(' ').map(n => n[0]).join('');
+    }
+    else{
+      return fullName[0];
+    }
+  }
+
+  onChangeSend(){
+    var send = this.sendMoney["transactionAmount"];
+    this.sendMoney["totalAmountSentToReceiver"] = send * 19.2736;
   }
   onPreviewClick(form){
     this.submitted = true;
@@ -154,6 +166,11 @@ export class sendmoneyPage implements OnInit {
     // this.router.navigate(['/sendmoney/preview']) ;
   }
   onSendClick(){
+    var val = this.sendMoney["receiverName"] ? this.sendMoney["receiverName"] : this.name ;
+    if(val){
+      this.sendMoney["receiverName"] = val ;
+    }
+    this.sendMoney["totalAmountSentToReceiver"] =  this.sendMoney["totalAmountSentToReceiver"].toFixed(2);
     this.authService.post(this.baseUrl + "/api/transaction/createTransaction", this.sendMoney).subscribe((res) => {
       if (res['data']) {
         console.log(res['data'])

@@ -43,6 +43,8 @@ export class loginPage implements OnInit {
             if(res['data']){
                 localStorage.setItem("phone",this.loginObj['phone']);
                 localStorage.setItem("profileId",res['data'].profileId);
+                localStorage.setItem("firstName",res['data'].firstName);
+                localStorage.setItem("lastName",res['data'].lastName);
                 this.router.navigate(["home"]);
             }
             else{
