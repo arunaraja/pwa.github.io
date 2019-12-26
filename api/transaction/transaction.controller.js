@@ -49,6 +49,8 @@ async function getTransactionData(service, callback) {
     else {
       st = 'WHERE profileId=?;'
     }
+    console.log("st")
+    console.log(st)
     const transactionQuery = {
       sql: 'SELECT * FROM em_transaction ' + st,
 
@@ -62,7 +64,7 @@ async function getTransactionData(service, callback) {
     const transactionResult = await database.executeSelect(transactionQuery);
     var data;
     var arr = [];
-    if (action === "H") { //For home screen
+    if (action === 'H') { //For home screen
       var groupDt = _.groupBy(transactionResult[0], 'receiverName');
       arr = _.map(groupDt, function (trans) {
         return { name: trans[0].receiverName };
@@ -215,48 +217,55 @@ exports.getTransactionStatusFromVendor = async function (req, res) {
   var service = {
     requestData: req.body
   };
-  getTransactionStatus(service, function (err, data) {
+ getTransactionStatus(service, function (err, data) {
     if (err) {
       return responseUtils.sendResponse(err, res);
     }
-    log.debug(data);
+    // log.debug(data);
     responseUtils.sendResponse(data, res);
   });
 }
 
 
 async function getTransactionStatus(service, callback) {
+ var resp = "Success";
   try {
-    request.post({
-      "headers": { "content-type": "application/json" },
-      // "url": "http://localhost:8080/api/transaction/createTransaction",
-      "url": "http://13.126.254.48:8080/api/common/mobAppLog",
-      "body": JSON.stringify(service.requestData)
-    }, (error, response, body) => {
-      if (error) {
-        return callback(null, { status: 500 });
-      }
-      if (body) {
-        const transactionQuery = {
-          tableName: "em_transaction",
-          condition: {
-            transactionId: service.requestData.transactionId
-          },
-          data: {
-            transactionStatus:body.data.status
-          }
-        };
-        const transactionResult = database.executeSelect(transactionQuery);
-        log.info(transactionResult);
-        return callback(null, { status: 200 });
-      } else {
-        return callback(null, { status: 500 });
-      }
-    });
+    const transactionQuery = {
+      sql: 'UPDATE em_transaction SET transactionStatus="Success" , updatedBy="FROM VENDOR API",updatedDateTime=? WHERE transactionId=?;',
+      data: [new Date(),service.requestData.transactionId]
+    };
+
+    const transactionResult =await database.executeSelect(transactionQuery);
+    return callback(null, responseUtils.getResponse({ status:"Success",transactionId:service.requestData.transactionId }, 'Transaction Fetch Success', 'Transactions Feched'));
   } catch (e) {
-    callback(null, { status: 500 });
+    log.error(e);
+    let userError;
+    if (e.code === 'ER_DUP_ENTRY') {
+      userError = responseUtils.getErrorResponse('Transaction Records Already Created', 'Record Available');
+    } else {
+      userError = responseUtils.getErrorResponse(e.message, e);
+    }
+    return callback(userError);
   }
+
+
 }
+
+async function getTransactionStatusFromAPI(service, callback){
+  
+         const transactionQuery = {
+           tableName: "em_transaction",
+           condition: {
+             transactionId: service.requestData.transactionId
+         },
+           data: {
+             transactionStatus: "Success"
+           }
+         };
+         const transactionResult = database.executeSelect(transactionQuery);
+      //  log.info(transactionResult);
+         return callback(null, { status: 200 ,message:"Success"});
+      }
 
 exports.sendTransactionToVendor = async function(req,res){
   var service = {
@@ -271,3 +280,58 @@ exports.sendTransactionToVendor = async function(req,res){
   }
   });
 }
+
+
+
+
+  // try {
+    // const transactionQuery = {
+    //   tableName: "em_transaction",
+    //   condition: {
+    //     transactionId: service.requestData.transactionId
+    // },
+    //   data: {
+    //     transactionStatus: "Success"
+    //   }
+    // };
+    // const transactionResult =await database.executeSelect(transactionQuery);
+    // console.log("transactionResult")
+    // console.log(transactionResult)
+    // getTransactionStatusFromAPI(service, function (err, data) {
+      // if (err) {
+      //   return callback(null, responseUtils.getResponse( {status:"Success",transactionId:service.requestData.transactionId}, 'Transaction Data Update Succcess', 'Transaction Updated'));
+      //   // return callback(null, {status:"Success",transactionId:service.requestData.transactionId});
+      // }
+      // log.debug(data);
+      // return callback(null, responseUtils.getResponse( {status:"Success",transactionId:service.requestData.transactionId}, 'Transaction Data Update Succcess', 'Transaction Updated'));
+    // });
+
+    // request.post({
+    //   "headers": { "content-type": "application/json" },
+    //   // "url": "http://localhost:8080/api/transaction/createTransaction",
+    //   "url": "http://13.126.254.48:8080/api/common/mobAppLog",
+    //   "body": JSON.stringify(service.requestData)
+    // }, (error, response, body) => {
+    //   if (error) {
+    //     return callback(null, { status: 500 });
+    //   }
+    //   if (body) {
+    //     const transactionQuery = {
+    //       tableName: "em_transaction",
+    //       condition: {
+    //         transactionId: service.requestData.transactionId
+    //       },
+    //       data: {
+    //         transactionStatus:body.data.status
+    //       }
+    //     };
+    //     const transactionResult = database.executeSelect(transactionQuery);
+    //     log.info(transactionResult);
+    //     return callback(null, { status: 200 });
+    //   } else {
+    //     return callback(null, { status: 500 });
+    //   }
+    // });
+  // } catch (e) {
+  //   callback(null, { status: 500 });
+  // }
