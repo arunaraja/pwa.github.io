@@ -125,8 +125,15 @@ async function handleLoginUser(service, callback) {
       return callback(responseUtils.getErrorResponse('USERNAME_OR_PASSWORD_INCORRECT', 'Username or password is incorrect'));
     } else {
       log.info('test=' + isValidLoginQueryResult[0][0].profileId);
+      const isValidProfile = {
+        sql: 'SELECT firstName,lastName FROM ' + 'em_profile' + ' WHERE phoneNumber=? AND profileId=?;',
+        data: [service.requestData.phoneNumber,isValidLoginQueryResult[0][0].profileId]
+      };
+      const isValidProfileResult = await database.executeSelect(isValidProfile);
       return callback(null, {
         profileId: isValidLoginQueryResult[0][0].profileId,
+        firstName: isValidProfileResult[0][0].firstName,
+        lastName: isValidProfileResult[0][0].lastName
       });
     }
   } catch (e) {
@@ -136,7 +143,8 @@ async function handleLoginUser(service, callback) {
 };
 
 exports.createProfileFromVendorUser = async function (req, res) {
-  var service = {
+  var service = {requestData :[]} ;
+   service = {
     requestData: req.body.profile
   };
   handleCreationOfProfile(service, function (err, data) {
@@ -149,12 +157,13 @@ exports.createProfileFromVendorUser = async function (req, res) {
 }
 
 async function handleCreationOfProfile(service, callback) {
-  var arrCreation = [];
+  var responseArray = [];
   try {
-    for (var i = 0; i <= service.requestData.length; i++) {
-      var obj = service.requestData[i];
-      obj.createdBy = "From Vendor Profile Creation";
-      obj.createdDateTime = new Date();
+    for (var i = 0; i < service.requestData.length; i++) {
+      var obj = {} ;
+      obj = service.requestData[i];
+      obj["createdBy"] = "From Vendor Profile Creation";
+      obj["createdDateTime"] = new Date();
       const profileQueryData = {
         tableName: "em_profile",
         data: obj
@@ -179,9 +188,9 @@ async function handleCreationOfProfile(service, callback) {
         data: loginObj
       };
       var loginIdArr = await database.insertToTable(loginQueryData);
-      // arrCreation.push()
+      responseArray.push({profileId :profileId,status:200});
     }
-    return callback(null, responseUtils.getResponse({ inviteUrl }, 'Profile Create Suucess', 'Profile is successfully created for the user'));
+    return callback(null, responseUtils.getResponse({  responseArray }, 'Profile Create Suucess', 'Profile is successfully created for the user'));
   } catch (e) {
     log.error(e);
     let userError;

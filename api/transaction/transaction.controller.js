@@ -93,6 +93,8 @@ exports.createTransaction = function (req, res) {
   var service = {
     requestData: req.body
   };
+  service.requestData['createdDateTime'] = new Date();
+  service.requestData['createdBy'] = "EM APPM SEND MONEY API";
   handleCreateTransaction(service, function (err, data) {
     if (err) {
       return responseUtils.sendResponse(err, res);
@@ -109,17 +111,16 @@ async function handleCreateTransaction(service, callback) {
       data: service.requestData
     };
     const transactionId = await database.insertToTable(createTransactionQuery);
-    log.info(transactionId);
+    // log.info(transactionId);
     await exports.vendorTransactionAPI(service, function (err, data) {
-      console.log("data")
       console.log(data)
       if (data.status == 200) {
         const transactionQuery = {
-          sql: 'UPDATE em_transaction SET transactionStatus="Success"  WHERE transactionId=?;',
-          data: transactionId[0]
+          sql: 'UPDATE em_transaction SET transactionStatus="Success" ,transactionReferenceCode = "TRAN001", updatedBy="FROM VENDOR API",updatedDateTime=? WHERE transactionId=?;',
+          data: [new Date(),transactionId[0]]
         };
         const transactionResult = database.executeSelect(transactionQuery);
-        log.info(transactionResult);
+        // log.info(transactionId);
         return callback(null, responseUtils.getResponse({ transactionId }, 'Transaction Created', 'Transaction Record Created For the User'));
       }
       else {
@@ -128,7 +129,7 @@ async function handleCreateTransaction(service, callback) {
           data: transactionId[0]
         };
         const transactionResult = database.executeSelect(transactionQuery);
-        log.info(transactionResult);
+        // log.info(transactionId);
         return callback(null, responseUtils.getResponse({ transactionId }, 'Transaction Created', 'Transaction Record Created For the User'));
       }
     });
@@ -184,12 +185,13 @@ exports.transactionHistoryFromVendor = async function (req, res) {
 async function handleTransactionCreation(service, callback) {
 
   try {
-    for (var i = 0; i <= service.requestData.length; i++) {
+    for (var i = 0; i < service.requestData.length; i++) {
       // const obj = new Map();
       const obj = service.requestData[i];
-      obj.createdBy = "From Vendor Profile Creation";
+      obj.createdBy = "From Vendor Transaction Creation";
       obj.createdDateTime = new Date();
       obj.transactionStatus = "Success";
+      obj.transactionReferenceCode = "TRAN001";
       const transactionQueryData = {
         tableName: "em_transaction",
         data: obj
