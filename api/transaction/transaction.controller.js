@@ -49,8 +49,6 @@ async function getTransactionData(service, callback) {
     else {
       st = 'WHERE profileId=?;'
     }
-    console.log("st")
-    console.log(st)
     const transactionQuery = {
       sql: 'SELECT * FROM em_transaction ' + st,
 
@@ -96,7 +94,11 @@ exports.createTransaction = function (req, res) {
     requestData: req.body
   };
   service.requestData['createdDateTime'] = new Date();
-  service.requestData['createdBy'] = "EM APPM SEND MONEY API";
+  service.requestData['createdBy'] = "EM APP SEND MONEY API";
+  // service.requestData['transactionFee'] = "20";
+  // service.requestData['ourFee'] = "10";
+  // service.requestData['totalFee'] = "30";
+  // service.requestData['exchangeRate'] = "19.3726";
   handleCreateTransaction(service, function (err, data) {
     if (err) {
       return responseUtils.sendResponse(err, res);
