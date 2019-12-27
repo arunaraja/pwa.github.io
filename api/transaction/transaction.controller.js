@@ -154,7 +154,7 @@ exports.vendorTransactionAPI = async function (service, callback) {
     request.post({
       "headers": { "content-type": "application/json" },
       // "url": "http://localhost:8080/api/transaction/sendTransactionToVendor",
-      "url": "http://13.126.254.48:8080/api/common/mobAppLog",
+      // "url": "http://13.126.254.48:8080/api/common/mobAppLog",
       "body": JSON.stringify(service.requestData)
     }, (error, response, body) => {
       if (error) {
@@ -273,14 +273,15 @@ exports.sendTransactionToVendor = async function(req,res){
   var service = {
     requestData: req.body
   };
-  await exports.vendorTransactionAPI(service, function (err, data) {
+  var data={status :200}
+  // await exports.vendorTransactionAPI(service, function (err, data) {
   if (data.status == 200) {
     return responseUtils.getResponse({ status:"Success",transactionId:service.transactionId }, 'Transaction Success', 'Transaction Record Success For the User');
   }
   else {
     return responseUtils.getResponse({ status:"Failed",transactionId:service.transactionId }, 'Transaction Failed', 'Transaction Record Failed For the User');
   }
-  });
+  // });
 }
 
 
