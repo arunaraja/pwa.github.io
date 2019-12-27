@@ -252,6 +252,15 @@ async function getTransactionStatus(service, callback) {
 
 
 }
+async function getTransactionStatus1(service, callback) {
+  var data = {status : 200};
+  if (data.status == 200) {
+    return callback(responseUtils.getResponse({ status:"Success",transactionId:service.transactionId }, 'Transaction Success', 'Transaction Record Success For the User'));
+  }
+  else {
+    return callback(responseUtils.getResponse({ status:"Failed",transactionId:service.transactionId }, 'Transaction Failed', 'Transaction Record Success For the User'));
+  }
+}
 
 async function getTransactionStatusFromAPI(service, callback){
   
@@ -273,18 +282,40 @@ exports.sendTransactionToVendor = async function(req,res){
   var service = {
     requestData: req.body
   };
-  var data={status :200}
-  // await exports.vendorTransactionAPI(service, function (err, data) {
-  if (data.status == 200) {
-    return responseUtils.getResponse({ status:"Success",transactionId:service.transactionId }, 'Transaction Success', 'Transaction Record Success For the User');
-  }
-  else {
-    return responseUtils.getResponse({ status:"Failed",transactionId:service.transactionId }, 'Transaction Failed', 'Transaction Record Failed For the User');
-  }
+  getTransactionStatus1(service, function (err, data) {
+    if (err) {
+      return responseUtils.sendResponse(err, res);
+    }
+    // log.debug(data);
+    responseUtils.sendResponse(data, res);
+  });
+  
   // });
 }
 
-
+ function vendorTransactionAPI (service, callback) {
+  var resp = "Success";
+   try {
+     const transactionQuery = {
+       sql: 'UPDATE em_transaction SET transactionStatus="Success" , updatedBy="FROM VENDOR API",updatedDateTime=? WHERE transactionId=?;',
+       data: [new Date(),service.requestData.transactionId]
+     };
+ 
+     const transactionResult = database.executeSelect(transactionQuery);
+     return callback(null, responseUtils.getResponse({ status:"Success",transactionId:service.requestData.transactionId }, 'Transaction Fetch Success', 'Transactions Feched'));
+   } catch (e) {
+     log.error(e);
+     let userError;
+     if (e.code === 'ER_DUP_ENTRY') {
+       userError = responseUtils.getErrorResponse('Transaction Records Already Created', 'Record Available');
+     } else {
+       userError = responseUtils.getErrorResponse(e.message, e);
+     }
+     return callback(userError);
+   }
+ 
+ 
+ }
 
 
   // try {
