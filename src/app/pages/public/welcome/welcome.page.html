@@ -18,8 +18,9 @@
       <!-- form starts -->
       <form #registerForm="ngForm" name="registerForm" novalidate>
         <!-- for phone number input -->
-        
-          <input type="text"  id="welcomePhone"  name="phone"  class="form-control" placeholder="Phone Number"  minlength="10" maxlength="15" pattern="[+][0-9]+" autocomplete="off" required [ngClass]="{
+        <img src="assets/united-states-1.png" >
+        <!-- <hr class="hr"> -->
+          <input type="text" style="width:60%;margin-left: 10px !important"  id="welcomePhone"  name="phone"  class="form-control" placeholder="Phone Number"  minlength="10" maxlength="15" pattern="[+][0-9]+" autocomplete="off" required [ngClass]="{
             'is-invalid':phone.invalid  && submitted  ,'is-valid': phone.valid  && submitted }" #phone="ngModel" ngModel
               [(ngModel)]="welcomeObj.phone" />
        

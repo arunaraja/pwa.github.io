@@ -48,7 +48,12 @@ export class homePage implements OnInit {
     this.router.navigate(["logout"]); 
   }
   getSplit(fullName){
-    return fullName.split(' ').map(n => n[0]).join('');
+    if(fullName.includes(' ')){
+      return fullName.split(' ').map(n => n[0]).join('');
+    }
+    else{
+      return fullName[0];
+    }
   }
   home(){
     this.openNavBar = false;

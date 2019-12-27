@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from "src/environments/environment";
 import { AuthService } from 'src/app/services/api/api.service';
 import {$} from 'jquery'
+import { HttpClient } from '@angular/common/http';
+import * as _ from "lodash";
 declare var $ : any;
 
 @Component({
@@ -16,7 +18,7 @@ export class sendmoneyPage implements OnInit {
   openNavBar = false;
   sendMon = true;
   preview = false;
-
+  confirmation = false;
   hide = true;
   hideView = true;
   seeView = false;
@@ -25,32 +27,133 @@ export class sendmoneyPage implements OnInit {
   receiverInfo = false;
   see = false;
   nextPage = false;
+  vendorMasterArr = [] ;
+  bankArr: any;
+  bankArrData: any;
+  countryJsonArr: any;
+  cityArr: any;
+  vendorTransactionLocArr = [] ;
+  transactionArrSend = [] ;
+  transactionArrReceive = [] ;
+  countryArr = [] ;
+  stateArr = [] ;
+  vendorTransactionArr = [] ;
   name ="";
   firstPage = false;
-  sendMoney1 = {} ;
-  sendMoney = {paymentMethod:"Wire Transfer"};
+  sendMoney = {paymentMethod:"Wire Transfer",transactionFee:"0.00"};
   constructor(
-    private router: Router , public activatedRoute : ActivatedRoute ,private authService :AuthService
+    private router: Router , public activatedRoute : ActivatedRoute ,private authService :AuthService,private http: HttpClient
   ) {
+    this.sendMoney['vendorId'] = "";
+    this.sendMoney['receiverCountry'] = "";
+    this.sendMoney['receiverState'] = "";
+    this.sendMoney['receiverCity'] = "";
+    this.sendMoney['deliveryMethod'] = "";
+    this.sendMoney['deliveryBankName'] = "";
+    this.sendMoney['totalFee'] = "10.00";
     this.profile = localStorage.getItem("profileId");
     this.name = activatedRoute.snapshot.queryParams["receiverName"];
     this.sendMoney['profileId'] = this.profile;
+    this.sendMoney['ourFee']  = "10.00"
+    // this.sendMoney['paymentMethod'] = "Wire Transfer";
   }
 
   ngOnInit() {
-    // this.sendMoney['country'] = ""; 
-    // this.sendMoney['paymentMethod'] = "";
-    // this.sendMoney['vendor'] = "";
-    // this.sendMoney['deliveryMethod'] = "";
-    // this.sendMoney['state'] = "";
-    // this.sendMoney['city'] = "";
-    // this.sendMoney['location'] = "";
-    // this.sendMoney['bank'] = "";
+    this.http.get("assets/country.json").subscribe(data => {
+      this.countryJsonArr = data;
+      var countryArr = _.groupBy(this.countryJsonArr, 'country');
+      var arr = _.map(countryArr, function (trans) {
+        return { country: trans[0].country };
+      });
+      this.countryArr = arr;
+      this.authService.get(this.baseUrl + "/api/vendor/getVendorMaster").subscribe((res) => {
+        if (res['data']) {
+          this.vendorMasterArr = res['data']
+        }
+      }, (error) => {
+        console.log(error);
+      });
+    });
+  }
+
+  onChangePayMethod(method){
+   var obj =  _.filter(this.transactionArrSend,function(dt){
+     if(dt.vendorTransactionId.toString() === method.toString()){
+       return dt;
+     }
+    });
+    if(obj.length > 0){
+      this.sendMoney['transactionFee'] = obj[0].transferFee ;
+      this.sendMoney['totalFee'] = parseFloat(obj[0].transferFee) +  parseFloat(this.sendMoney['ourFee']);
+    }
+  }
+
+
+  setPhoneNumberCode(country){
+    var obj =  _.filter(this.countryJsonArr,{country:country}); 
+    if(obj.length > 0){
+      this.sendMoney["receiverPhoneNumber"] =  obj[0].countrycode ;
+    
+      var stateArr = _.groupBy(obj, 'state');
+      var arr = _.map(stateArr, function (trans) {
+        return { state: trans[0].state };
+      });
+      this.stateArr = arr;
+    }
+    else{
+      this.sendMoney["receiverPhoneNumber"]  = "+";
+      this.stateArr = [] ;
+    }
+    this.http.get("assets/bank.json").subscribe(data => {
+      this.bankArr = _.filter(data,{country:this.sendMoney['receiverCountry']});
+      }, (error) => {
+      console.log(error);
+      });
+      if(country === "USA"){
+        $('#receiverImg').attr('src', 'assets/united-states-1.png');
+      }
+      if(country === "Mexico"){
+        $('#receiverImg').attr('src', 'assets/mexico.png');
+      }
+  }
+
+  onChangeState(state){
+    var obj =  _.filter(this.countryJsonArr,{state:state}); 
+    if(obj.length > 0){
+       this.cityArr = obj;
+    }
+    else{
+      this.cityArr = [];
+    }
+  }
+
+  callTransactionMethodsAPI(data) {    
+    this.authService.get(this.baseUrl+"/api/vendor/getVendorTransactionMethod?vendorId="+data).subscribe((res) => {
+      if(res['data']){
+      this.transactionArrSend = _.filter(res['data'],{typeCode:"send"});
+      this.transactionArrReceive =_.filter(res['data'],{typeCode:"receive"});
+      }
+      }, (error) => {
+      console.log(error);
+      });
   }
   
-  home(){
-    this.router.navigate(["home"]);
+  callTransactionLocationAPI(data) {
+    if(data === 'Cash Pickup'){
+      this.authService.get(this.baseUrl+"/api/vendor/getVendorTransactionLocation?vendorId="+this.sendMoney['vendorId']).subscribe((res) => {
+        if(res['data']){
+        this.vendorTransactionLocArr = res['data']
+        }
+        }, (error) => {
+        console.log(error);
+        });
+    }
+    if(data === 'Bank Account'){
+      
+    }
+   
   }
+  
   transmission(){ 
     if(!this.firstPage){
       this.firstPage = true;
@@ -65,12 +168,28 @@ export class sendmoneyPage implements OnInit {
     this.hideView = true;
     this.seeView = false;
   }
+
+  getVendorName(id){
+     var obj =  _.filter(this.vendorMasterArr,function(dt){
+      if(dt.vendorId.toString() === id.toString()){
+        return dt;
+      }
+     }); 
+     if(obj.length > 0){
+       return obj[0].vendorName ;
+     }
+     else{
+       return id;
+     }
+  }
+
   hideEye(){
     this.hide = true;
     this.see = true;
     this.hideView = false;
     this.seeView = true;
   }
+
   nextPageClick(){
    this.nextPage = true;
    $("#viewpg").height('28pc');
@@ -94,21 +213,33 @@ export class sendmoneyPage implements OnInit {
   getHistory(){
     this.router.navigate(["transactions"]);
   }
-  sendMessage(){
-    this.router.navigate(["sendmessage"]);
+  onClickMsg(){
+    this.router.navigate(["sendmessage"],{queryParams:{"receiverName":this.name,"phone":this.sendMoney['receiverPhoneNumber']}});
   }
   getSplit(fullName){
-    if(fullName.includes(' ')){
-      return fullName.split(' ').map(n => n[0]).join('');
-    }
-    else{
-      return fullName[0];
+    if(fullName){
+      if(fullName.includes(' ')){
+        return fullName.split(' ').map(n => n[0]).join('');
+      }
+      else{
+        return fullName[0];
+      }
     }
   }
 
-  onChangeSend(){
-    var send = this.sendMoney["transactionAmount"];
-    this.sendMoney["totalAmountSentToReceiver"] = send * 19.2736;
+  onChangeSend(amt1){
+    var amt = parseFloat(amt1);
+    if(this.sendMoney['receiverCountry'] === 'Mexico'){
+      var val = 19.2736;
+    }
+    else if(this.sendMoney['receiverCountry'] === 'USA'){
+       val = 1;
+    }
+    else{
+      val = 0 ;
+    }
+    var toFixed4 = (amt * val).toFixed(4);
+    this.sendMoney["totalAmountSentToReceiver"] = toFixed4;
   }
   onPreviewClick(form){
     this.submitted = true;
@@ -117,64 +248,63 @@ export class sendmoneyPage implements OnInit {
     }
     else {
       this.sendMon = false;
-          this.preview = true;
-      // var obj= {};
-      // obj['profileId'] = this.sendMoney['profile'];
-      // obj['vendorId'] = this.sendMoney['vendor'];
-      // obj['paymentMethodId'] = 
-      // obj['deliveryMethodId'] = 
-      // obj['vendorAgentId'] = 
-      // obj['walletId'] = 
-      // obj['receiverName'] = this.name;
-      // obj['receiverCountry'] = 
-      // obj['receiverPhoneNumber'] = 
-      // obj['transactionAmount'] = 
-      // obj['phoneNumber'] = 
-      // obj['paymentMethod'] = 
-      // obj['deliveryMethod'] = 
-      // obj['deliveryBankName'] = 
-      // obj['deliveryBankRoutingNumber'] = 
-      // obj['deliveryBankAccountNumber'] = 
-      // obj['cashPickUpAddress1'] = 
-      // obj['cashPickUpAddress2'] = 
-      // obj['cashPickUpCity'] = 
-      // obj['cashPickUpState'] = 
-      // obj['cashPickUpZipcode'] = 
-      // obj['transactionFee'] = 
-      // obj['ourFee'] = 
-      // obj['totalFee'] = 
-      // obj['exchangeRate'] = 
-      // obj['transactionTotalAmount'] = 
-      // obj['totalAmountSentToReceiver'] = 
-      // obj['transactionStatus'] = 
-      // obj['createdDateTime'] = new Date();
-      // obj['createdBy'] = "EM APP WALLET ADD";
-      // this.authService.post(this.baseUrl + "/api/transaction/createTransaction", this.sendMoney).subscribe((res) => {
-      //   if (res['data']) {
-      //     console.log(res['data'])
-      //     // this.router.navigate(['/sendmoney/preview']) ;
-      //     this.sendMon = false;
-      //     this.preview = true;
-      //   }
-      //   else {
-      //     return;
-      //   }
-      // }, (error) => {
-      //   console.log(error);
-      // });
+      this.preview = true;
+      this.confirmation = false;
+      this.sendMoney["transactionTotalAmount"] = parseFloat(this.sendMoney["transactionAmount"]) + parseFloat(this.sendMoney["totalFee"]);
     }
-    // this.router.navigate(['/sendmoney/preview']) ;
   }
-  onSendClick(){
+  
+  onClickedit(){
+    this.sendMon = true;
+    this.preview = false;
+    this.confirmation = false;
+  }
+  getPayemntMethod(id){
+  var obj =  _.filter(this.transactionArrSend,function(dt){
+    if(dt.vendorTransactionId.toString() === id.toString()){
+      return dt;
+    }
+   }); 
+   if(obj.length > 0){
+     return obj[0].sendReceiveMethod ;
+   }
+   else{
+     return id;
+   }
+}
+  getDelievryMethod(id){
+  var obj =  _.filter(this.transactionArrReceive,function(dt){
+    if(dt.sendReceiveMethod.toString() === id.toString()){
+      return dt;
+    }
+   }); 
+   if(obj.length > 0){
+     return obj[0].vendorTransactionId ;
+   }
+   else{
+     return id;
+   }
+}
+  onSendClick(){  
+    if(this.sendMoney["receiverName"]){
+      this.sendMoney["deliveryBankAccountName"] = this.sendMoney["receiverName"] ;
+    }
     var val = this.sendMoney["receiverName"] ? this.sendMoney["receiverName"] : this.name ;
     if(val){
       this.sendMoney["receiverName"] = val ;
     }
-    this.sendMoney["totalAmountSentToReceiver"] =  this.sendMoney["totalAmountSentToReceiver"].toFixed(2);
+    var val1 = this.sendMoney['paymentMethod'] ;
+    this.sendMoney['paymentMethod'] = this.getPayemntMethod(val1);
+    this.sendMoney['paymentMethodId'] =  val1;
+    this.sendMoney['deliveryMethodId'] = this.getDelievryMethod(this.sendMoney['deliveryMethod']);
+    this.sendMoney['deliveryMethod'] =  this.sendMoney['deliveryMethod'];
+    this.sendMoney['vendorName'] =  this.getVendorName(this.sendMoney['vendorId']);
     this.authService.post(this.baseUrl + "/api/transaction/createTransaction", this.sendMoney).subscribe((res) => {
       if (res['data']) {
-        console.log(res['data'])
-        this.router.navigate(["sendconfirmation"]);
+        this.sendMon = false;
+        this.preview = false;
+        this.confirmation = true;
+        // this.router.navigate(["sendconfirmation"]);
       }
       else {
         return;
@@ -183,6 +313,7 @@ export class sendmoneyPage implements OnInit {
       console.log(error);
     });
   }
+
   receiver(){
     if(!this.receiverInfo){
       this.transmissionInfo = false;
@@ -192,6 +323,47 @@ export class sendmoneyPage implements OnInit {
       this.transmissionInfo = true;
       this.receiverInfo = false;
     }
-    
   }
+  openNav() {
+    if(!this.openNavBar){
+      this.openNavBar = true;
+      document.getElementById("column").style.opacity = "45%";
+    }
+    else{
+      this.openNavBar = false;
+      document.getElementById("column").style.opacity = "1";
+    }
+  }
+  logOut(){
+    this.router.navigate(["logout"]); 
+  }
+  home(){
+    this.router.navigate(["home"]); 
+  }
+  transaction(){
+    this.router.navigate(["transactions"]); 
+  }
+  sendMoneyClick(){
+    this.router.navigate(['/managewallet/walletadd'],{skipLocationChange:true}).then(() => {
+      this.router.navigate(['sendmoney']);
+    });
+  }
+  settings(){
+    this.router.navigate(["settings"]); 
+  }
+  wallet(){
+    this.router.navigate(["managewallet"]); 
+  }
+  onClickSendAgain(){
+    this.sendMon = true;
+    this.preview = false;
+    this.confirmation = false;
+    this.router.navigate(['/managewallet/walletadd'],{skipLocationChange:true}).then(() => {
+      this.router.navigate(['sendmoney']);
+    });
+  }
+
+  // onClickMsg(){
+  //   this.router.navigate(["sendmessage"]); 
+  // }
 }

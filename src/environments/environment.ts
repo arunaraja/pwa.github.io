@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  // baseUrl: 'http://192.168.43.128:3000'
   baseUrl: 'http://192.168.1.7:3000'
   // baseUrl: 'https://emapi.innoart.in'
 };

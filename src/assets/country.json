@@ -1,0 +1,24 @@
+[	
+	{"country":"USA", "state": "Arkansas", "city": "Springdale", "zipcode": "72762", "countrycode": "+1", "shortcode": "US"},
+	{"country":"USA", "state": "Arkansas", "city": "Jonesboro", "zipcode": "72403", "countrycode": "+1", "shortcode": "US"},
+	{"country":"USA", "state": "Arkansas", "city": "Rogers", "zipcode": "72756", "countrycode": "+1", "shortcode": "US"},	
+	{"country":"USA", "state": "New York", "city": "Rochester", "zipcode": "14606", "countrycode": "+1", "shortcode": "US"},
+	{"country":"USA", "state": "New York", "city": "Syracuse", "zipcode": "13204", "countrycode": "+1", "shortcode": "US"},
+	{"country":"USA", "state": "New York", "city": "Valley Stream", "zipcode": "11581", "countrycode": "+1", "shortcode": "US"},
+	{"country":"USA", "state": "Florida", "city": "Sunrise", "zipcode": "33313", "countrycode": "+1", "shortcode": "US"},
+	{"country":"USA", "state": "Florida", "city": "Coral Springs", "zipcode": "33063", "countrycode": "+1", "shortcode": "US"},
+	{"country":"USA", "state": "California", "city": "Palmdale", "zipcode": "93510", "countrycode": "+1", "shortcode": "US"},
+	{"country":"USA", "state": "California", "city": "Corona", "zipcode": "92877", "countrycode": "+1", "shortcode": "US"},
+	{"country":"Mexico", "state": "Sonora", "city": "Olivos", "zipcode": "83147", "countrycode": "+52", "shortcode": "MX"},
+	{"country":"Mexico", "state": "Sonora", "city": "Cumpas", "zipcode": "84500", "countrycode": "+52", "shortcode": "MX"},
+	{"country":"Mexico", "state": "Chiapas", "city": "Cuartos", "zipcode": "29243", "countrycode": "+52", "shortcode": "MX"},
+	{"country":"Mexico", "state": "Chiapas", "city": "De Abril", "zipcode": "29714", "countrycode": "+52", "shortcode": "MX"},
+	{"country":"Mexico", "state": "Mexico City", "city": "De Mayo", "zipcode": "51760", "countrycode": "+52", "shortcode": "MX"},
+	{"country":"Mexico", "state": "Mexico City", "city": "De Agosto", "zipcode": "55765", "countrycode": "+52", "shortcode": "MX"}
+]
+	
+	
+
+	
+	
+	

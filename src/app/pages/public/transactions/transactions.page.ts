@@ -14,7 +14,10 @@ declare var $: any;
 export class transactionPage implements OnInit {
   submitted = false;
   openNavBar = false;
+  list = true;
+  confirmation = false;
   homeArr = [];
+  sendMoneyObj = {};
   baseUrl = environment.baseUrl;
   constructor(
     private router: Router, private authService: AuthService
@@ -102,6 +105,17 @@ export class transactionPage implements OnInit {
   }
   
 
+  transactions(){
+    this.router.navigate(['/managewallet/walletadd'],{skipLocationChange:true}).then(() => {
+      this.router.navigate(['transactions']);
+    });
+  }
+
+  viewDetails(obj){
+    this.sendMoneyObj = obj;
+    this.list = false;
+    this.confirmation = true;
+  }
 
   
   
@@ -120,6 +134,14 @@ export class transactionPage implements OnInit {
   }
 
   getSplit(fullName){
-    return fullName.split(' ').map(n => n[0]).join('');
+    if(fullName){
+      if(fullName.includes(' ')){
+        return fullName.split(' ').map(n => n[0]).join('');
+      }
+      else{
+        return fullName[0];
+      }
+    }
+    
   }
 }
