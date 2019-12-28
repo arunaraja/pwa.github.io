@@ -327,6 +327,13 @@ async function getTransactionStatus(service, callback) {
 async function getTransactionStatus1(service, callback) {
   var data = {status : 200};
   if (data.status == 200) {
+    const transactionQuery = {
+      sql: 'UPDATE em_transaction SET transactionStatus="Success" , updatedBy="FROM VENDOR API", updatedDateTime=? WHERE transactionId=?;',
+      data: [new Date(),service.requestData.transactionId]
+    };
+    const transactionResult =await database.executeSelect(transactionQuery);
+    console.log("transactionResult")
+    console.log(transactionResult)
     return callback(responseUtils.getResponse({ status:"Success",transactionId:service.transactionId }, 'Transaction Success', 'Transaction Record Success For the User'));
   }
   else {
@@ -354,6 +361,8 @@ exports.sendTransactionToVendor = async function(req,res){
   var service = {
     requestData: req.body
   };
+  console.log("getTransactionStatusFromVendor")
+  console.log(req.body)
   getTransactionStatus1(service, function (err, data) {
     if (err) {
       return responseUtils.sendResponse(err, res);
