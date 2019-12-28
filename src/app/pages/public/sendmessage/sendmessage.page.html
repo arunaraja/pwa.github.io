@@ -29,7 +29,7 @@
                                   <tr class="trspace">
                                           <td colspan="2" >
                                               <div  [hidden]="sent">
-                                                 <input type="text" class="divMsg" style="width: 85%;border: 1px solid lightgray !important" name="message" required [ngClass]="{'is-invalid': 
+                                                 <input type="text" class="divMsg" autocomplete="off" style="width: 85%;font-size: 18px;border: 1px solid lightgray;text-indent: 12px !important" name="message" required [ngClass]="{'is-invalid': 
                                                  message.invalid  && submitted  ,'is-valid': message.valid  && submitted }"
                                                      #message="ngModel" ngModel [(ngModel)]="msg.message">
                                                      <show-error [control]="message" [label]="{'labelName': 'Message'}"

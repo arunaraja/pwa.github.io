@@ -12,24 +12,10 @@
   height: 15px;
 }
 .selectWrapper{
-  border-radius:36px;
   display:inline-block;
   overflow:hidden;
-  background:#cccccc;
-  border:1px solid #cccccc;
-
 }
 
-.selectBox{
-  width:auto;
-  height:22px;
-  border:0px;
-  outline:none;
-  font-size: 12.00px;
-  font-weight: 500;
-  font-style: normal;
-  font-family: raleway_medium, Arial;
-}
         </style>
 <div style="background-color:white">
     <div class="row" style="overflow:auto;height:100%">
@@ -166,7 +152,7 @@
                                     vendorAgentId.invalid  && submitted  ,'is-valid': vendorAgentId.valid  && submitted }"
                                     #vendorAgentId="ngModel" ngModel [(ngModel)]="sendMoney.vendorAgentId" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                     <option hidden value="" disabled selected>Choose location </option>
-                                    <option  *ngFor="let master of vendorTransactionLocArr" [value]="master.vendorAgentId">{{master.agentName}}<p> ({{master.address1+" "+master.address2+" "+master.state+" "+master.city+" "+master.zipcode}})</p>
+                                    <option  *ngFor="let master of vendorTransactionLocArr" [value]="master.vendorAgentId">{{master.agentName}}<p> ({{master.address1+" "+master.address2+" "+master.state+" "+master.city+" "+master.zip}})</p>
                                     </option>
                                 </select>
                                 <show-error [control]="vendorAgentId" [label]="{'labelName': 'Location'}"
@@ -278,8 +264,16 @@
                                             <div *ngIf="see"  class="vl2"></div>
                                             <div *ngIf="see" style="margin-left: -8px;margin-top: -3px;margin-bottom: -3px"><img src="assets/path.png" height="16" align="top"  width="16">&nbsp;
                                                 <span class="pt12Med">{{sendMoney.transactionFee}} USD</span>
-                                                <div class="selectWrapper" style="margin-bottom: -9px;margin-left: 12px;">
-                                                        <select class="selectBox"  name="paymentMethod" required [ngClass]="{'is-invalid': 
+                                                <div class="selectWrapper" style="margin-bottom: -9px;margin-left: 20px;">
+                                                        <select  class="form-control" style="width:auto;
+                                                        height:22px;
+                                                        border:0px;
+                                                        outline:none;
+                                                        border-radius: 10px;
+                                                        font-size: 12.00px;
+                                                        font-weight: 500;
+                                                        font-style: normal;
+                                                        font-family: raleway_medium, Arial !important"  name="paymentMethod" required [ngClass]="{'is-invalid': 
                                                         paymentMethod.invalid  && submitted  ,'is-valid': paymentMethod.valid  && submitted }"
                                                             #paymentMethod="ngModel" ngModel [(ngModel)]="sendMoney.paymentMethod" (ngModelChange)="onChangePayMethod($event)" >
                                                             <option hidden value="" disabled selected>Payment Method </option>
@@ -318,7 +312,7 @@
                                                 totalAmountSentToReceiver.invalid  && submitted  ,'is-valid': totalAmountSentToReceiver.valid  && submitted }"
                                                 #totalAmountSentToReceiver="ngModel" disabled ngModel [(ngModel)]="sendMoney.totalAmountSentToReceiver" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;
                                                                                         border-radius: 10px;width: 60%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
-                                            <button class="sendmoneyBtn1">&nbsp;<img src="assets/mexico.png" id="receiverImg" style="margin: -2px;">&nbsp;
+                                            <button class="sendmoneyBtn1">&nbsp;<img src="assets/united-states-1.png" id="receiverImg" style="margin: -2px;">&nbsp;
                                                 <span class="usd" *ngIf="!sendMoney.receiverCountry" >MXN</span>
                                                 <span class="usd" *ngIf="sendMoney.receiverCountry =='Mexico'" >MXN</span>
                                                 <span class="usd"  *ngIf="sendMoney.receiverCountry =='USA'">USD</span>

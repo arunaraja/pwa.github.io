@@ -209,7 +209,7 @@ and (max-device-width : 320px) and (orientation:portrait){
     height: 99px;
   }
   .eh4{
-      top: 7.5px;
+      top: 8.5px;
       position: relative;
       font-size: 20px;
       font-family: raleway_regular,arial;

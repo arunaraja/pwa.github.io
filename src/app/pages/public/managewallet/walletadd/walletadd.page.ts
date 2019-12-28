@@ -23,13 +23,17 @@ export class walletaddPage implements OnInit {
       return;
     }
     else {
+
+      var splitDt = this.sendMoney['expiry'];
+      var arr = splitDt.split("/");
       var obj = {
         nameOnCard: this.sendMoney['cardname'],
         cardNumber: this.sendMoney['ccdc'],
-        cardExpiryDate: this.sendMoney['expiry'],
+        cardExpiryMonth: arr[0],
+        cardExpiryYear: arr[1],
         cardCvv: this.sendMoney['cvv'],
         walletType: "card",
-        isPrimary: "No",
+        isPrimary: "Yes",
         profileId: this.profile,
         action: "Add"
       }

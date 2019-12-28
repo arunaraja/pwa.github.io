@@ -45,6 +45,8 @@ export class loginPage implements OnInit {
                 localStorage.setItem("profileId",res['data'].profileId);
                 localStorage.setItem("firstName",res['data'].firstName);
                 localStorage.setItem("lastName",res['data'].lastName);
+                localStorage.setItem("vendorCustomerId",res['data'].vendorCustomerId);
+                localStorage.setItem("phoneNumber",res['data'].phoneNumber);
                 this.router.navigate(["home"]);
             }
             else{

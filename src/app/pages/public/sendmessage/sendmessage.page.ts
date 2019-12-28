@@ -11,12 +11,14 @@ export class sendmessagePage implements OnInit {
   msg ={};
   name ="";
   phone ="";
+  profile ="";
   submitted = false;
   sent = false;
   baseUrl = environment.baseUrl;
   constructor(private router: Router, public activatedRoute : ActivatedRoute,private authService :AuthService) { 
     this.name = activatedRoute.snapshot.queryParams["receiverName"];
     this.phone = activatedRoute.snapshot.queryParams["phone"];
+    this.profile = localStorage.getItem('profileId');
   }
 
   ngOnInit() {
@@ -28,7 +30,7 @@ export class sendmessagePage implements OnInit {
       return;
     }
     else{
-      this.authService.post(this.baseUrl + "/api/utility/createSMS", {toName:this.name,toPhoneNumber:this.phone,message:this.msg['message']}).subscribe((res) => {
+      this.authService.post(this.baseUrl + "/api/utility/createSMS", {profileId:this.profile,receiverName:this.name,receiverPhoneNumber:this.phone,message:this.msg['message']}).subscribe((res) => {
         if (res['data']) {
           this.sent = true;
         }

@@ -39,6 +39,8 @@ export class sendmoneyPage implements OnInit {
   stateArr = [] ;
   vendorTransactionArr = [] ;
   name ="";
+  phoneNumber ="";
+  vendorCustomerId ="";
   firstPage = false;
   sendMoney = {paymentMethod:"Wire Transfer",transactionFee:"0.00"};
   constructor(
@@ -53,27 +55,152 @@ export class sendmoneyPage implements OnInit {
     this.sendMoney['totalFee'] = "10.00";
     this.profile = localStorage.getItem("profileId");
     this.name = activatedRoute.snapshot.queryParams["receiverName"];
+    this.vendorCustomerId = localStorage.getItem('vendorCustomerId');
+    this.phoneNumber = localStorage.getItem('phoneNumber');
+    console.log(this.vendorCustomerId)
+    console.log(this.phoneNumber)
     this.sendMoney['profileId'] = this.profile;
     this.sendMoney['ourFee']  = "10.00"
     // this.sendMoney['paymentMethod'] = "Wire Transfer";
   }
 
   ngOnInit() {
-    this.http.get("assets/country.json").subscribe(data => {
-      this.countryJsonArr = data;
-      var countryArr = _.groupBy(this.countryJsonArr, 'country');
-      var arr = _.map(countryArr, function (trans) {
-        return { country: trans[0].country };
-      });
-      this.countryArr = arr;
-      this.authService.get(this.baseUrl + "/api/vendor/getVendorMaster").subscribe((res) => {
-        if (res['data']) {
-          this.vendorMasterArr = res['data']
+    if(this.name){
+      var  Data;
+      var  deliveryMethod;
+      var  paymentMethod;
+      var  Data;
+      this.authService.get(this.baseUrl+"/api/transaction/getTransaction?action=" + "L" + "&days=" + "1" + "&profileId=" + this.profile+ "&receiverName=" + this.name).subscribe((res) => {
+        if(res['data']){
+           Data = res['data'];
+           this.sendMoney = Data;
+           this.authService.get(this.baseUrl + "/api/vendor/getVendorMaster").subscribe((res) => {
+            if (res['data']) {
+              this.vendorMasterArr = res['data']
+            }
+          }, (error) => {
+            console.log(error);
+          });
+           this.sendMoney['receiverCountry'] = Data.receiverCountry;
+           this.authService.get(this.baseUrl+"/api/vendor/getVendorTransactionMethod?vendorId="+Data.vendorId).subscribe((res) => {
+            if(res['data']){
+            this.transactionArrSend = _.filter(res['data'],{typeCode:"SND"});
+            this.transactionArrReceive =_.filter(res['data'],{typeCode:"RCV"});
+            var obj2 =  _.filter(this.transactionArrReceive,function(dt){
+              if(dt.vendorTransactionId.toString() === Data.deliveryMethodId.toString()){
+                return dt;
+              }
+             }); 
+             if(obj2.length > 0){
+              deliveryMethod =  obj2[0].sendReceiveMethod ;
+              this.sendMoney['deliveryMethod'] = deliveryMethod? deliveryMethod :"";
+             }
+            var obj3 =  _.filter(this.transactionArrSend,function(dt){
+              if(dt.vendorTransactionId.toString() === Data.paymentMethodId.toString()){
+                return dt;
+              }
+             }); 
+             if(obj3.length > 0){
+              paymentMethod =  obj3[0].vendorTransactionId ;
+              this.sendMoney['paymentMethod'] = paymentMethod ? paymentMethod : "";
+             }
+            }
+            }, (error) => {
+            console.log(error);
+            });
+           
+           this.http.get("assets/country.json").subscribe(data => {
+            this.countryJsonArr = data;
+            var countryArr = _.groupBy(this.countryJsonArr, 'country');
+            var arr = _.map(countryArr, function (trans) {
+              return { country: trans[0].country };
+            });
+            this.countryArr = arr;
+            
+            var obj =  _.filter(this.countryJsonArr,{country:this.sendMoney['receiverCountry']}); 
+            if(obj.length > 0){
+              var stateArr = _.groupBy(obj, 'state');
+              var arr1 = _.map(stateArr, function (trans) {
+                return { state: trans[0].state };
+              });
+              this.stateArr = arr1;
+            }
+            var obj =  _.filter(this.countryJsonArr,{state:this.sendMoney['receiverState']}); 
+            if(obj.length > 0){
+              this.cityArr = obj;
+            }
+            else{
+              this.cityArr = [];
+            }
+            var vendorAgentId;
+            if(this.sendMoney['deliveryMethod'] === 'Cash Pickup'){
+              this.authService.get(this.baseUrl+"/api/vendor/getVendorTransactionLocation?vendorId="+this.sendMoney['vendorId']).subscribe((res) => {
+                if(res['data']){
+                this.vendorTransactionLocArr = res['data'];
+
+                if(this.vendorTransactionLocArr.length> 0){
+                  var obj = _.filter(this.vendorTransactionLocArr,{vendorAgentId:Data.vendorAgentId});
+                  if(obj.length > 0){
+                    vendorAgentId = obj[0].vendorAgentId;
+                    this.sendMoney['vendorAgentId'] = vendorAgentId ? vendorAgentId : "";
+                  }
+                }
+                }
+                }, (error) => {
+                console.log(error);
+                });
+            }
+            
+            
+            this.sendMoney['receiverState'] = Data.receiverState ? Data.receiverState :"";
+            this.sendMoney['receiverCity'] = Data.receiverCity ? Data.receiverCity: "";
+          });
+          var bank;
+          this.http.get("assets/bank.json").subscribe(data => {
+            this.bankArr = _.filter(data,{country:this.sendMoney['receiverCountry']});
+            if(this.sendMoney['deliveryMethod'] === 'Bank Account'){
+              var obj = _.find( this.bankArr,{Bank:Data.deliveryBankName});
+              if(obj){
+                bank = obj.Bank;
+                this.sendMoney['deliveryBankName'] = bank ?bank: "";
+              }
+            }
+            }, (error) => {
+            console.log(error);
+            });
+            
+            if(this.sendMoney['receiverCountry'] === "USA"){
+              console.log("HIT USA")
+              $('#receiverImg').attr('src', 'assets/united-states-1.png');
+            }
+            if(this.sendMoney['receiverCountry'] === "Mexico"){
+              console.log("HIT MEXICO")
+              $('#receiverImg').attr('src', 'assets/mexico.png');
+            }
         }
-      }, (error) => {
+        }, (error) => {
         console.log(error);
+        });
+       
+    }
+    else{
+      this.http.get("assets/country.json").subscribe(data => {
+        this.countryJsonArr = data;
+        var countryArr = _.groupBy(this.countryJsonArr, 'country');
+        var arr = _.map(countryArr, function (trans) {
+          return { country: trans[0].country };
+        });
+        this.countryArr = arr;
+        this.authService.get(this.baseUrl + "/api/vendor/getVendorMaster").subscribe((res) => {
+          if (res['data']) {
+            this.vendorMasterArr = res['data']
+          }
+        }, (error) => {
+          console.log(error);
+        });
       });
-    });
+    }
+    
   }
 
   onChangePayMethod(method){
@@ -130,8 +257,8 @@ export class sendmoneyPage implements OnInit {
   callTransactionMethodsAPI(data) {    
     this.authService.get(this.baseUrl+"/api/vendor/getVendorTransactionMethod?vendorId="+data).subscribe((res) => {
       if(res['data']){
-      this.transactionArrSend = _.filter(res['data'],{typeCode:"send"});
-      this.transactionArrReceive =_.filter(res['data'],{typeCode:"receive"});
+      this.transactionArrSend = _.filter(res['data'],{typeCode:"SND"});
+      this.transactionArrReceive =_.filter(res['data'],{typeCode:"RCV"});
       }
       }, (error) => {
       console.log(error);
@@ -214,7 +341,7 @@ export class sendmoneyPage implements OnInit {
     this.router.navigate(["transactions"]);
   }
   onClickMsg(){
-    this.router.navigate(["sendmessage"],{queryParams:{"receiverName":this.name,"phone":this.sendMoney['receiverPhoneNumber']}});
+    this.router.navigate(["sendmessage"],{queryParams:{"receiverName":this.name ? this.name : this.sendMoney['receiverName'],"phone":this.sendMoney['receiverPhoneNumber']}});
   }
   getSplit(fullName){
     if(fullName){
@@ -238,6 +365,7 @@ export class sendmoneyPage implements OnInit {
     else{
       val = 0 ;
     }
+    
     var toFixed4 = (amt * val).toFixed(4);
     this.sendMoney["totalAmountSentToReceiver"] = toFixed4;
   }
@@ -299,6 +427,49 @@ export class sendmoneyPage implements OnInit {
     this.sendMoney['deliveryMethodId'] = this.getDelievryMethod(this.sendMoney['deliveryMethod']);
     this.sendMoney['deliveryMethod'] =  this.sendMoney['deliveryMethod'];
     this.sendMoney['vendorName'] =  this.getVendorName(this.sendMoney['vendorId']);
+    if(this.sendMoney['deliveryMethod'] === 'Cash Pickup'){
+      var arrayObj = _.filter(this.vendorTransactionLocArr,{vendorAgentId:this.sendMoney['vendorAgentId']});
+      if(arrayObj.length > 0){
+        this.sendMoney['cashPickUpAddress1'] = arrayObj[0].address1;
+        this.sendMoney['cashPickUpAddress2'] = arrayObj[0].address2;
+        this.sendMoney['cashPickUpCity'] = arrayObj[0].city;
+        this.sendMoney['cashPickUpState'] = arrayObj[0].state;
+        this.sendMoney['cashPickUpZipcode'] = arrayObj[0].zip;
+      }
+    }
+    if(this.sendMoney['vendorId']){
+      var arrayObj = _.filter(this.vendorMasterArr,{vendorId:this.sendMoney['vendorId']});
+      if(arrayObj.length > 0){
+        this.sendMoney['vendorCode'] = arrayObj[0].vendorCode;
+      }
+    }
+    this.sendMoney['vendorCustomerId'] = this.vendorCustomerId;
+    this.sendMoney['phoneNumber'] = this.phoneNumber;
+    if(this.sendMoney['receiverCountry'] === 'Mexico'){
+      var val2 = 19.27;
+    }
+    else if(this.sendMoney['receiverCountry'] === 'USA'){
+       val2 = 1;
+    }
+    this.sendMoney['exchangeRate'] = val2;
+    
+    if(this.sendMoney['transactionId']){
+      delete this.sendMoney['transactionId'];
+    }
+    if(this.sendMoney['updatedBy']){
+      delete this.sendMoney['updatedBy'];
+    }
+    if(this.sendMoney['createdBy']){
+      delete this.sendMoney['createdBy'];
+    }
+    if(this.sendMoney['updatedDateTime']){
+      delete this.sendMoney['updatedDateTime'];
+    }
+    if(this.sendMoney['createdDateTime']){
+      delete this.sendMoney['createdDateTime'];
+    }
+    console.log("this.sendMoney")
+    console.log(this.sendMoney)
     this.authService.post(this.baseUrl + "/api/transaction/createTransaction", this.sendMoney).subscribe((res) => {
       if (res['data']) {
         this.sendMon = false;
