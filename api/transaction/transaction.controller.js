@@ -258,12 +258,12 @@ async function handleTransactionHistoryCreation(service, callback) {
           obj.exchangeRate = service.requestData[i].exchangeRate ? service.requestData[i].exchangeRate : null;
           obj.transactionTotalAmount = service.requestData[i].transactionTotalAmount ? service.requestData[i].transactionTotalAmount : null;
           obj.transactionStatus = service.requestData[i].transactionStatus ? service.requestData[i].transactionStatus : null;
-          obj.transactionReferenceCode = service.requestData[i].transactionReferenceCode ? service.requestData[i].transactionReferenceCode   : null;
+          // obj.transactionReferenceCode = service.requestData[i].transactionReferenceCode ? service.requestData[i].transactionReferenceCode   : null;
           obj.totalAmountSentToReceiver = service.requestData[i].totalAmountSentToReceiver ? service.requestData[i].totalAmountSentToReceiver : null;
           obj.vendorName = vendorName;
           obj.receiverCity = service.requestData[i].receiverCity ? service.requestData[i].receiverCity : null;
           obj.receiverState = service.requestData[i].receiverState ? service.requestData[i].receiverState : null;
-          obj.phoneNumber = service.requestData[i].transactionReferenceCode ?service.requestData[i].transactionReferenceCode : null;
+          obj.transactionReferenceCode = service.requestData[i].transactionReferenceCode ?service.requestData[i].transactionReferenceCode : null;
           obj.createdBy = "/api/transaction/transactionHistoryFromVendor";
           obj.createdDateTime = new Date();
           const transactionQueryData = {
