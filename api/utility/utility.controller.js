@@ -50,7 +50,8 @@ async function handleRefCode(service, callback) {
       var expiry = currentDate.setMinutes(currentDate.getMinutes() + 30);
       var obj = {
         phoneNumber: phoneNumber,
-        referenceCode: Math.floor(100000 + Math.random() * 900000),
+        // referenceCode: Math.floor(100000 + Math.random() * 900000),
+        referenceCode: 111111,
         expiryDateTime: new Date(expiry),
         isVerified: "No",
         isExpired: "No",
