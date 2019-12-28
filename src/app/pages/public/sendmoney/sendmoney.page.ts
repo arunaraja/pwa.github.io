@@ -428,7 +428,11 @@ export class sendmoneyPage implements OnInit {
     this.sendMoney['deliveryMethod'] =  this.sendMoney['deliveryMethod'];
     this.sendMoney['vendorName'] =  this.getVendorName(this.sendMoney['vendorId']);
     if(this.sendMoney['deliveryMethod'] === 'Cash Pickup'){
-      var arrayObj = _.filter(this.vendorTransactionLocArr,{vendorAgentId:this.sendMoney['vendorAgentId']});
+      var arrayObj = _.filter(this.vendorTransactionLocArr, function (dt) {
+        if (dt.vendorAgentId.toString() === this.sendMoney['vendorAgentId'].toString()) {
+          return dt ;
+        }
+      });
       if(arrayObj.length > 0){
         this.sendMoney['cashPickUpAddress1'] = arrayObj[0].address1;
         this.sendMoney['cashPickUpAddress2'] = arrayObj[0].address2;
@@ -437,8 +441,17 @@ export class sendmoneyPage implements OnInit {
         this.sendMoney['cashPickUpZipcode'] = arrayObj[0].zip;
       }
     }
+    console.log("this.sendMoney['vendorId']")
+    console.log(this.sendMoney['vendorId'])
+    var id = this.sendMoney['vendorId'];
     if(this.sendMoney['vendorId']){
-      var arrayObj = _.filter(this.vendorMasterArr,{vendorId:this.sendMoney['vendorId']});
+      var arrayObj = _.filter(this.vendorMasterArr,function(dt){
+        if(dt.vendorId.toString() === id.toString()){
+        return dt;
+        }
+      });
+      console.log("arrayObj")
+      console.log(arrayObj)
       if(arrayObj.length > 0){
         this.sendMoney['vendorCode'] = arrayObj[0].vendorCode;
       }
