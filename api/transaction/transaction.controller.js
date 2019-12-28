@@ -126,10 +126,15 @@ exports.createTransaction = function (req, res) {
 
 async function handleCreateTransaction(service, callback) {
   try {
+    service.requestData['transactionStatus'] = "Success";
+    service.requestData['transactionReferenceCode'] = Math.floor(100000 + Math.random() * 900000);
+    service.requestData['updatedBy'] = "FROM VENDOR API"
+    service.requestData['updatedDateTime'] = new Date();
     const createTransactionQuery = {
       tableName: "em_transaction",
       data: service.requestData
     };
+   
     const transactionId = await database.insertToTable(createTransactionQuery);
     // log.info(transactionId);
     await exports.vendorTransactionAPI(service, function (err, data) {
