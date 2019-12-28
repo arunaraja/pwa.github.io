@@ -327,9 +327,10 @@ async function getTransactionStatus(service, callback) {
 async function getTransactionStatus1(service, callback) {
   var data = {status : 200};
   if (data.status == 200) {
+    var val =  Math.floor(100000 + Math.random() * 900000);
     const transactionQuery = {
-      sql: 'UPDATE em_transaction SET transactionStatus="Success" , updatedBy="FROM VENDOR API", updatedDateTime=? WHERE transactionId=?;',
-      data: [new Date(),service.requestData.transactionId]
+      sql: 'UPDATE em_transaction SET transactionStatus="Success" ,transactionReferenceCode=? , updatedBy="FROM VENDOR API", updatedDateTime=? WHERE transactionId=?;',
+      data: [val ,new Date(),service.requestData.transactionId]
     };
     const transactionResult =await database.executeSelect(transactionQuery);
     console.log("transactionResult")
