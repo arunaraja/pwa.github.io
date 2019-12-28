@@ -427,9 +427,10 @@ export class sendmoneyPage implements OnInit {
     this.sendMoney['deliveryMethodId'] = this.getDelievryMethod(this.sendMoney['deliveryMethod']);
     this.sendMoney['deliveryMethod'] =  this.sendMoney['deliveryMethod'];
     this.sendMoney['vendorName'] =  this.getVendorName(this.sendMoney['vendorId']);
+    var id = this.sendMoney['vendorId'];
     if(this.sendMoney['deliveryMethod'] === 'Cash Pickup'){
       var arrayObj = _.filter(this.vendorTransactionLocArr, function (dt) {
-        if (dt.vendorAgentId.toString() === this.sendMoney['vendorAgentId'].toString()) {
+        if (dt.vendorAgentId.toString() === id.toString()) {
           return dt ;
         }
       });
@@ -443,7 +444,7 @@ export class sendmoneyPage implements OnInit {
     }
     console.log("this.sendMoney['vendorId']")
     console.log(this.sendMoney['vendorId'])
-    var id = this.sendMoney['vendorId'];
+    
     if(this.sendMoney['vendorId']){
       var arrayObj = _.filter(this.vendorMasterArr,function(dt){
         if(dt.vendorId.toString() === id.toString()){

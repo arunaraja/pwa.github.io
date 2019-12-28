@@ -20,7 +20,7 @@ export class changepasssuccessPage implements OnInit {
  
   private request$: Observable<any>;
  
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient , private router: Router) { }
  
   public ngOnInit() {
     this.getNews(this.currentPage)
@@ -30,7 +30,9 @@ export class changepasssuccessPage implements OnInit {
         this.news = this.news.concat(news);
       });
   }
- 
+  logIn(){
+    this.router.navigate(["home"]);
+  }
   public onScrollUp(): void {
     this.getNews(this.currentPage)
       .pipe(finalize(() => this.onFinalize()))
