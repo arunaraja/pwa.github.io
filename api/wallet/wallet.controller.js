@@ -58,14 +58,22 @@ async function handleManageWallet(service, callback) {
     if (service.requestData.action === 'Add') {
       try {
         delete service.requestData['action'];
+        const transactionQuery1 = {
+          sql: 'SELECT * from em_wallet WHERE isPrimary="Yes" AND profileId=? ;',
+          data: [parseInt(service.requestData.profileId)]
+        };
+        const transactionResult =await database.executeSelect(transactionQuery1);
+        if(transactionResult[0] && transactionResult[0].length > 0){
+          service.requestData['isPrimary'] = "No";
+        }
         service.requestData['createdDateTime'] = new Date();
         service.requestData['createdBy'] = "EM APP Wallet Add";
         const createTransactionQuery = {
           tableName: "em_wallet",
           data: service.requestData
         };
-        const transactionId = await database.insertToTable(createTransactionQuery);
-        return callback(null, responseUtils.getResponse({ transactionId }, ' Created', ' Record Created For the User'));
+        const walletId = await database.insertToTable(createTransactionQuery);
+        return callback(null, responseUtils.getResponse({ walletId }, ' Created', ' Record Created For the User'));
       } catch (e) {
         return callback(e);
       }
@@ -78,8 +86,8 @@ async function handleManageWallet(service, callback) {
         };
         try {
           const transactionResult = database.executeSelect(transactionQuery1);
-          log.info(transactionResult);
-          return callback(null, responseUtils.getResponse({ transactionResult }, ' Deleted', ' Record Deleted For the User'));
+          // log.info(transactionResult);
+          return callback(null, responseUtils.getResponse({ walletId: service.requestData.walletId}, ' Deleted', ' Record Deleted For the User'));
         } catch (e) {
           return callback(e);
         }
@@ -96,8 +104,8 @@ async function handleManageWallet(service, callback) {
         try {
           const transactionResult = database.executeSelect(transactionQuery2);
           const transactionResult3 = database.executeSelect(transactionQuery3);
-          log.info(transactionResult);
-          return callback(null, responseUtils.getResponse({ transactionResult }, ' Updated', ' Record Updated For the User'));
+          // log.info(transactionResult);
+          return callback(null, responseUtils.getResponse({ walletId: service.requestData.walletId }, ' Updated', ' Record Updated For the User'));
         } catch (e) {
           return callback(e);
         }

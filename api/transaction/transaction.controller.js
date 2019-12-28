@@ -49,20 +49,36 @@ async function getTransactionData(service, callback) {
     else {
       st = 'WHERE profileId=?;'
     }
+    
     const transactionQuery = {
-      sql: 'SELECT * FROM em_transaction ' + st,
-
-    };
+        sql: 'SELECT * FROM em_transaction ' + st,
+      };
+    
     if (service.requestData.receiverName && service.requestData.receiverName.length > 0) {
       transactionQuery.data = [service.requestData.profileId, service.requestData.receiverName]
     }
     else {
       transactionQuery.data = [service.requestData.profileId]
     }
+
+    if(action === "L"){
+        transactionQuery.sql =  'SELECT * FROM em_transaction WHERE profileId=? AND receiverName=?  ORDER  BY createdDateTime DESC LIMIT  1;',
+        transactionQuery.data = [service.requestData.profileId,service.requestData.receiverName]
+   }
     const transactionResult = await database.executeSelect(transactionQuery);
     var data;
     var arr = [];
-    if (action === 'H') { //For home screen
+    if (action === 'L') { //For LATEST screen
+      if (transactionResult[0] && transactionResult[0].length > 0) {
+        data = transactionResult[0][0];
+        console.log("data")
+        console.log(data)
+      }
+      else {
+        data = [];
+      }
+    } 
+    else if (action === 'H') { //For home screen
       var groupDt = _.groupBy(transactionResult[0], 'receiverName');
       arr = _.map(groupDt, function (trans) {
         return { name: trans[0].receiverName };
@@ -120,7 +136,7 @@ async function handleCreateTransaction(service, callback) {
       console.log(data)
       if (data.status == 200) {
         const transactionQuery = {
-          sql: 'UPDATE em_transaction SET transactionStatus="Success" ,transactionReferenceCode = "TRAN001", updatedBy="FROM VENDOR API",updatedDateTime=? WHERE transactionId=?;',
+          sql: 'UPDATE em_transaction SET transactionStatus="Success" ,transactionReferenceCode = "TRAN001", updatedBy="FROM VENDOR API"WHERE transactionId=?;',
           data: [new Date(),transactionId[0]]
         };
         const transactionResult = database.executeSelect(transactionQuery);
@@ -151,22 +167,23 @@ async function handleCreateTransaction(service, callback) {
 
 exports.vendorTransactionAPI = async function (service, callback) {
   try {
-    request.post({
-      "headers": { "content-type": "application/json" },
-      // "url": "http://localhost:8080/api/transaction/sendTransactionToVendor",
-      // "url": "http://13.126.254.48:8080/api/common/mobAppLog",
-      "body": JSON.stringify(service.requestData)
-    }, (error, response, body) => {
-      if (error) {
-        return callback(null, { status: 500 });
-      }
-      if (body) {
-        console.log({ status: 200 })
-        return callback(null, { status: 200 });
-      } else {
-        return callback(null, { status: 500 });
-      }
-    });
+    return callback(null, { status: 200 });
+    // request.post({
+    //   "headers": { "content-type": "application/json" },
+    //   // "url": "http://localhost:8080/api/transaction/sendTransactionToVendor",
+    //   // "url": "http://13.126.254.48:8080/api/common/mobAppLog",
+    //   "body": JSON.stringify(service.requestData)
+    // }, (error, response, body) => {
+    //   if (error) {
+    //     return callback(null, { status: 500 });
+    //   }
+    //   if (body) {
+    //     console.log({ status: 200 })
+       
+    //   } else {
+    //     return callback(null, { status: 500 });
+    //   }
+    // });
   } catch (e) {
     callback(null, { status: 500 });
   }
@@ -174,35 +191,91 @@ exports.vendorTransactionAPI = async function (service, callback) {
 }
 
 exports.transactionHistoryFromVendor = async function (req, res) {
-
   var service = {
     requestData: req.body.transactions
   };
-  handleTransactionCreation(service, function (err, data) {
+  handleTransactionHistoryCreation(service, function (err, data) {
     if (err) {
       return responseUtils.sendResponse(err, res);
     }
-    log.debug(data);
     responseUtils.sendResponse(data, res);
   });
 }
-async function handleTransactionCreation(service, callback) {
-
+async function handleTransactionHistoryCreation(service, callback) {
+  var responseArray = [];
   try {
     for (var i = 0; i < service.requestData.length; i++) {
-      // const obj = new Map();
-      const obj = service.requestData[i];
-      obj.createdBy = "From Vendor Transaction Creation";
-      obj.createdDateTime = new Date();
-      obj.transactionStatus = "Success";
-      obj.transactionReferenceCode = "TRAN001";
-      const transactionQueryData = {
-        tableName: "em_transaction",
-        data: obj
+      const obj = {};
+      var vendorId,profileId,vendorName;
+      var vendorCode = service.requestData[i].vendorCode ? service.requestData[i].vendorCode : null;
+      // To Check Vendor Code Exist Or Not
+      const getQuery = {
+        sql: 'SELECT * FROM vendor_master WHERE vendorCode=?;',
+        data: [vendorCode]
       };
-      var transactionArr = await database.insertToTable(transactionQueryData);
+      const getQueryResult = await database.executeSelect(getQuery);
+      if (getQueryResult[0] && getQueryResult[0].length <= 0) {
+        responseArray.push({ vendorCustomerId: service.requestData[i].vendorCustomerId,  vendorCode: service.requestData[i].vendorCode, status: 500, message: "Vendor Code Not Available" });
+      }
+      else{
+        vendorId = getQueryResult[0][0].vendorId;
+        vendorName = getQueryResult[0][0].vendorName;
+         // To Check Vendor Customer ID Exist Or Not
+        var vendorCustomerId = service.requestData[i].vendorCustomerId ? service.requestData[i].vendorCustomerId : null;
+        const getQueryCust = {
+          sql: 'SELECT * FROM em_profile WHERE vendorCustomerId=?;',
+          data: [vendorCustomerId]
+        };
+        const getQueryCustResult = await database.executeSelect(getQueryCust);
+        if (getQueryCustResult[0] && getQueryCustResult[0].length <= 0) {
+          responseArray.push({ vendorCustomerId: service.requestData[i].vendorCustomerId,  vendorCode: service.requestData[i].vendorCode, status: 500, message: "Vendor Customer ID Not Available" });
+        }
+        else{
+          profileId = getQueryCustResult[0][0].profileId;
+          obj.vendorId = vendorId;
+          obj.vendorCode = vendorCode;
+          obj.vendorCustomerId = vendorCustomerId;
+          obj.profileId = profileId;
+          obj.receiverName = service.requestData[i].receiverName ? service.requestData[i].receiverName : null;
+          obj.receiverCountry = service.requestData[i].receiverCountry ? service.requestData[i].receiverCountry : null;
+          obj.receiverPhoneNumber = service.requestData[i].receiverPhoneNumber ? service.requestData[i].receiverPhoneNumber : null;
+          obj.transactionAmount = service.requestData[i].transactionAmount ? service.requestData[i].transactionAmount : null;
+          obj.phoneNumber = service.requestData[i].phoneNumber ? service.requestData[i].phoneNumber : null;
+          obj.paymentMethod = service.requestData[i].paymentMethod ? service.requestData[i].paymentMethod : null;
+          obj.deliveryMethod = service.requestData[i].deliveryMethod ? service.requestData[i].deliveryMethod : null;
+          obj.deliveryBankName = service.requestData[i].deliveryBankName ? service.requestData[i].deliveryBankName : null;
+          obj.deliveryBankRoutingNumber = service.requestData[i].deliveryBankRoutingNumber ? service.requestData[i].deliveryBankRoutingNumber : null;
+          obj.deliveryBankAccountNumber = service.requestData[i].deliveryBankAccountNumber ? service.requestData[i].deliveryBankAccountNumber : null;
+          obj.deliveryBankAccountName = service.requestData[i].deliveryBankAccountName ? service.requestData[i].deliveryBankAccountName : null;
+          obj.cashPickUpAddress1 = service.requestData[i].cashPickUpAddress1 ? service.requestData[i].cashPickUpAddress1 : null;
+          obj.cashPickUpAddress2 = service.requestData[i].cashPickUpAddress2 ? service.requestData[i].cashPickUpAddress2 : null;
+          obj.cashPickUpCity = service.requestData[i].cashPickUpCity ? service.requestData[i].cashPickUpCity : null;
+          obj.cashPickUpState = service.requestData[i].cashPickUpState ? service.requestData[i].cashPickUpState : null;
+          obj.cashPickUpZipcode = service.requestData[i].cashPickUpZipcode ? service.requestData[i].cashPickUpZipcode : null;
+          obj.transactionFee = service.requestData[i].transactionFee ? service.requestData[i].transactionFee : null;
+          obj.ourFee = service.requestData[i].ourFee ? service.requestData[i].ourFee : null;
+          obj.totalFee = service.requestData[i].totalFee ? service.requestData[i].totalFee : null;
+          obj.exchangeRate = service.requestData[i].exchangeRate ? service.requestData[i].exchangeRate : null;
+          obj.transactionTotalAmount = service.requestData[i].transactionTotalAmount ? service.requestData[i].transactionTotalAmount : null;
+          obj.transactionStatus = service.requestData[i].transactionStatus ? service.requestData[i].transactionStatus : null;
+          obj.transactionReferenceCode = service.requestData[i].transactionReferenceCode ? service.requestData[i].transactionReferenceCode   : null;
+          obj.totalAmountSentToReceiver = service.requestData[i].totalAmountSentToReceiver ? service.requestData[i].totalAmountSentToReceiver : null;
+          obj.vendorName = vendorName;
+          obj.receiverCity = service.requestData[i].receiverCity ? service.requestData[i].receiverCity : null;
+          obj.receiverState = service.requestData[i].receiverState ? service.requestData[i].receiverState : null;
+          obj.phoneNumber = service.requestData[i].transactionReferenceCode ?service.requestData[i].transactionReferenceCode : null;
+          obj.createdBy = "/api/transaction/transactionHistoryFromVendor";
+          obj.createdDateTime = new Date();
+          const transactionQueryData = {
+            tableName: "em_transaction",
+            data: obj
+          };
+          var transactionArr = await database.insertToTable(transactionQueryData);
+          responseArray.push({ vendorCustomerId: service.requestData[i].vendorCustomerId, vendorCode: service.requestData[i].vendorCode,transactionId:transactionArr[0], status: 200, message: "Transaction History Created" });
+        }
+      }
     }
-    return callback(null, responseUtils.getResponse({ service }, 'Transaction Records Created', 'Transaction Records Created for the user'));
+    return callback(null, responseUtils.getResponse({ responseArray }, 'Bulk Transaction History Creation API Job Done', 'Bulk Transaction History Creation API Job Done'));
   } catch (e) {
     log.error(e);
     let userError;
@@ -236,9 +309,8 @@ async function getTransactionStatus(service, callback) {
       sql: 'UPDATE em_transaction SET transactionStatus="Success" , updatedBy="FROM VENDOR API",updatedDateTime=? WHERE transactionId=?;',
       data: [new Date(),service.requestData.transactionId]
     };
-
     const transactionResult =await database.executeSelect(transactionQuery);
-    return callback(null, responseUtils.getResponse({ status:"Success",transactionId:service.requestData.transactionId }, 'Transaction Fetch Success', 'Transactions Feched'));
+    return callback(null, responseUtils.getResponse({ status:"Success",transactionId:service.requestData.transactionId,vendorCode:service.requestData.vendorCode? service.requestData.vendorCode:"",vendorCustomerId:service.requestData.vendorCustomerId?service.requestData.vendorCustomerId:""  }, 'Transaction Fetch Success', 'Transactions Feched'));
   } catch (e) {
     log.error(e);
     let userError;
@@ -302,7 +374,7 @@ exports.sendTransactionToVendor = async function(req,res){
      };
  
      const transactionResult = database.executeSelect(transactionQuery);
-     return callback(null, responseUtils.getResponse({ status:"Success",transactionId:service.requestData.transactionId }, 'Transaction Fetch Success', 'Transactions Feched'));
+     return callback(null, responseUtils.getResponse({ status:"Success",transactionId:service.requestData.transactionId }, 'Transaction Record Fetch Success', 'Transactions Record Fetched'));
    } catch (e) {
      log.error(e);
      let userError;

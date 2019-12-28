@@ -21,13 +21,14 @@ exports.createRefCode = function (req, res) {
 
 async function handleRefCode(service, callback) {
   try {
+    if(!service.requestData.phoneNumber){
+      return callback(null, responseUtils.getResponse({message:"Phone Number Not Available"}, 'Phone Number Not Available', 'Phone Number Not Available for the user'));
+    }
     const queryNew = {
       sql: 'SELECT * from em_login_code WHERE phoneNumber=? AND isVerified="Yes";',
       data: [service.requestData.phoneNumber]
     };
     const queryResultNew = await database.executeSelect(queryNew);
-    console.log("queryResultNew")
-    console.log(queryResultNew)
     if(queryResultNew && queryResultNew[0].length > 0){
       return callback(null, responseUtils.getResponse({code:"Already Verified"}, 'Verification done Already', 'Verfication already done for the user'));
     }
@@ -68,6 +69,7 @@ async function handleRefCode(service, callback) {
     return callback(responseUtils.getErrorResponse(require('util').inspect(e)));
   }
 };
+
 exports.validateRefCode = function (req, res) {
   var service = {
     requestData: req.body
@@ -81,28 +83,23 @@ exports.validateRefCode = function (req, res) {
 };
 
 async function handleValidateRefCode(service, callback) {
+  if(!service.requestData.phoneNumber ||  !service.requestData.referenceCode){
+    return callback(null, responseUtils.getResponse({ result: "Phone Number/Reference Code Not Available" }, 'Data Not Available', 'Data Not Available'));
+  }
   const transactionQuery1 = {
     sql: 'SELECT * from em_login_code WHERE phoneNumber=? AND referenceCode=? AND isExpired="No";',
     data: [service.requestData.phoneNumber, service.requestData.referenceCode]
   };
   const transactionResult = await database.executeSelect(transactionQuery1);
   if (transactionResult[0][0]) {   
-    
-    return callback(null, responseUtils.getResponse({ result: "Code Matched" }, 'Code Matched', 'Code Matched'));
+    return callback(null, responseUtils.getResponse({ result: "Reference Code Matched" }, 'Reference Code Matched', 'Reference Code Matched'));
   }
   else {
-    return callback(null, responseUtils.getResponse({ result: "Code Not Matched" }, 'Code Not Matched', 'Code Not Matched'));
+    return callback(null, responseUtils.getResponse({ result: "Reference Code Not Matched" }, 'Reference Code Not Matched', 'Reference Code Not Matched'));
   }
 
 };
 
-
-// exports.createInviteUrl = async function (req,res) {
-//   console.log("HIT")
-//   var appUrl = 'http://localhost:4200/welcome';
-//  return responseUtils.getResponse({ url: appUrl }, res);
-//   // return appUrl;
-// };
 
 exports.createInviteUrl = function (req, res) {
   var service = {
@@ -119,8 +116,10 @@ async function handleInviteUrlRefCode(service, callback) {
   var appUrl = 'http://localhost:4200/welcome';
     return callback(null, responseUtils.getResponse({ result:appUrl }, 'Welcome URL Created', 'Welcome URL Created'));
 };
+
 exports.createSMS = function (req, res) {
   var service = {
+    requestData: req.body
   };
   handleSMSCode(service, function (err, data) {
     if (err) {
@@ -131,11 +130,19 @@ exports.createSMS = function (req, res) {
 };
 
 async function handleSMSCode(service, callback) {
-    return callback(null, responseUtils.getResponse({ result:"Message Created" }, 'Welcome URL Created', 'Welcome URL Created'));
+  var obj = service.requestData;
+  obj['createdDateTime'] = new Date();
+  obj['createdBy'] ='/api/utility/createSMS';
+  const createTransactionQuery = {
+    tableName: "em_sms",
+    data: obj
+  };
+  const respQueryResult = await database.insertToTable(createTransactionQuery);
+  if(respQueryResult){
+    return callback(null, responseUtils.getResponse({ result:"Message Created" }, 'Message Created', 'Message Created'));
+  }
+  else{
+    return callback(null, responseUtils.getResponse({ result:"Message Not Created" }, 'Message Not Created', 'Message Not Created'));
+  }
+    
 };
-
-// exports.createSMS = async function (req,res) {
-//   // var appUrl = 'http://localhost:4200/welcome';
-//   responseUtils.getResponse({ result: "Message Created" }, res);
-//   // return appUrl;
-// };

@@ -8,7 +8,6 @@ var _ = require("lodash")
 var ip = require('ip');
 
 exports.getProfile = function (req, res) {
-
   var service = {
     requestData: req.query
   };
@@ -16,10 +15,8 @@ exports.getProfile = function (req, res) {
     if (err) {
       return responseUtils.sendResponse(err, res);
     }
-    log.debug(data);
     responseUtils.sendResponse(data, res);
   });
-  /*res.json("PM2 Test2 3 4");*/
 };
 
 async function handleGetProfile(service, callback) {
@@ -29,6 +26,10 @@ async function handleGetProfile(service, callback) {
       data: [service.requestData.profileId]
     };
     const getProfileQueryResult = await database.executeSelect(getProfileQuery);
+    if(getProfileQueryResult[0] && getProfileQueryResult[0].length > 0){
+
+    }
+
     return callback(null, responseUtils.getResponse(getProfileQueryResult[0][0], 'PROFILE_FETCH_SUCCESSFUL', 'Profile fetched for user'));
   } catch (e) {
     log.error(e);
@@ -55,12 +56,11 @@ async function handleRegisterUser(service, callback) {
       data: [service.requestData.phoneNumber]
     };
     const isFirstTimeQueryResult = await database.executeSelect(isFirstTimeQuery);
-    console.log("isFirstTimeQueryResult")
-    console.log(isFirstTimeQueryResult)
     if (_.isEmpty(isFirstTimeQueryResult[0])) {
       return callback(responseUtils.getErrorResponse('USER_PROFILE_NOT_ENABLED', 'User profile has not been enabled. Please check with the store.'));
     }
-    else if (isFirstTimeQueryResult[0][0].isActive === "Yes") {
+    else
+     if (isFirstTimeQueryResult[0][0].isActive === "Yes") {
       return callback(responseUtils.getErrorResponse('USER_IS_ACTIVE', 'User profile is already enabled in our system. Please proceed with login.'));
     }
     else if (isFirstTimeQueryResult[0][0].isFirstTime === "No") {
@@ -124,14 +124,15 @@ async function handleLoginUser(service, callback) {
     if (_.isEmpty(isValidLoginQueryResult[0])) {
       return callback(responseUtils.getErrorResponse('USERNAME_OR_PASSWORD_INCORRECT', 'Username or password is incorrect'));
     } else {
-      log.info('test=' + isValidLoginQueryResult[0][0].profileId);
       const isValidProfile = {
-        sql: 'SELECT firstName,lastName FROM ' + 'em_profile' + ' WHERE phoneNumber=? AND profileId=?;',
+        sql: 'SELECT firstName,lastName,vendorCustomerId,phoneNumber FROM ' + 'em_profile' + ' WHERE phoneNumber=? AND profileId=?;',
         data: [service.requestData.phoneNumber,isValidLoginQueryResult[0][0].profileId]
       };
       const isValidProfileResult = await database.executeSelect(isValidProfile);
       return callback(null, {
         profileId: isValidLoginQueryResult[0][0].profileId,
+        vendorCustomerId: isValidProfileResult[0][0].vendorCustomerId,
+        phoneNumber: isValidProfileResult[0][0].phoneNumber,
         firstName: isValidProfileResult[0][0].firstName,
         lastName: isValidProfileResult[0][0].lastName
       });
@@ -143,8 +144,8 @@ async function handleLoginUser(service, callback) {
 };
 
 exports.createProfileFromVendorUser = async function (req, res) {
-  var service = {requestData :[]} ;
-   service = {
+  var service = { requestData: [] };
+  service = {
     requestData: req.body.profile
   };
   handleCreationOfProfile(service, function (err, data) {
@@ -160,37 +161,79 @@ async function handleCreationOfProfile(service, callback) {
   var responseArray = [];
   try {
     for (var i = 0; i < service.requestData.length; i++) {
-      var obj = {} ;
-      obj = service.requestData[i];
-      obj["createdBy"] = "From Vendor Profile Creation";
+      var obj = {};
+      obj["vendorCustomerId"] = service.requestData[i].vendorCustomerId ? service.requestData[i].vendorCustomerId : null;
+      obj["firstName"] = service.requestData[i].firstName ? service.requestData[i].firstName : null;
+      obj["lastName"] = service.requestData[i].lastName ? service.requestData[i].lastName : null;
+      obj["middleName"] = service.requestData[i].middleName ? service.requestData[i].middleName : null;
+      obj["phoneNumber"] = service.requestData[i].phoneNumber ? service.requestData[i].phoneNumber : null;
+      obj["address1"] = service.requestData[i].address1 ? service.requestData[i].address1 : null;
+      obj["address2"] = service.requestData[i].address2 ? service.requestData[i].address2 : null;
+      obj["city"] = service.requestData[i].city ? service.requestData[i].city : null;
+      obj["state"] = service.requestData[i].state ? service.requestData[i].state : null;
+      obj["country"] = service.requestData[i].country ? service.requestData[i].country : null;
+      obj["zip"] = service.requestData[i].zip ? service.requestData[i].zip : null;
+      obj["createdBy"] = "/api/user/createProfileFromVendor";
       obj["createdDateTime"] = new Date();
-      const profileQueryData = {
-        tableName: "em_profile",
-        data: obj
-      };
-      var profileIdArr = await database.insertToTable(profileQueryData);
-      var profileId = profileIdArr[0];
-      var phoneNumber = obj['phoneNumber'];
-      const inviteUrl = await exports.createInviteUrl();
-      var loginObj = {
-        phoneNumber: phoneNumber,
-        profileId: profileId,
-        vendorId: "1",
-        pincode: null,
-        inviteUrl: inviteUrl,
-        isActive: "No",
-        isFirstTime: "Yes",
-        createdBy: "From Vendor Profile Creation",
-        createdDateTime: new Date()
+      //For Vendor Code
+      if (service.requestData[i].vendorCode) {
+        // Get Vendor Code From Vendor Master 
+        const getQuery = {
+          sql: 'SELECT * FROM vendor_master WHERE vendorCode=?;',
+          data: [service.requestData[i].vendorCode]
+        };
+        const getQueryResult = await database.executeSelect(getQuery);
+        if (getQueryResult[0] && getQueryResult[0].length > 0) {
+          const getPhoneQuery = {
+            sql: 'SELECT * FROM em_profile WHERE phoneNumber=?;',
+            data: [service.requestData[i].phoneNumber]
+          };
+          const getPhoneQueryResult = await database.executeSelect(getPhoneQuery);
+          // Get Phone Number Used Or Not 
+          if (getPhoneQueryResult[0] && getPhoneQueryResult[0].length > 0) {
+            responseArray.push({ vendorCustomerId: service.requestData[i].vendorCustomerId, profileId: '', status: 500, message: "Phone Number Already Available" });
+          } else {
+            obj['vendorId'] = getQueryResult[0][0].vendorId;
+            const profileQueryData = {
+              tableName: "em_profile",
+              data: obj
+            };
+            // Profile Creation
+            console.log("getQueryResult[0][0]")
+            console.log(getQueryResult[0][0])
+            var profileIdArr = await database.insertToTable(profileQueryData);
+            var profileId = profileIdArr[0];
+            var phoneNumber = obj['phoneNumber'];
+            // Invite URL Creation
+            const inviteUrl = await exports.createInviteUrl();
+            var loginObj = {
+              phoneNumber: phoneNumber,
+              profileId: profileId,
+              vendorId: getQueryResult[0][0].vendorId,
+              pincode: null,
+              inviteUrl: inviteUrl,
+              isActive: "No",
+              isFirstTime: "Yes",
+              createdBy: "From Vendor Profile Creation",
+              createdDateTime: new Date()
+            }
+            const loginQueryData = {
+              tableName: "em_login",
+              data: loginObj
+            };
+            // Login Creation
+            var loginIdArr = await database.insertToTable(loginQueryData);
+            responseArray.push({ vendorCustomerId: service.requestData[i].vendorCustomerId, profileId: profileId, status: 200, message: "Profile Created and Invite URL Sent" });
+          }
+        }
+        else {
+          responseArray.push({ vendorCustomerId: service.requestData[i].vendorCustomerId, profileId: '', status: 500, message: "Vendor Data Not Available" });
+        }
+      } else {
+        responseArray.push({ vendorCustomerId: service.requestData[i].vendorCustomerId, profileId: '', status: 500, message: "Vendor Code Not Available" });
       }
-      const loginQueryData = {
-        tableName: "em_login",
-        data: loginObj
-      };
-      var loginIdArr = await database.insertToTable(loginQueryData);
-      responseArray.push({profileId :profileId,status:200});
     }
-    return callback(null, responseUtils.getResponse({  responseArray }, 'Profile Create Suucess', 'Profile is successfully created for the user'));
+    return callback(null, responseUtils.getResponse({ responseArray }, 'Bulk Profile Creation API Job Done', 'Bulk Profile Creation API Job Done'));
   } catch (e) {
     log.error(e);
     let userError;
@@ -206,36 +249,4 @@ async function handleCreationOfProfile(service, callback) {
 exports.createInviteUrl = async function (service) {
   var appUrl = 'http://localhost:4200/welcome';
   return appUrl;
-};
-exports.createSMS = async function (service) {
-  // var appUrl = 'http://localhost:4200/welcome';
-  // return appUrl;
-};
-
-exports.validateMobileNo = function (req, res) {
-
-  var service = {
-    requestData: req.body
-  };
-  validateMobile(service, function (err, data) {
-    if (err) {
-      return responseUtils.sendResponse(err, res);
-    }
-    log.debug(data);
-    responseUtils.sendResponse(data, res);
-  });
-};
-
-async function validateMobile(service, callback) {
-  try {
-    const getMobileQuery = {
-      sql: 'SELECT * FROM em_login WHERE phoneNumber=?;',
-      data: [service.requestData.mobileNo]
-    };
-    const getQueryResult = await database.executeSelect(getMobileQuery);
-    return callback(null, responseUtils.getResponse(getQueryResult[0][0], 'PROFILE_FETCH_SUCCESSFUL', 'Profile fetched for user'));
-  } catch (e) {
-    log.error(e);
-    return callback(responseUtils.getErrorResponse(e.message, e));
-  }
 };
