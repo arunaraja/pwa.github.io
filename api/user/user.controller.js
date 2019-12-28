@@ -173,6 +173,7 @@ async function handleCreationOfProfile(service, callback) {
       obj["state"] = service.requestData[i].state ? service.requestData[i].state : null;
       obj["country"] = service.requestData[i].country ? service.requestData[i].country : null;
       obj["zip"] = service.requestData[i].zip ? service.requestData[i].zip : null;
+      obj["email"] = service.requestData[i].email ? service.requestData[i].email : null;
       obj["createdBy"] = "/api/user/createProfileFromVendor";
       obj["createdDateTime"] = new Date();
       //For Vendor Code
