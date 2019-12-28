@@ -49,15 +49,16 @@
 }
 .lalFirst {
     position: relative;
-    right: 36%;
-    top: -30%;
+    right: 42%;
+    top: -34%;
     color: white;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 20px;
     font-family: raleway_regular, Arial;
 }
 .lal2 {
     position: relative;
-    right:-85%;
+    right: -175%;
     top: -61%;
     font-size: 16px;
     font-family: raleway_regular, Arial;
@@ -115,11 +116,9 @@
     text-align: center;text-align: -moz-center;
  }
 .test{
-    height: 75px;
-    width: 75px;
     text-align: center;text-align: -moz-center;
     /*margin: auto;*/
-    margin-right: -16px;
+    margin-right: -14px;
 }
 .testDef{
     height: 75px;

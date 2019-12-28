@@ -91,7 +91,24 @@
                         </label>
                   </div> -->
               </div>
-            <div class="columnContainer" id="column" *ngIf="listView" style="float: left;">
+              <div class="ListWrapper" id="column" *ngIf="listView">
+                    <div style="margin: auto;">
+                        <img class="test" src="assets/Group 1.png" />
+                        <label class="lalFirst"  (click)="sendMoney()">$</label>
+                        <br>
+                        <br>
+                        <span class="lal2" (click)="sendMoney()">New Transfer</span>
+                    </div>
+                    <div style="margin: auto;" *ngFor="let home of homeArr;let i=index" >
+                        <img class="test" src="assets/Polygon 12.png" />
+                        <label class="lalFirst"  (click)="sendMoney(home.name)">{{getSplit(home.name)}}</label>
+                        <br>
+                        <br>
+                        <span class="lal2"  (click)="sendMoney(home.name)">{{home.name}}</span>
+                    </div>
+                   
+                </div>
+            <!-- <div class="columnContainer" id="column" *ngIf="listView" style="float: left;">
                 <div class="imageContainerList" style="background: url('assets/Group 1.png')  no-repeat;" > 
                     <h4 class="eh41" style="cursor:pointer" (click)="sendMoney()">$</h4>
                     <label class="lab1" style="cursor:pointer" (click)="sendMoney()">
@@ -103,7 +120,7 @@
                     <label class="lab1" style="cursor:pointer" (click)="sendMoney(home.name)">
                    {{home.name}}
                     </label>
-                </div>
+                </div> -->
                 <!-- <div class="imageContainerList" style="background: url('assets/Group 3.png')  no-repeat;" > 
                     <h4 class="eh41" style="cursor:pointer" (click)="sendMoney()">W</h4>
                     <label class="lab1" style="cursor:pointer" (click)="sendMoney()">
@@ -130,7 +147,7 @@
                 </div> -->
                 
                
-            </div>
+            <!-- </div> -->
         </div>
         <!-- <div class="columnHome"></div> -->
     </div>
