@@ -187,13 +187,13 @@ and (max-device-width : 320px) and (orientation:portrait){
   font-family: raleway_regular, Arial;
   color: #000000;
   }
-  .lab1{
-    bottom: 41px;
-  position: relative;
-  font-size: 16px;
-  font-family: raleway_regular, Arial;
-  color: #000000;
-  }
+  .lab1 {
+    bottom: -37px;
+    position: relative;
+    font-size: 16px;
+    font-family: raleway_regular, Arial;
+    color: #000000;
+}
   .imageContainer {
     flex-basis: 33%;
     text-align: center;
@@ -201,9 +201,15 @@ and (max-device-width : 320px) and (orientation:portrait){
     height: 99px;
     margin-bottom: 60px;
   }
-  .imageContainerList {
-    flex-basis: 100%;
+  .imageContainerList1 {
+    flex-basis: 25%;
     text-align: center;
+    width: 99px;
+    height: 99px;
+  }
+  .imageContainerList2 {
+    flex-basis: 75%;
+    text-align: left;
     width: 99px;
     height: 99px;
   }
@@ -795,6 +801,9 @@ input[type="text"], input[type="password"], textarea,button, select {
     
     .span1 {
         font-size: 15px;
+    }
+    .lab1 {
+        left: 25px;
     }
     .span2 {
         font-size: 11px;

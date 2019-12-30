@@ -91,21 +91,31 @@
                         </label>
                   </div> -->
               </div>
-              <div class="ListWrapper" id="column" *ngIf="listView">
-                    <div style="margin: auto;">
-                        <img class="test" src="assets/Group 1.png" />
-                        <label class="lalFirst"  (click)="sendMoney()">$</label>
-                        <br>
-                        <br>
-                        <span class="lal2" (click)="sendMoney()">New Transfer</span>
+              <div *ngIf="listView">
+                <div class="columnContainer" id="column" >
+                    <div class="imageContainerList1" style="background: url('assets/Group 1.png') center no-repeat;" > 
+                        <h4 class="eh4" style="cursor:pointer" (click)="sendMoney()">$</h4>
                     </div>
-                    <div style="margin: auto;" *ngFor="let home of homeArr;let i=index" >
-                        <img class="test" src="assets/Polygon 12.png" />
-                        <label class="lalFirst"  (click)="sendMoney(home.name)">{{getSplit(home.name)}}</label>
-                        <br>
-                        <br>
-                        <span class="lal2"  (click)="sendMoney(home.name)">{{home.name}}</span>
+                    <div class="imageContainerList2" > 
+                        <label class="lab1" style="cursor:pointer" (click)="sendMoney()">New Transfer</label>
                     </div>
+                  </div>
+                  <div class="columnContainer" id="column"  *ngFor="let home of homeArr;let i=index">
+                    <div class="imageContainerList1" style="background: url('assets/Polygon 12.png') center no-repeat;" > 
+                        <h4 class="eh4" style="cursor:pointer" (click)="sendMoney(home.name)">{{getSplit(home.name)}}</h4>
+                    </div>
+                    <div class="imageContainerList2" > 
+                        <label class="lab1" style="cursor:pointer" (click)="sendMoney(home.name)">{{home.name}}</label>
+                    </div>
+              </div>
+              
+                
+                <!-- <div class="imageContainerList1"  style="background: url('assets/Polygon 12.png') center no-repeat;"  *ngFor="let home of homeArr;let i=index">
+                    <h4 class="eh4" style="cursor:pointer" (click)="sendMoney(home.name)">{{getSplit(home.name)}}</h4>
+                    <label class="lab" style="cursor:pointer" (click)="sendMoney(home.name)"> 
+                    {{home.name}}
+                    </label>
+                </div> -->
                    
                 </div>
             <!-- <div class="columnContainer" id="column" *ngIf="listView" style="float: left;">
