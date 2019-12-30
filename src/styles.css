@@ -301,7 +301,7 @@ and (max-device-width : 320px) and (orientation:portrait){
 .sendmoneyBtn{   
     position: absolute;     
     height: 36.5px;
-    width: 100px;
+    width: 105px;
     border-radius: 10px;
     background-color: rgba(60, 60, 60, 1);
     color: rgba(255, 255, 255, 1);
@@ -316,7 +316,7 @@ and (max-device-width : 320px) and (orientation:portrait){
 .sendmoneyBtn1{   
     position: absolute;     
     height: 36.5px;
-    width: 100px;
+    width: 105px;
     border-radius: 10px;
     background-color: rgba(60, 60, 60, 1);
     color: rgba(255, 255, 255, 1);
@@ -329,6 +329,25 @@ and (max-device-width : 320px) and (orientation:portrait){
     margin-top: -2px;
     margin-left: -20px !important;
 }
+.imgAlign{
+    margin:-4px;
+}
+@supports (-webkit-overflow-scrolling: touch) {
+    /* CSS specific to iOS devices */ 
+    .sendmoneyBtn{  
+        margin-top: 0px;  
+        margin-left: -20px !important;
+    }
+    .imgAlign{
+        margin-left:-20px;
+    }
+    .sendmoneyBtn1{  
+        margin-top: 0px;  
+        margin-left: -20px !important;
+    }
+  }
+  
+ 
 @-moz-document url-prefix() {
     .sendmoneyBtn,.sendmoneyBtn1{   
     margin-top:0px  !important;
@@ -499,6 +518,7 @@ input[type="text"]
     border-bottom: 1px solid rgba(60, 60, 60, 1);
     border-right:none;
     border-left:none;
+    border-radius: 0 0 0 0;
     border-top: none;
     font-size: 20.00px;
     line-height: 28.00px;
