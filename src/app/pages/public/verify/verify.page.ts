@@ -67,7 +67,7 @@ export class verifyPage implements OnInit {
       this.authService.post(this.baseUrl+"/api/utility/validateRefCode",{phoneNumber:this.mobileNo,referenceCode:otp}).subscribe((res) => {
         if(res['data']){
           console.log(res['data'])
-        if(res['status'] === 200 && ( res['data'].result  === "Matched"|| res['data'].result  === "Code Matched")){
+        if(res['status'] === 200 && ( res['data'].result  === "Reference Code Matched")){
           this.matchOtp = true;
           this.router.navigate(["register"]);
         }
