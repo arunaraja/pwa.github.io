@@ -9,6 +9,7 @@ declare var $ : any;
   styleUrls: []
 })
 export class welcomePage implements OnInit {
+  title = "Welcome";
   submitted = false ;
   welcomeObj = {phone:""} ;
 

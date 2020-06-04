@@ -2,13 +2,13 @@
     <div class="row" style="overflow:auto;height:100%">
         <!-- <div class="columnHome"></div> -->
         <div class="columnHome">
-            <p class="otherSet_Pro_New"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;"
+            <p class="otherSet_Pro_New" id="walletBtn"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;"
                     (click)="home()">
                 &nbsp;            Wallet</p>
             <p style="float: left;">
                 <button style="cursor: pointer;color: rgba(60, 60, 60, 1);font-size: 16px;border-radius: 55px;    opacity: 1;width: 162.00px;height: 52.00px;background-color: rgba(255, 195, 63, 1);"
                     (click)="addwallet()"><img src="assets/add.png" alt="" style="padding-left:5px;position: absolute;left: 16px;top: 111px;">&nbsp;<span
-                        class="addAcc">Add Account</span></button>&nbsp;
+                        class="addAcc" id="addAccount">Add Account</span></button>&nbsp;
             </p>
             <br>
             <div class="clear"></div>
@@ -17,7 +17,7 @@
                     <img src="assets/bank.png">
                 </div>
                 <div class="div2" style="width:46%">
-                    <span class="addAcc" style="padding-left: 0px !important">Bank Accounts</span>
+                    <span class="addAcc" style="padding-left: 0px !important" id="bankAccount">Bank Accounts</span>
                 </div>
             </div>
             <!-- <div class="row" >  -->
@@ -52,7 +52,7 @@
                     <img src="assets/card.png">
                 </div>
                 <div class="div2">
-                    <span class="addAcc" style="padding-left: 0px !important">Credit Cards</span>
+                    <span class="addAcc" style="padding-left: 0px !important" id="creditCards">Credit Cards</span>
                 </div>
 
             </div>

@@ -11,6 +11,7 @@ declare var $ : any;
   styleUrls: []
 })
 export class loginPage implements OnInit {
+  title = "Login"
   submitted = false ;
   baseUrl = environment.baseUrl;
   invalidOTP = false ;
@@ -36,6 +37,7 @@ export class loginPage implements OnInit {
     else{
       var otp1 = $("#loginInput1").val()+""+$("#loginInput2").val()+""+$("#loginInput3").val()+""+$("#loginInput4").val(); 
         if(otp1.length<4){
+          alert("OTP INVALID")
             this.invalidOTP = true;
             return;
         }

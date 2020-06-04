@@ -9,6 +9,7 @@ declare var $ : any;
   styleUrls: []
 })
 export class sendmoneyconfirmationPage implements OnInit {
+  title = "Send Money Confirmation"
   submitted = false ;
   openNavBar = false;
   nextPage = false;

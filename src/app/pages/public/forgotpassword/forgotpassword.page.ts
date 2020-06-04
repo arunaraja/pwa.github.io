@@ -8,6 +8,7 @@ declare var $ : any;
   templateUrl: './forgotpassword.page.html'
 })
 export class forgotpasswordPage implements OnInit {
+  title = "Forgot Password";
   submitted = false ;
   invalidOTP = false ;
   loginObj = {} ;

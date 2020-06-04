@@ -24,10 +24,10 @@
     <show-error id="registerPhoneErr" [control]="phone" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
     <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
     <form  class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-        <input class="inputs" id="registerInput1" type="text"  maxlength="1" autocomplete="off"  class="inputs"/>
-        <input class="inputs" id="registerInput2" type="text"  maxlength="1" autocomplete="off" class="inputs"/>
-        <input class="inputs" id="registerInput3" type="text"  maxlength="1" autocomplete="off" class="inputs" />
-        <input class="inputs" id="registerInput4" type="text"  maxlength="1" autocomplete="off" class="inputs"/>
+        <input class="inputs" id="registerInput1" type="tel"  maxlength="1" autocomplete="off"  class="inputs"/>
+        <input class="inputs" id="registerInput2" type="tel"  maxlength="1" autocomplete="off" class="inputs"/>
+        <input class="inputs" id="registerInput3" type="tel"  maxlength="1" autocomplete="off" class="inputs" />
+        <input class="inputs" id="registerInput4" type="tel"  maxlength="1" autocomplete="off" class="inputs"/>
         <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
           <span id="registerInvalidOtp">Invalid new pincode !</span>
         </p>
@@ -35,20 +35,20 @@
     
       <p class="pincode" id="registerNewPin">Enter new pincode</p>
     <form  class="digit-group1" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-        <input class="inputs1" type="text" id="registerInputConf1"  maxlength="1" autocomplete="off" class="inputs1"/>
-        <input class="inputs1" type="text" id="registerInputConf2" maxlength="1" autocomplete="off"  class="inputs1"/>
-        <input class="inputs1" type="text" id="registerInputConf3"  maxlength="1" autocomplete="off" class="inputs1" />
-        <input class="inputs1" type="text" id="registerInputConf4" maxlength="1" autocomplete="off"  class="inputs1"/>
+        <input class="inputs1" type="tel" id="registerInputConf1"  maxlength="1" autocomplete="off" class="inputs1"/>
+        <input class="inputs1" type="tel" id="registerInputConf2" maxlength="1" autocomplete="off"  class="inputs1"/>
+        <input class="inputs1" type="tel" id="registerInputConf3"  maxlength="1" autocomplete="off" class="inputs1" />
+        <input class="inputs1" type="tel" id="registerInputConf4" maxlength="1" autocomplete="off"  class="inputs1"/>
         <p *ngIf="invalidConfOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
-          <span id="registerInvalidOtpConf">Invalid confirm pincode !</span>
+          <span class="registerInvalidOtpConf1">Invalid confirm pincode !</span>
         </p>
       </form>
       <p class="pincode"  id="registerConfPin">Confirm pincode</p>
       <p *ngIf="otpMismatch" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
-        <span id="registerInvalidOtpConf">Pincode Mismatch !</span>
+        <span id="registerInvalidOtpConf2">Pincode Mismatch !</span>
       </p>
       <p *ngIf="alreadyRegisterd" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
-        <span id="registerInvalidOtpConf">Already Registered. Proceed with login !</span>
+        <span id="registerInvalidOtpConf3">Already Registered. Proceed with login !</span>
       </p>
          <!-- for new password input
         <input type="text" name="newPass" class="form-control" placeholder="New pincode" autocomplete="off"  required [ngClass]="{'is-invalid': 

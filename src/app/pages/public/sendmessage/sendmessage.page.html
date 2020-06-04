@@ -2,11 +2,12 @@
     <div class="row" style="overflow:auto;height:100%">
         <!-- <div class="columnHome"></div> -->
         <div class="columnHome">
-            <p class="otherSet_Pro_New"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;" (click)="msgGo()">
+            <p class="otherSet_Pro_New" id="send-message-title">
+                <img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;" (click)="msgGo()">
                 &nbsp;Send Message</p>
             <p style="float: right;">
-                <button  class="history" (click)="getHistory()">History</button>&nbsp;
-                <button class="send" (click)="sendMessage()" style="visibility: hidden !important">Send Message</button>
+                <button  class="history" *ngIf="fromPage !== 'profile'" (click)="getHistory()" id="btnForHsitory">History</button>&nbsp;
+                <button class="send" (click)="sendMessage()" style="visibility: hidden !important" id="sendMsgBtn">Send Message</button>
             </p>
             <div class="clear"></div>
             <div><br><br><p></p></div>
@@ -15,7 +16,7 @@
                             <table style="width:100%" >
                                   <tr class="trspace">
                                       <td style="width:10%;padding-left: 10px;">
-                                          <span class="tdLabelConf">To</span>
+                                          <span class="tdLabelConf" id="toName">To</span>
                                       </td>
                                       <td style="width:55%">
                                           <span class="tdDataConf"> {{name}}</span>
@@ -29,9 +30,9 @@
                                   <tr class="trspace">
                                           <td colspan="2" >
                                               <div  [hidden]="sent">
-                                                 <input type="text" class="divMsg" autocomplete="off" style="width: 85%;font-size: 18px;border: 1px solid lightgray;text-indent: 12px !important" name="message" required [ngClass]="{'is-invalid': 
-                                                 message.invalid  && submitted  ,'is-valid': message.valid  && submitted }"
-                                                     #message="ngModel" ngModel [(ngModel)]="msg.message">
+                                                 <input type="text" class="divMsg"  id="msgContent" autocomplete="off" style="width: 85%;font-size: 18px;border: 1px solid lightgray;text-indent: 12px !important" 
+                                                 name="message" required [ngClass]="{'is-invalid': message.invalid  && submitted  ,'is-valid': message.valid  && submitted }"
+                                                     #message="ngModel" ngModel [(ngModel)]="msg.message" maxlength="500">
                                                      <show-error [control]="message" [label]="{'labelName': 'Message'}"
                                                       [submitFlag]="submitted"></show-error>
                                               </div>
@@ -45,7 +46,7 @@
                                       <tr class="trspace" style="text-align: right !important" *ngIf="sent">
                                               <td colspan="2">
                                                       <div style="margin-left: 10px;margin-right:10px;;border-radius: 19px;">
-                                                           <label class="sent">
+                                                           <label class="sent" id="sentSuccess">
                                                                Message sent successfully
                                                            </label>
                                                       </div>
@@ -56,7 +57,7 @@
                               </table> 
                           </div>
                           <div  style="text-align: center;margin-top: 30px;">
-                                <button  class="nextbtn !important" (click)="onClickSend(sendMoneyForm)">Send</button>
+                                <button  class="nextbtn !important" (click)="onClickSend(sendMoneyForm)" id="sendMsgBtnBot">Send</button>
                             </div>
             </form>
             

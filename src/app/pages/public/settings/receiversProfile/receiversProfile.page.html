@@ -1,0 +1,28 @@
+<div style="background-color:white">
+        <div class="row" style="overflow:auto;height:100%">
+          <!-- <div class="columnHome"></div> -->
+          <div class="columnHome" >
+            <p class="otherSet_Pro_New"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;"
+                (click)="settings()">
+              &nbsp;
+              <span style="text-align: center" id="receivers-title">Receiver's Profile</span></p>
+              &nbsp;&nbsp;<label class="tdLabelConf" style="float:right;padding-right: 20px;" (click)="onClickedit()" id="add-receiver-profile">&nbsp;&nbsp;Add</label><img style="float:right" src="assets/add.png">
+          <table style="width:100%;padding-left:25px;padding-right:25px;"*ngFor="let val of user">
+            <tr >
+              <td style="width:20%">
+                <div class="trans">
+                    <p class="rounded">{{getSplit(val.firstName)}}</p>
+                </div> 
+              </td>
+              <td style="width:70%"><span class="point18">{{val.firstName}}</span></td>
+              <td style="width:5%"><span><img src="assets/phone-message-20.png" style="cursor:pointer" (click)="onclickMessage(val.firstName,val.receiverPhoneNumber,val.receiverProfileId)"/></span></td>
+              <td style="width:5%"><span><img src="assets/edit.png" style="cursor:pointer" (click)="onclick(val.receiverProfileId)"/></span></td>
+            </tr>
+            <tr>
+                <td colspan="4"> <hr class="hr1" ></td>
+            </tr>     
+          </table>
+            
+        </div>
+        </div>
+      </div>

@@ -12,6 +12,7 @@ declare var $: any;
   styleUrls: []
 })
 export class transactionPage implements OnInit {
+  title = "Transactions";
   submitted = false;
   openNavBar = false;
   list = true;
@@ -142,6 +143,5 @@ export class transactionPage implements OnInit {
         return fullName[0];
       }
     }
-    
   }
 }

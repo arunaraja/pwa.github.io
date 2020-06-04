@@ -32,10 +32,10 @@
           <show-error [control]="phone" id="loginMobErr" [label]="{'labelName': 'Phone Number'}" [submitFlag]="submitted"></show-error>
           <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1" *ngIf="!submitted || phone.valid"></svg>
           <form  class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-              <input class="inputs" type="text" id="loginInput1"  class="inputs"  maxlength="1" autocomplete="off"/>
-              <input class="inputs" type="text" id="loginInput2" class="inputs"  maxlength="1" autocomplete="off"/>
-              <input class="inputs" type="text" id="loginInput3" class="inputs"  maxlength="1" autocomplete="off"/>
-              <input class="inputs" type="text" id="loginInput4"  class="inputs"  maxlength="1" autocomplete="off"/>
+              <input class="inputs" type="tel" id="loginInput1"  class="inputs"  maxlength="1" autocomplete="off"/>
+              <input class="inputs" type="tel" id="loginInput2" class="inputs"  maxlength="1" autocomplete="off"/>
+              <input class="inputs" type="tel" id="loginInput3" class="inputs"  maxlength="1" autocomplete="off"/>
+              <input class="inputs" type="tel" id="loginInput4"  class="inputs"  maxlength="1" autocomplete="off"/>
               <p *ngIf="invalidOTP" style="color: red;text-align: -webkit-match-parent ;font-family: raleway_regular, Arial;"  >
                 <span id="loginInvalidOtp">Invalid Pincode !</span>
               </p>

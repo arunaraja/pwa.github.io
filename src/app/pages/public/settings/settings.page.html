@@ -2,13 +2,13 @@
   <div class="row" style="overflow:auto;height:100%">
     <!-- <div class="columnHome"></div> -->
     <div class="columnHome">
-      <p class="otherSet_Pro_New"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer"
+      <p class="otherSet_Pro_New" id="set-title"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer"
           (click)="home()">
         &nbsp;Settings</p>
     <table style="width:100%;padding-left:25px;padding-right:25px;">
       <tr>
         <td style="width:20%"><span><img src="assets/info.png" /></span> </td>
-        <td><span class="point18">About Us</span></td>
+        <td><span class="point18" id="abt-us">About Us</span></td>
         <td><span><img src="assets/arrow.png" style="cursor:pointer"/></span></td>
       </tr>
       <tr>
@@ -16,15 +16,23 @@
       </tr>     
       <tr>
         <td  style="width:20%"><span><img src="assets/user.png" /></span> </td>
-        <td><span class="point18">Profile</span></td>
+        <td><span class="point18" id="my-profile">My Profile</span></td>
         <td><span><img src="assets/arrow.png" style="cursor:pointer" (click)="profile()" /></span></td>
+      </tr>
+      <tr>
+        <td colspan="3"> <hr class="hr1" ></td>
+      </tr>
+      <tr>
+        <td  style="width:20%"><span><img src="assets/user-groups.png" /></span> </td>
+        <td><span class="point18" id="receiver-profile">Receiver's Profile</span></td>
+        <td><span><img src="assets/arrow.png" style="cursor:pointer" (click)="profileReceiver()" /></span></td>
       </tr>
       <tr>
           <td colspan="3"> <hr class="hr1" ></td>
         </tr>
       <tr>
         <td  style="width:20%"><span><img src="assets/key.png" /></span> </td>
-        <td><span class="point18">Change Pincode</span></td>
+        <td><span class="point18" id="change-pin">Change Pincode</span></td>
         <td><span><img src="assets/arrow.png" style="cursor:pointer" /></span></td>
       </tr>
       <tr>
@@ -32,7 +40,7 @@
         </tr>
       <tr>
         <td  style="width:20%"><span><img src="assets/policy.png" /></span> </td>
-        <td><span class="point18">Privacy Policy</span></td>
+        <td><span class="point18" id="privacy-policy">Privacy Policy</span></td>
         <td><span><img src="assets/arrow.png" style="cursor:pointer" /></span></td>
       </tr>
       <tr>
@@ -40,7 +48,7 @@
         </tr>
       <tr>
         <td  style="width:20%"><span><img src="assets/accept.png" /></span> </td>
-        <td><span class="point18">Terms & Conditions</span></td>
+        <td><span class="point18" id="terms">Terms & Conditions</span></td>
         <td><span><img src="assets/arrow.png" style="cursor:pointer" /></span></td>
       </tr>
       <tr>
@@ -48,7 +56,7 @@
         </tr>
       <tr>
         <td  style="width:20%"><span><img src="assets/help.png" /></span> </td>
-        <td><span class="point18">Help & Feedback</span></td>
+        <td><span class="point18" id="help">Help & Feedback</span></td>
         <td><span><img src="assets/arrow.png" style="cursor:pointer" /></span></td>
       </tr>
       <tr>
@@ -56,7 +64,7 @@
         </tr>
       <tr>
         <td  style="width:20%"><span><img src="assets/versions.png" /></span> </td>
-        <td><span class="point18">Version 1.0.0</span></td>
+        <td><span class="point18" id="version">Version 1.0.0</span></td>
         <td></td>
       </tr>
     </table>

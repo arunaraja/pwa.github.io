@@ -28,21 +28,40 @@
                 <span  *ngIf="name">Send Money to {{name}}</span></p>
             <p style="text-align: center;">
                 <img src="assets/Receiver Profile.png" (click)="receiver()">
-                <span class="receiver" (click)="receiver()">Receiver Info</span>
+                <span class="receiver" (click)="receiver()" id="receiverInfo">Receiver Info</span>
             </p>
-            <form #sendMoneyForm="ngForm" name="sendMoneyForm" novalidate>
+            <form #sendMoneyForm1="ngForm" name="sendMoneyForm1" novalidate>
             <div class="sendMoneyDiv"  [hidden]="!receiverInfo">
                  <table style="width:100%">
-                        <tr class="trspace">
+                        <tr class="trspace"  [hidden]="newTransfer !== 'true'">
                             <td style="width:45%;padding-left: 10px;">
-                                <span class="tdLabel"> Country</span>
+                                <span class="tdLabel" id="receiver-lbl"> Receiver</span>
                             </td>
                             <td style="width:55%">
-                                <select type="text" class="form-control" name="receiverCountry" required [ngClass]="{'is-invalid': 
+                                <select type="text" class="form-control" name="fromNewTransfer"  [required]="newTransfer === 'true'" id="fromNewTransfer" [ngClass]="{'is-invalid': 
+                                fromNewTransfer.invalid  && submitted  ,'is-valid': fromNewTransfer.valid  && submitted }"
+                                    #fromNewTransfer="ngModel" ngModel [(ngModel)]="sendMoney.fromNewTransfer" 
+                                    (ngModelChange)="getProfileFromId($event)"
+                                    style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;
+                                    border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <option hidden value="" disabled selected>Choose Receiver </option>
+                                    <option value="Add New Receiver">Add New Receiver </option>
+                                    <option  *ngFor="let master of receiversArr" [value]="master.receiverProfileId">{{master.firstName+" "+master.lastName}}</option>
+                                </select>
+                                <show-error [control]="fromNewTransfer" [label]="{'labelName': 'Receiver'}" [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                        <tr class="trspace">
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="country-lbl"> Country</span>
+                            </td>
+                            <td style="width:55%">
+                                <select type="text" id="receiverCountry"class="form-control" name="receiverCountry" required [ngClass]="{'is-invalid': 
                                 receiverCountry.invalid  && submitted  ,'is-valid': receiverCountry.valid  && submitted }"
                                     #receiverCountry="ngModel" ngModel [(ngModel)]="sendMoney.receiverCountry" 
                                     (ngModelChange)="setPhoneNumberCode($event)"
-                                    style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;
+                                    border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                     <option hidden value="" disabled selected>Choose country </option>
                                     <option  *ngFor="let master of countryArr" [value]="master.country">{{master.country}}</option>
                                 </select>
@@ -51,10 +70,10 @@
                         </tr>
                         <tr class="trspace">
                             <td style="width:45%;padding-left: 10px;">
-                                <span class="tdLabel"> Phone Number</span>
+                                <span class="tdLabel" id="phoneNumber-lbl"> Phone Number</span>
                             </td>
                             <td style="width:55%">
-                                <input type="text" class="form-control" name="receiverPhoneNumber" placeholder="" autocomplete="off" minlength="10" maxlength="15" pattern="[+][0-9]+"
+                                <input type="text" id="phoneNumber-val" class="form-control" name="receiverPhoneNumber" placeholder="" autocomplete="off" minlength="10" maxlength="15" pattern="[+][0-9]+"
                                     required [ngClass]="{'is-invalid': 
                                     receiverPhoneNumber.invalid  && submitted  ,'is-valid': receiverPhoneNumber.valid  && submitted }"
                                     #receiverPhoneNumber="ngModel" ngModel [(ngModel)]="sendMoney.receiverPhoneNumber" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
@@ -64,10 +83,10 @@
                         </tr>
                         <tr class="trspace" >
                                 <td style="width:45%;padding-left: 10px;">
-                                    <span class="tdLabel"> State</span>
+                                    <span class="tdLabel" id="state-lbl"> State</span>
                                 </td>
                                 <td style="width:55%">
-                                    <select type="text" class="form-control" autocomplete="off" name="receiverState" placeholder=""
+                                    <select type="text" id="state-val" class="form-control" autocomplete="off" name="receiverState" placeholder=""
                                         required [ngClass]="{'is-invalid': 
                                         receiverState.invalid  && submitted  ,'is-valid': receiverCountry.valid  && submitted }"
                                         #receiverState="ngModel" ngModel [(ngModel)]="sendMoney.receiverState" 
@@ -82,10 +101,10 @@
                             </tr>
                             <tr class="trspace">
                                 <td style="width:45%;padding-left: 10px;">
-                                    <span class="tdLabel"> City/Town</span>
+                                    <span class="tdLabel" id="city-lbl"> City/Town</span>
                                 </td>
                                 <td style="width:55%">
-                                    <select type="text" class="form-control" autocomplete="off" name="city" placeholder=""
+                                    <select type="text" id="city-val" class="form-control" autocomplete="off" name="city" placeholder=""
                                         required [ngClass]="{'is-invalid': receiverCity.invalid  && submitted  ,'is-valid': receiverCity.valid  && submitted }"
                                         #receiverCity="ngModel" ngModel [(ngModel)]="sendMoney.receiverCity" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
                                         <option hidden value="" disabled selected>Choose city </option>
@@ -97,10 +116,10 @@
                             </tr>
                         <tr class="trspace">
                             <td style="width:45%;padding-left: 10px;">
-                                <span class="tdLabel"> Vendor</span>
+                                <span class="tdLabel" id="vendor-lbl"> Vendor</span>
                             </td>
                             <td style="width:55%">
-                                <select type="text" class="form-control" autocomplete="off" name="vendorId" placeholder=""
+                                <select type="text" id="vendor-val" class="form-control" autocomplete="off" name="vendorId" placeholder=""
                                     required [ngClass]="{'is-invalid': 
                                     vendorId.invalid  && submitted  ,'is-valid': vendorId.valid  && submitted }"
                                     #vendorId="ngModel" ngModel [(ngModel)]="sendMoney.vendorId"
@@ -115,10 +134,10 @@
                        
                         <tr class="trspace">
                                 <td style="width:45%;padding-left: 10px;">
-                                    <span class="tdLabel"> Delivery Method</span>
+                                    <span class="tdLabel" id="delivery-lbl"> Delivery Method</span>
                                 </td>
                                 <td style="width:55%">
-                                    <select type="text" class="form-control" autocomplete="off" name="deliveryMethod"
+                                    <select type="text" id="delivery-val" class="form-control" autocomplete="off" name="deliveryMethod"
                                         placeholder="" required [ngClass]="{'is-invalid': 
                                         deliveryMethod.invalid  && submitted  ,'is-valid': deliveryMethod.valid  && submitted }" (ngModelChange)="callTransactionLocationAPI($event)" 
                                         #deliveryMethod="ngModel" ngModel [(ngModel)]="sendMoney.deliveryMethod" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
@@ -129,25 +148,51 @@
                                     [submitFlag]="submitted"></show-error>
                                 </td>
                             </tr>
-                            <tr class="trspace" *ngIf="sendMoney.deliveryMethod === 'Cash Pickup' && ( !name)">
+                            <tr class="trspace" [hidden]="sendMoney.deliveryMethod !== 'Cash Pickup'">
                                     <td style="width:45%;padding-left: 10px;">
-                                        <span class="tdLabel"> Pay To</span>
+                                        <span class="tdLabel" id="payTo1-lbl"> Pay To First Name</span>
                                     </td>
                                     <td style="width:55%">
-                                        <input type="text" class="form-control" autocomplete="off" name="receiverName" maxlength="30" pattern="[A-Za-z ]+"
+                                        <input type="text" id="payTo1-val" class="form-control" autocomplete="off" name="receiverName" maxlength="30" pattern="[A-Za-z ]+"
                                             placeholder="" required [ngClass]="{'is-invalid': 
                                             receiverName.invalid  && submitted  ,'is-valid': receiverName.valid  && submitted }"
                                             #receiverName="ngModel" ngModel [(ngModel)]="sendMoney.receiverName" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
-                                            <show-error [control]="receiverName" [label]="{'labelName': 'Pay To'}"
+                                            <show-error [control]="receiverName" [label]="{'labelName': 'Pay To First Name'}"
                                             [submitFlag]="submitted"></show-error>
                                         </td>
                                 </tr>
-                        <tr class="trspace" *ngIf="sendMoney.deliveryMethod === 'Cash Pickup'">
+                            <tr class="trspace" [hidden]="sendMoney.deliveryMethod !== 'Cash Pickup' ">
+                                    <td style="width:45%;padding-left: 10px;">
+                                        <span class="tdLabel" id="payTo2-lbl"> Pay To Last Name</span>
+                                    </td>
+                                    <td style="width:55%">
+                                        <input type="text" id="payTo2-val" class="form-control" autocomplete="off" name="receiverLastName" maxlength="30" pattern="[A-Za-z ]+"
+                                            placeholder="" required [ngClass]="{'is-invalid': 
+                                            receiverLastName.invalid  && submitted  ,'is-valid': receiverLastName.valid  && submitted }"
+                                            #receiverLastName="ngModel" ngModel [(ngModel)]="sendMoney.receiverLastName" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                            <show-error [control]="receiverLastName" [label]="{'labelName': 'Pay To Last Name'}"
+                                            [submitFlag]="submitted"></show-error>
+                                        </td>
+                                </tr>
+                            <tr class="trspace" [hidden]="sendMoney.deliveryMethod !== 'Cash Pickup' ">
+                                    <td style="width:45%;padding-left: 10px;">
+                                        <span class="tdLabel" id="payTo3-lbl"> Pay To Middle Name</span>
+                                    </td>
+                                    <td style="width:55%">
+                                        <input type="text" id="payTo3-val" class="form-control" autocomplete="off" name="receiverMiddleName" maxlength="30" pattern="[A-Za-z ]+"
+                                            placeholder="" required [ngClass]="{'is-invalid': 
+                                            receiverMiddleName.invalid  && submitted  ,'is-valid': receiverMiddleName.valid  && submitted }"
+                                            #receiverMiddleName="ngModel" ngModel [(ngModel)]="sendMoney.receiverMiddleName" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                            <show-error [control]="receiverMiddleName" [label]="{'labelName': 'Pay To Middle Name'}"
+                                            [submitFlag]="submitted"></show-error>
+                                        </td>
+                                </tr>
+                        <tr class="trspace" [hidden]="sendMoney.deliveryMethod !== 'Cash Pickup'">
                             <td style="width:45%;padding-left: 10px;">
-                                <span class="tdLabel"> Location</span>
+                                <span class="tdLabel" id="location-lbl"> Location</span>
                             </td>
                             <td style="width:55%">
-                                <select type="text" class="form-control" autocomplete="off" name="vendorAgentId" placeholder=""
+                                <select type="text" id="location-val" class="form-control" autocomplete="off" name="vendorAgentId" placeholder=""
                                     required [ngClass]="{'is-invalid': 
                                     vendorAgentId.invalid  && submitted  ,'is-valid': vendorAgentId.valid  && submitted }"
                                     #vendorAgentId="ngModel" ngModel [(ngModel)]="sendMoney.vendorAgentId" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
@@ -159,12 +204,12 @@
                                 [submitFlag]="submitted"></show-error>
                             </td>
                         </tr>
-                        <tr class="trspace" *ngIf="sendMoney.deliveryMethod === 'Bank Account'">
+                        <tr class="trspace" [hidden]="sendMoney.deliveryMethod !== 'Bank Account'">
                             <td style="width:45%;padding-left: 10px;">
-                                <span class="tdLabel"> Bank Name</span>
+                                <span class="tdLabel" id="bank-lbl"> Bank Name</span>
                             </td>
                             <td style="width:55%">
-                                <select type="text" class="form-control" autocomplete="off" name="deliveryBankName" placeholder=""
+                                <select type="text" id="bank-val" class="form-control" autocomplete="off" name="deliveryBankName" placeholder=""
                                     required [ngClass]="{'is-invalid': 
                                     deliveryBankName.invalid  && submitted  ,'is-valid': deliveryBankName.valid  && submitted }"
                                     #deliveryBankName="ngModel" ngModel [(ngModel)]="sendMoney.deliveryBankName" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
@@ -175,12 +220,12 @@
                                 [submitFlag]="submitted"></show-error>
                             </td>
                         </tr>
-                        <tr class="trspace" *ngIf="sendMoney.deliveryMethod === 'Bank Account'">
+                        <tr class="trspace" [hidden]="sendMoney.deliveryMethod !== 'Bank Account'">
                             <td style="width:45%;padding-left: 10px;">
-                                <span class="tdLabel"> Account Number</span>
+                                <span class="tdLabel" id="account-lbl"> Account Number</span>
                             </td>
                             <td style="width:55%">
-                                <input type="text" class="form-control" autocomplete="off" name="deliveryBankAccountNumber" maxlength="23" pattern="[0-9]+"
+                                <input type="text" id="account-val" class="form-control" autocomplete="off" name="deliveryBankAccountNumber" maxlength="23" pattern="[0-9]+"
                                     placeholder="" required [ngClass]="{'is-invalid': 
                                     deliveryBankAccountNumber.invalid  && submitted  ,'is-valid': deliveryBankAccountNumber.valid  && submitted }"
                                     #deliveryBankAccountNumber="ngModel" ngModel [(ngModel)]="sendMoney.deliveryBankAccountNumber" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
@@ -188,12 +233,12 @@
                                     [submitFlag]="submitted"></show-error>
                                 </td>
                         </tr>
-                        <tr class="trspace" *ngIf="sendMoney.deliveryMethod === 'Bank Account'">
+                        <tr class="trspace" [hidden]="sendMoney.deliveryMethod !== 'Bank Account'">
                             <td style="width:45%;padding-left: 10px;">
-                                <span class="tdLabel"> Account Name</span>
+                                <span class="tdLabel" id="accountName-lbl"> Account Name</span>
                             </td>
                             <td style="width:55%">
-                                <input type="text" class="form-control" autocomplete="off" name="receiverName" maxlength="30" pattern="[A-Za-z ]+"
+                                <input type="text" id="accountName-val" class="form-control" autocomplete="off" name="receiverName" maxlength="30" pattern="[A-Za-z ]+"
                                     placeholder="" required [ngClass]="{'is-invalid': 
                                     receiverName.invalid  && submitted  ,'is-valid': receiverName.valid  && submitted }"
                                     #receiverName="ngModel" ngModel [(ngModel)]="sendMoney.receiverName" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
@@ -202,12 +247,12 @@
                                 </td>
                         </tr>
                         
-                        <tr class="trspace" *ngIf="sendMoney.deliveryMethod === 'Bank Account'">
+                        <tr class="trspace" [hidden]="sendMoney.deliveryMethod !== 'Bank Account'">
                             <td style="width:45%;padding-left: 10px;">
-                                <span class="tdLabel"> Routing Number</span>
+                                <span class="tdLabel" id="routing-lbl"> Routing Number</span>
                             </td>
                             <td style="width:55%">
-                                <input type="text" class="form-control" autocomplete="off" name="deliveryBankRoutingNumber" maxlength="18" pattern="[A-Za-z0-9 ]+"
+                                <input type="text" id="routing-val" class="form-control" autocomplete="off" name="deliveryBankRoutingNumber" maxlength="18" pattern="[A-Za-z0-9 ]+"
                                     placeholder="" required [ngClass]="{'is-invalid': 
                                     deliveryBankRoutingNumber.invalid  && submitted  ,'is-valid': deliveryBankRoutingNumber.valid  && submitted }"
                                     #deliveryBankRoutingNumber="ngModel" ngModel [(ngModel)]="sendMoney.deliveryBankRoutingNumber" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
@@ -216,26 +261,31 @@
                                 </td>
                         </tr>
                     </table> 
+                    <div style="text-align: center;margin-top: 10px;">
+                        <button   class="nextbtn !important" style="width: 125.00px;height: 40.12px ;margin-bottom: 10px !important" id="save-lbl" (click)="onSaveClick(sendMoneyForm1)">Save</button>
+                        </div>
             </div>
+            </form>
+            <form #sendMoneyForm="ngForm" name="sendMoneyForm" novalidate>
             <div [hidden]="!transmissionInfo">
                     <table style="width: 100%;padding-left: 10px; padding-right: 10px;">
                             <tr (click)="transmission()">
                                 <td class="transmission">
-                                    <label class="head_amt" style="cursor:pointer !important">Transmission Information</label>
+                                    <label class="head_amt" style="cursor:pointer !important" id="transmission-lbl">Transmission Information</label>
                                 </td>
                             </tr>
                         </table>
                        
-                            <div id="viewpg" class="sendMoneyDiv" *ngIf="firstPage">
+                            <div id="viewpg" class="sendMoneyDiv" [hidden]="!firstPage">
                                 <table style="width:100%;padding-left: 18px;">
                                     <tr>
                                         <td>
-                                            <span class="point16"> You Send</span>
+                                            <span class="point16" id="yousend"> You Send</span>
                                         </td>
                                     </tr>
                                     <tr class="filterSend">
                                         <td>
-                                            <input type="text" class="form-control" name="transactionAmount" placeholder="" autocomplete="off" maxlength="10" pattern="[0-9]+"
+                                            <input type="text" class="form-control" id="transactionAmount-lbl" name="transactionAmount" placeholder="" autocomplete="off" maxlength="10" pattern="[0-9]+"
                                                 required [ngClass]="{'is-invalid': 
                                                 transactionAmount.invalid  && submitted  ,'is-valid': transactionAmount.valid  && submitted }"
                                                 #transactionAmount="ngModel" ngModel [(ngModel)]="sendMoney.transactionAmount" (ngModelChange)="onChangeSend($event)"   style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;
@@ -247,7 +297,7 @@
                                     </tr>
                                     <tr>
                                         <show-error [control]="transactionAmount" [label]="{'labelName': 'You Send'}"
-                                        [submitFlag]="submitted"></show-error>
+                                        [submitFlag]="submitted1"></show-error>
                                     </tr>
             
                                 </table>
@@ -258,10 +308,10 @@
                                         <td>
                                             <div *ngIf="hideView" class="vl"></div>
                                             <div *ngIf="hideView" style="margin-left: -8px;margin-top: -3px;margin-bottom: -3px"><img src="assets/closed-eye.png" style="cursor:pointer" (click)="hideEye()" height="20" align="top" width="20">&nbsp;
-                                                <span class="pt12Bold">See Calculations</span></div>
+                                                <span class="pt12Bold" id="see-cal">See Calculations</span></div>
                                             <div  *ngIf="seeView" class="vl"></div>
                                             <div  *ngIf="seeView" style="margin-left: -8px;margin-top: -3px;margin-bottom: -3px"><img src="assets/view-eye.png" style="cursor:pointer" (click)="seeEye()" height="20" align="top"  width="20">&nbsp;
-                                                <span class="pt12Bold">Hide Calculations</span></div>
+                                                <span class="pt12Bold" id="hide-cal">Hide Calculations</span></div>
                                             <div *ngIf="see"  class="vl2"></div>
                                             <div *ngIf="see" style="margin-left: -8px;margin-top: -3px;margin-bottom: -3px"><img src="assets/path.png" height="16" align="top"  width="16">&nbsp;
                                                 <span class="pt12Med">{{sendMoney.transactionFee}} USD</span>
@@ -274,7 +324,7 @@
                                                         font-size: 12.00px;
                                                         font-weight: 500;
                                                         font-style: normal;
-                                                        font-family: raleway_medium, Arial !important"  name="paymentMethod" required [ngClass]="{'is-invalid': 
+                                                        font-family: raleway_medium, Arial !important"  name="paymentMethod" id="paymentMethod-val" required [ngClass]="{'is-invalid': 
                                                         paymentMethod.invalid  && submitted  ,'is-valid': paymentMethod.valid  && submitted }"
                                                             #paymentMethod="ngModel" ngModel [(ngModel)]="sendMoney.paymentMethod" (ngModelChange)="onChangePayMethod($event)" >
                                                             <option hidden value="" disabled selected>Payment Method </option>
@@ -313,8 +363,9 @@
                                                 totalAmountSentToReceiver.invalid  && submitted  ,'is-valid': totalAmountSentToReceiver.valid  && submitted }"
                                                 #totalAmountSentToReceiver="ngModel" disabled ngModel [(ngModel)]="sendMoney.totalAmountSentToReceiver" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;
                                                                                         border-radius: 10px;width: 60%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
-                                            <button class="sendmoneyBtn1">&nbsp;<img src="assets/united-states-1.png" id="receiverImg" height="20"   width="25" class="imgAlign">&nbsp;
-                                                <span class="usd" *ngIf="!sendMoney.receiverCountry" >MXN</span>
+                                            <button class="sendmoneyBtn1">&nbsp;
+                                                <img src="assets/united-states-1.png" id="receiverImg" height="20"   width="25" class="imgAlign">&nbsp;
+                                                <span class="usd" *ngIf="!sendMoney.receiverCountry" >USD</span>
                                                 <span class="usd" *ngIf="sendMoney.receiverCountry =='Mexico'" >MXN</span>
                                                 <span class="usd"  *ngIf="sendMoney.receiverCountry =='USA'">USD</span>
                                             </button>
@@ -322,16 +373,16 @@
                                     </tr>
                                     <tr>
                                         <show-error [control]="totalAmountSentToReceiver" [label]="{'labelName': 'Receives'}"
-                                        [submitFlag]="submitted"></show-error>
+                                        [submitFlag]="submitted1"></show-error>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <span class="point16"> Receives</span>
+                                            <span class="point16" id="receives"> Receives</span>
                                         </td>
                                     </tr>
                                 </table>
                                 <div style="text-align: center;margin-top: 10px;">
-                                <button  *ngIf="firstPage" class="nextbtn !important" style="width: 125.00px;height: 40.12px ;margin-bottom: 10px !important" (click)="onPreviewClick(sendMoneyForm)">Preview</button>
+                                <button  [hidden]="!firstPage" class="nextbtn !important" style="width: 125.00px;height: 40.12px ;margin-bottom: 10px !important" (click)="onPreviewClick(sendMoneyForm)" id="preview-btn">Preview</button>
                                 </div>
                             </div>
                         
@@ -353,8 +404,8 @@
             <table style="width: 100%;padding-left: 10px; padding-right: 10px;">
                 <tr (click)="transmission()">
                     <td class="transmission" style="text-align: left !important">
-                        <label class="head_amt" ><span style="visibility:hidden">ts</span>Receiver
-                            Information</label>
+                        <label class="head_amt" ><span style="visibility:hidden">ts</span>
+                            <span id="preview-receiver-info"> Receiver Information</span></label>
                     </td>
                 </tr>
             </table>
@@ -362,14 +413,14 @@
                 <table style="width:100%">
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf"> Pay To</span>
+                            <span class="tdLabelConf" id="payTo-preview"> Pay To</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">  {{name ? name  : sendMoney.receiverName}}</span>
                         </td>
                         <td >
-                            <span class="tdDataConf" *ngIf="sendMoney.receiverCountry =='USA'">  <img src="assets/united-states-1.png" style="margin: -2px;"></span>
                             <span class="tdDataConf" *ngIf="sendMoney.receiverCountry =='Mexico'">  <img src="assets/mexico.png" style="margin: -2px;"></span>
+                            <span class="tdDataConf" *ngIf="sendMoney.receiverCountry =='USA'">  <img src="assets/united-states-1.png" style="margin: -2px;"></span>
                         </td>
                     </tr>
                     <!-- <tr class="trspace_tran">
@@ -382,7 +433,7 @@
                     </tr> -->
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf"> Country</span>
+                            <span class="tdLabelConf" id="country-preview"> Country</span>
                         </td>
                         <td style="width:55%" colspan="2">
                             <span class="tdDataConf"> {{" "+sendMoney.receiverCountry}}</span>
@@ -390,7 +441,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf"> Mobile Number</span>
+                            <span class="tdLabelConf" id="mobile-preview"> Mobile Number</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+sendMoney.receiverPhoneNumber}}</span>
@@ -398,7 +449,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf">Vendor</span>
+                            <span class="tdLabelConf" id="vendor-preview">Vendor</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+getVendorName(sendMoney.vendorId)}}</span>
@@ -406,7 +457,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf">Delivery Method</span>
+                            <span class="tdLabelConf" id="delivery-preview">Delivery Method</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+sendMoney.deliveryMethod}}</span>
@@ -429,8 +480,9 @@
             <table style="width: 100%;padding-left: 10px; padding-right: 10px;">
                     <tr (click)="transmission()">
                         <td class="transmission" style="text-align: left !important">
-                            <label class="head_amt"><span style="visibility:hidden">ts</span>Transmission
-                                Information</label>
+                            <label class="head_amt"><span style="visibility:hidden">ts</span>
+                                <span id="transmissioninfo-preview">Transmission Information</span>
+                                </label>
                         </td>
                     </tr>
                 </table>
@@ -438,7 +490,7 @@
                 <table style="width:100%">
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf"> Amount</span>
+                            <span class="tdLabelConf" id="amount-preview"> Amount</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+sendMoney.transactionAmount}} USD</span>
@@ -446,7 +498,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf"> Payment Method</span>
+                            <span class="tdLabelConf" id="paymentmethod-preview"> Payment Method</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+getPayemntMethod(sendMoney.paymentMethod)}}</span>
@@ -454,7 +506,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf">Total Fee</span>
+                            <span class="tdLabelConf" id="total-preview">Total Fee</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{sendMoney.totalFee}} USD</span>
@@ -462,7 +514,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf">Total Amount</span>
+                            <span class="tdLabelConf" id="totalamount-preview">Total Amount</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+sendMoney.transactionTotalAmount}} USD</span>
@@ -472,7 +524,7 @@
 
                 </table>
                 <div style="text-align: center;margin-top: 10px;">
-                        <button  class="nextbtn !important" style="width: 125.00px;height: 40.12px !important" (click)="onSendClick()">Send</button>
+                        <button  class="nextbtn !important" style="width: 125.00px;height: 40.12px !important" (click)="onSendClick()" id="preview-save">Send</button>
                         </div>
                         <br>
             </div>
@@ -499,7 +551,9 @@
                         <span><img src="assets/logout.png" style="cursor: pointer;" alt="" width="18" height="18" (click)="settings()"
                                 align="top" (click)="logOut()"><label class="margin20" (click)="logOut()">Logout</label></span>
                     </div>
-                    <p class="otherSet_Pro_New"><img src="assets/icon_ionic_md_menu.png" alt="" align="top" style="cursor: pointer;padding-top: 3px;" (click)="openNav()">
+                    <p class="otherSet_Pro_New" id="transaction-conf">
+                        <img src="assets/icon_ionic_md_menu.png" alt="" align="top" style="cursor: pointer;padding-top: 3px;"
+                         (click)="openNav()">
                         &nbsp;
                         Transaction Details</p>
                 <div style="text-align: -webkit-center;">
@@ -515,7 +569,7 @@
                 <table style="width:100%">
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf"> Paid To</span>
+                            <span class="tdLabelConf" id="transaction-conf-paid-to"> Paid To</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">  {{name ? name  : sendMoney.receiverName}}</span>
@@ -535,7 +589,7 @@
                     </tr> -->
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf"> Country</span>
+                            <span class="tdLabelConf" id="transaction-conf-country"> Country</span>
                         </td>
                         <td style="width:55%" colspan="2">
                             <span class="tdDataConf"> {{" "+sendMoney.receiverCountry}}</span>
@@ -543,7 +597,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf"> Mobile Number</span>
+                            <span class="tdLabelConf" id="transaction-conf-mobile"> Mobile Number</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+sendMoney.receiverPhoneNumber}}</span>
@@ -551,7 +605,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf">Vendor</span>
+                            <span class="tdLabelConf" id="transaction-conf-vendor">Vendor</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+getVendorName(sendMoney.vendorId)}}</span>
@@ -559,7 +613,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf">Delivery Method</span>
+                            <span class="tdLabelConf" id="transaction-conf-delivery-method">Delivery Method</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+sendMoney.deliveryMethod}}</span>
@@ -584,7 +638,7 @@
                 <table style="width:100%">
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf"> Amount</span>
+                            <span class="tdLabelConf" id="transaction-conf-amount"> Amount</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+sendMoney.transactionAmount}} USD</span>
@@ -592,7 +646,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf"> Payment Method</span>
+                            <span class="tdLabelConf" id="transaction-conf-payment-method"> Payment Method</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+getPayemntMethod(sendMoney.paymentMethod)}}</span>
@@ -600,7 +654,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf">Total Fee</span>
+                            <span class="tdLabelConf" id="transaction-conf-total-fee">Total Fee</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{sendMoney.totalFee}} USD</span>
@@ -608,7 +662,7 @@
                     </tr>
                     <tr class="trspace_tran">
                         <td style="width:45%;padding-left: 10px;">
-                            <span class="tdLabelConf">Total Amount</span>
+                            <span class="tdLabelConf" id="transaction-conf-total-amount">Total Amount</span>
                         </td>
                         <td style="width:55%">
                             <span class="tdDataConf">{{" "+sendMoney.transactionTotalAmount}} USD</span>
@@ -620,8 +674,8 @@
                
             </div>
             <div style="text-align: center;margin-top: 30px;">
-                    <button  class="nextbtn !important"style="width: auto;height: 40.12px;display: inline-block !important"(click)="onClickSendAgain()">Send Again</button>&nbsp;&nbsp;
-                    <button  class="nextbtn !important"  style="display: inline-block;color:rgba(41, 39, 36, 1);width: auto;height: 40.12px;background-color: rgba(255, 195, 63, 1) !important" (click)="onClickMsg()">Send Message</button>
+                    <button  class="nextbtn !important"style="width: auto;height: 40.12px;display: inline-block !important"(click)="onClickSendAgain()" id="transaction-conf-send-again">Send Again</button>&nbsp;&nbsp;
+                    <button  class="nextbtn !important"  style="display: inline-block;color:rgba(41, 39, 36, 1);width: auto;height: 40.12px;background-color: rgba(255, 195, 63, 1) !important" (click)="onClickMsg()" id="transaction-conf-send-msg">Send Message</button>
                 </div>
 
         </div>

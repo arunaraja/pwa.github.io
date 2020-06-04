@@ -11,6 +11,7 @@ declare var $ : any;
   styleUrls: []
 })
 export class registerPage implements OnInit {
+  title = "Register";
   submitted = false ;
   baseUrl = environment.baseUrl;
   otpMismatch = false ;

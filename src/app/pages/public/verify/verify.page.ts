@@ -10,6 +10,7 @@ declare var $ : any;
   templateUrl: './verify.page.html'
 })
 export class verifyPage implements OnInit {
+  title = "Verify";
   submitted = false ;
   alreadyVerified = false ;
   verifyNoOtp = false ;

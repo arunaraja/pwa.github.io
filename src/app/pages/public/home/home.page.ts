@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import {AuthService} from './../../../services/api/api.service'
 import { environment } from "./../../../../environments/environment";
@@ -14,6 +14,11 @@ declare var $ : any;
 export class homePage implements OnInit {
   baseUrl = environment.baseUrl;
   submitted = false ;
+  deferredPrompt: any;
+  showButton = false;
+  longPress = 'first state';
+  longPressing = 0;
+  isLongPressed = false;
   loginObj = {} ;
   homeArr = [];
   firstName = localStorage.getItem('firstName');
@@ -37,9 +42,41 @@ export class homePage implements OnInit {
       });
 
     this.gridView = true;
-    // document.getElementById("mySidenav").style.width = "0";
+  }
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onbeforeinstallprompt(e) {
+    console.log(e);
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    this.deferredPrompt = e;
+    this.showButton = true;
+  }
+  addToHomeScreen() {
+    // hide our user interface that shows our A2HS button
+    this.showButton = false;
+    // Show the prompt
+    this.deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    this.deferredPrompt.userChoice
+      .then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        this.deferredPrompt = null;
+      });
+  }
+  onLongPress() {
+    this.longPressing = null;
+    this.isLongPressed = !this.isLongPressed;
+    this.longPress = this.isLongPressed ? 'second state' : 'first state';
   }
   
+  onLongPressing() {
+    this.router.navigate(["/settings/editprofile"]);
+  }
   async onSubmit(form) {
     this.router.navigate(["logout"]); 
   }
@@ -57,14 +94,13 @@ export class homePage implements OnInit {
   }
   home(){
     this.openNavBar = false;
-      // document.getElementById("mySidenav").style.width = "0";
-      document.getElementById("column").style.opacity = "1";
+    document.getElementById("column").style.opacity = "1";
   }
   transaction(){
     this.router.navigate(["transactions"]); 
   }
-  sendMoney(name){
-    this.router.navigate(["sendmoney"],{queryParams:{"receiverName":name}}); 
+  sendMoney(newTransfer,name){
+    this.router.navigate(["sendmoney"],{queryParams:{"receiverName":name,"newTransfer":newTransfer}}); 
   }
   wallet(){
     this.router.navigate(["managewallet"]); 
@@ -99,7 +135,15 @@ export class homePage implements OnInit {
       document.getElementById("column").style.opacity = "1";
     }
   }
-  
+
+  onClickMe(){
+    if(this.openNavBar === true){
+        this.openNavBar = false;
+        // document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("column").style.opacity = "1";
+    }
+  }
+
   // getUrl(i){
 
   // }

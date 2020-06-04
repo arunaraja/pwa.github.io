@@ -13,7 +13,7 @@ export class changepasssuccessPage implements OnInit {
 
  
  
-
+  title = "Change Password Success";
     public news: Array<any> = [];
  
   private currentPage = 1;

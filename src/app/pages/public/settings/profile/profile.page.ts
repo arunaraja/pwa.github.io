@@ -9,6 +9,7 @@ import { environment } from "./../../../../../environments/environment";
   
 })
 export class profilePage implements OnInit {
+  title = "Profile";
   user : any ;
   baseUrl = environment.baseUrl;
   profile = localStorage.getItem("profileId");
@@ -26,6 +27,10 @@ export class profilePage implements OnInit {
  
   settings(){
     this.router.navigate(["settings"]);
+  }
+
+  onClickedit(){
+    this.router.navigate(["/settings/editprofile"]);
   }
 
  

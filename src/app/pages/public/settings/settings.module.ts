@@ -6,6 +6,10 @@ import { settingsRouter } from './settings.route';
 import { ComponentModule } from '../../../services/component/component.module';
 import { settingsPage } from './settings.page';
 import { profilePage } from './profile/profile.page';
+import { profileeditPage } from './profile/profileedit.page';
+import { receiversProfilePage } from './receiversProfile/receiversProfile.page';
+import { receiversprofileaddPage } from './receiversProfile/receiversProfileAdd.page';
+import { receiversprofileeditPage } from './receiversProfile/receiversProfileEdit.page';
 
 @NgModule({
   imports: [
@@ -14,6 +18,6 @@ import { profilePage } from './profile/profile.page';
     ComponentModule,
     RouterModule.forChild(settingsRouter)
   ],
-  declarations: [settingsPage,profilePage]
+  declarations: [settingsPage,profilePage,profileeditPage,receiversProfilePage,receiversprofileaddPage,receiversprofileeditPage]
 })
 export class settingsPageModule {}

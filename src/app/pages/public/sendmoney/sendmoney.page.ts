@@ -13,7 +13,9 @@ declare var $ : any;
   styleUrls: []
 })
 export class sendmoneyPage implements OnInit {
+  title = "Send Money";
   submitted = false ;
+  submitted1 = false ;
   baseUrl = environment.baseUrl;
   openNavBar = false;
   sendMon = true;
@@ -27,6 +29,7 @@ export class sendmoneyPage implements OnInit {
   receiverInfo = false;
   see = false;
   nextPage = false;
+  newTransfer = "false";
   vendorMasterArr = [] ;
   bankArr: any;
   bankArrData: any;
@@ -37,6 +40,7 @@ export class sendmoneyPage implements OnInit {
   transactionArrReceive = [] ;
   countryArr = [] ;
   stateArr = [] ;
+  receiversArr : any ;
   vendorTransactionArr = [] ;
   name ="";
   phoneNumber ="";
@@ -52,9 +56,11 @@ export class sendmoneyPage implements OnInit {
     this.sendMoney['receiverCity'] = "";
     this.sendMoney['deliveryMethod'] = "";
     this.sendMoney['deliveryBankName'] = "";
+    this.sendMoney['fromNewTransfer'] = "";
     this.sendMoney['totalFee'] = "10.00";
     this.profile = localStorage.getItem("profileId");
     this.name = activatedRoute.snapshot.queryParams["receiverName"];
+    this.newTransfer = activatedRoute.snapshot.queryParams["newTransfer"];
     this.vendorCustomerId = localStorage.getItem('vendorCustomerId');
     this.phoneNumber = localStorage.getItem('phoneNumber');
     console.log(this.vendorCustomerId)
@@ -65,7 +71,15 @@ export class sendmoneyPage implements OnInit {
   }
 
   ngOnInit() {
-    if(this.name){
+    console.log("HIT?>>>>>")
+    console.log("this.name",this.name )
+    console.log("this.newTransfer",this.newTransfer )
+    console.log("this.profile",this.profile )
+    console.log(this.name )
+    console.log(this.newTransfer === "false")
+    if(this.name && this.newTransfer === "false"){
+      console.log("this.name1",this.name)
+      console.log("this.newTransfer2",this.newTransfer)
       var  Data;
       var  deliveryMethod;
       var  paymentMethod;
@@ -82,6 +96,9 @@ export class sendmoneyPage implements OnInit {
             console.log(error);
           });
            this.sendMoney['receiverCountry'] = Data.receiverCountry;
+           this.sendMoney['receiverName'] = Data.receiverName;
+           this.sendMoney['receiverLastName'] = Data.receiverLastName;
+           this.sendMoney['receiverMiddleName'] = Data.receiverMiddleName;
            this.authService.get(this.baseUrl+"/api/vendor/getVendorTransactionMethod?vendorId="+Data.vendorId).subscribe((res) => {
             if(res['data']){
             this.transactionArrSend = _.filter(res['data'],{typeCode:"SND"});
@@ -170,11 +187,9 @@ export class sendmoneyPage implements OnInit {
             });
             
             if(this.sendMoney['receiverCountry'] === "USA"){
-              console.log("HIT USA")
               $('#receiverImg').attr('src', 'assets/united-states-1.png');
             }
             if(this.sendMoney['receiverCountry'] === "Mexico"){
-              console.log("HIT MEXICO")
               $('#receiverImg').attr('src', 'assets/mexico.png');
             }
         }
@@ -184,6 +199,11 @@ export class sendmoneyPage implements OnInit {
        
     }
     else{
+      this.authService.get(this.baseUrl+"/api/user/getReceiversProfile?type="+"All").subscribe((res) => {
+        if(res['data']){
+        this.receiversArr = res['data']
+        }
+        
       this.http.get("assets/country.json").subscribe(data => {
         this.countryJsonArr = data;
         var countryArr = _.groupBy(this.countryJsonArr, 'country');
@@ -199,8 +219,10 @@ export class sendmoneyPage implements OnInit {
           console.log(error);
         });
       });
+    }, (error) => {
+      console.log(error);
+      });
     }
-    
   }
 
   onChangePayMethod(method){
@@ -236,12 +258,66 @@ export class sendmoneyPage implements OnInit {
       }, (error) => {
       console.log(error);
       });
-      if(country === "USA"){
-        $('#receiverImg').attr('src', 'assets/united-states-1.png');
-      }
-      if(country === "Mexico"){
-        $('#receiverImg').attr('src', 'assets/mexico.png');
-      }
+      console.log("country",country)
+      $('#receiverImg').attr('src', obj[0].path);
+      this.sendMoney['receiverState'] = "";
+      this.sendMoney['receiverCity'] = "";
+      this.sendMoney['vendorId'] = "";
+      this.sendMoney['deliveryMethod'] = "";
+      this.sendMoney['receiverName'] = "";
+      this.sendMoney['receiverLastName'] = "";
+      this.sendMoney['receiverMiddleName'] = "";
+      this.sendMoney['vendorAgentId'] = "";
+      this.sendMoney['deliveryBankName'] = "";
+      this.sendMoney['deliveryBankAccountNumber'] = "";
+      this.sendMoney['deliveryBankRoutingNumber'] = "";
+      this.sendMoney['transactionAmount'] = "";
+      this.sendMoney['totalAmountSentToReceiver'] = "";
+  }
+  getProfileFromId(id){
+    if(id === "Add New Receiver"){
+      this.router.navigate(["/settings/receiversAddProfile"],{queryParams:{"from":"sendMoney"}});
+    }
+    else{
+      this.authService.get(this.baseUrl+"/api/user/getReceiversProfile?type="+"ID Based"+"&receiverProfileId="+id).subscribe((res) => {
+        if(res['data']){
+        var dt = res['data'];
+        this.sendMoney['receiverPhoneNumber'] = dt.receiverPhoneNumber;
+        this.sendMoney['receiverCountry'] = dt.receiverCountry;
+        this.sendMoney['receiverCity'] = dt.receiverCity;
+        this.sendMoney['receiverState'] = dt.receiverState;
+        this.sendMoney['receiverName'] = dt.firstName;
+        this.sendMoney['receiverLastName'] = dt.lastName;
+        this.sendMoney['receiverMiddleName'] = dt.middleName;
+        }
+        
+        this.http.get("assets/country.json").subscribe(data => {
+          this.countryJsonArr = data;
+          var countryArr = _.groupBy(this.countryJsonArr, 'country');
+          var arr = _.map(countryArr, function (trans) {
+            return { country: trans[0].country };
+          });
+          this.countryArr = arr;
+          var obj =  _.filter(this.countryJsonArr,{country:this.sendMoney['receiverCountry']}); 
+              if(obj.length > 0){
+                var stateArr = _.groupBy(obj, 'state');
+                var arr1 = _.map(stateArr, function (trans) {
+                  return { state: trans[0].state };
+                });
+                this.stateArr = arr1;
+              }
+              var obj =  _.filter(this.countryJsonArr,{state:this.sendMoney['receiverState']}); 
+              if(obj.length > 0){
+                this.cityArr = obj;
+              }
+              else{
+                this.cityArr = [];
+              }
+      });
+    }, (error) => {
+      console.log(error);
+      });
+    }
   }
 
   onChangeState(state){
@@ -258,6 +334,16 @@ export class sendmoneyPage implements OnInit {
     this.authService.get(this.baseUrl+"/api/vendor/getVendorTransactionMethod?vendorId="+data).subscribe((res) => {
       if(res['data']){
       this.transactionArrSend = _.filter(res['data'],{typeCode:"SND"});
+      if(!this.name || this.name === "" || this.name === null || this.name === undefined){
+       var arr =  _.filter(this.transactionArrSend,function(dt){
+          if(dt.sendReceiveMethod && dt.sendReceiveMethod === "Wire Transfer"){
+            return dt ;
+          }
+        });
+        if(arr.length > 0)
+          this.sendMoney['paymentMethod'] = arr[0].vendorTransactionId; 
+          this.sendMoney['transactionFee'] = arr[0].transferFee; 
+      }
       this.transactionArrReceive =_.filter(res['data'],{typeCode:"RCV"});
       }
       }, (error) => {
@@ -370,7 +456,9 @@ export class sendmoneyPage implements OnInit {
     this.sendMoney["totalAmountSentToReceiver"] = toFixed4;
   }
   onPreviewClick(form){
-    this.submitted = true;
+    console.log("form")
+    console.log(form)
+    this.submitted1 = true;
     if (form.form.invalid) {
       return;
     }
@@ -379,6 +467,19 @@ export class sendmoneyPage implements OnInit {
       this.preview = true;
       this.confirmation = false;
       this.sendMoney["transactionTotalAmount"] = parseFloat(this.sendMoney["transactionAmount"]) + parseFloat(this.sendMoney["totalFee"]);
+    }
+  }
+
+  onSaveClick(form){
+    console.log("form")
+    console.log(form)
+    this.submitted = true;
+    if (form.form.invalid) {
+      return;
+    }
+    else{
+      this.transmissionInfo = true;
+      this.receiverInfo = false;
     }
   }
   
@@ -451,8 +552,6 @@ export class sendmoneyPage implements OnInit {
         return dt;
         }
       });
-      console.log("arrayObj")
-      console.log(arrayObj)
       if(arrayObj.length > 0){
         this.sendMoney['vendorCode'] = arrayObj[0].vendorCode;
       }
@@ -482,8 +581,9 @@ export class sendmoneyPage implements OnInit {
     if(this.sendMoney['createdDateTime']){
       delete this.sendMoney['createdDateTime'];
     }
-    console.log("this.sendMoney")
-    console.log(this.sendMoney)
+   if(this.newTransfer === "false"){
+    this.sendMoney['receiverProfileId'] = null ;
+   }
     this.authService.post(this.baseUrl + "/api/transaction/createTransaction", this.sendMoney).subscribe((res) => {
       if (res['data']) {
         this.sendMon = false;

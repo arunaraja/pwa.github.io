@@ -528,6 +528,20 @@ input[type="text"]
     font-style: normal;
     font-family: raleway_regular, Arial;
 } 
+.inputs{
+    font-size: 20.00px;
+    color: rgba(83, 74, 43, 1);
+    font-weight: 400;
+    font-style: normal;
+    font-family: raleway_regular, Arial;
+}
+.inputs1{
+    font-size: 20.00px;
+    color: rgba(83, 74, 43, 1);
+    font-weight: 400;
+    font-style: normal;
+    font-family: raleway_regular, Arial;
+}
 .form-control.is-invalid{
     border-bottom: 1px solid red;
 }

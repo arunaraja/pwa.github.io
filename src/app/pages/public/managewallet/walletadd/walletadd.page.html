@@ -12,15 +12,15 @@
     <div class="row" style="overflow:auto;height:100%">
         <!-- <div class="columnHome"></div> -->
         <div class="columnHome">
-            <p class="otherSet_Pro_New"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer" (click)="walletBack()">
+            <p class="otherSet_Pro_New" id="add-wallet"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer" (click)="walletBack()">
                 &nbsp;Wallet</p>
             <div class="clear"></div>
-            <p class="head1" style="font-family: raleway_medium, Arial !important">Please fill in the required details
+            <p class="head1" style="font-family: raleway_medium, Arial !important" id="pleaseFill">Please fill in the required details
             </p>
             <form #walletForm="ngForm" name="registerForm" novalidate>
             <table style="width:100%">
                 <tr>
-                    <td><span class="point16">Name on Card </span></td>
+                    <td><span class="point16" id="nameOnCard">Name on Card </span></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -28,7 +28,7 @@
                         <input type="text" class="form-control " name="cardname" maxlength="50" placeholder="" autocomplete="off" pattern="[A-Za-z ]+"
                             required [ngClass]="{'is-invalid': 
                             cardname.invalid  && submitted  ,'is-valid': cardname.valid  && submitted }"
-                            #cardname="ngModel" ngModel [(ngModel)]="sendMoney.cardname" style="text-indent: 10px;font-size: 15.00px;
+                            #cardname="ngModel" ngModel [(ngModel)]="sendMoney.cardname" id="cardName" style="text-indent: 10px;font-size: 15.00px;
                             height: 25px;
                             font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;
                             border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;
@@ -38,15 +38,15 @@
                 </tr>
                 <br>
                 <tr>
-                    <td><span class="point16">Credit/Debit Card Number </span></td>
+                    <td><span class="point16" id="ccdcLbl">Credit/Debit Card Number </span></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="text" class="form-control" name="ccdc"  maxlength="16" pattern="[0-9]{16}" placeholder="" maxlength="16" autocomplete="off" required
+                        <input type="text" class="form-control" name="ccdc"  maxlength="16" pattern="[0-9]{16}" placeholder=""  autocomplete="off" required
                             [ngClass]="{'is-invalid': 
                                 ccdc.invalid  && submitted  ,'is-valid': ccdc.valid  && submitted }"
-                            #ccdc="ngModel" ngModel [(ngModel)]="sendMoney.ccdc" style="text-indent: 10px;font-size: 15.00px;
+                            #ccdc="ngModel" ngModel [(ngModel)]="sendMoney.ccdc" id="ccdc" style="text-indent: 10px;font-size: 15.00px;
                                 font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;
                                 border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;
                                 height: 25px;border-bottom:0.5px solid #3C3C3C !important">
@@ -57,15 +57,15 @@
             </table>
             <table style="width:100%">
                 <tr>
-                    <td width="50%"><span class="point16">Expiry Date </span></td>
-                    <td width="50%"><span class="point16">CVV </span></td>
+                    <td width="50%"><span class="point16" id="expiryDateLbl">Expiry Date </span></td>
+                    <td width="50%"><span class="point16" id="cvvLbl">CVV </span></td>
                 </tr>
                 <tr>
                     <td width="50%">
                         <input type="text" class="form-control" name="expiry" placeholder="MM/YYYY" maxlength="7"   autocomplete="off"
                             required [ngClass]="{'is-invalid': 
                             expiry.invalid  && submitted  ,'is-valid': expiry.valid  && submitted }"
-                            #expiry="ngModel" ngModel [(ngModel)]="sendMoney.expiry" style="text-indent: 10px;font-size: 15.00px;
+                            #expiry="ngModel" ngModel [(ngModel)]="sendMoney.expiry" id="expiry" style="text-indent: 10px;font-size: 15.00px;
                                 font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;
                                 border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 65%;
                                 height: 25px;border-bottom:0.5px solid #3C3C3C !important">
@@ -74,7 +74,7 @@
                     <td width="50%"> <input type="text" class="form-control" name="cvv" maxlength="3" placeholder="" autocomplete="off"
                             required [ngClass]="{'is-invalid': 
                                 cvv.invalid  && submitted  ,'is-valid': cvv.valid  && submitted }"
-                            #cvv="ngModel" ngModel [(ngModel)]="sendMoney.cvv" style="text-indent: 10px;font-size: 15.00px;
+                            #cvv="ngModel" ngModel [(ngModel)]="sendMoney.cvv"pattern="[0-9]{3}" id="cvv" style="text-indent: 10px;font-size: 15.00px;
                                 font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;
                                 border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 65%;
                                 height: 25px;border-bottom:0.5px solid #3C3C3C !important">
@@ -84,7 +84,7 @@
             </table>
 
             <div style="text-align: center;margin-top: 30px;">
-                <button class="nextbtn !important" (click)="wallet(walletForm)">Save</button>
+                <button class="nextbtn !important" (click)="wallet(walletForm)" id="saveBtnWallet">Save</button>
             </div>
             </form>
 

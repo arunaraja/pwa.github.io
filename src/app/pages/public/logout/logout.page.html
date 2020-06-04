@@ -1,7 +1,7 @@
 <div class="bg-color">
   <!-- header title -->
   <div class="title">
-    <label class="title-text"> ENVIA MEJOR</label>
+    <label class="title-text" id="logout-title"> ENVIA MEJOR</label>
   </div>
   <!-- overall div -->
   <div class="row" style="overflow:auto;height:100%">
@@ -9,12 +9,12 @@
     <div class="column"></div>
     <!-- section 2 -->
     <div class="column" style="text-align:center;padding-top: 100px;">
-      <span class="verify">You have been successfully </span>
+      <span class="verify" id="logout-success">You have been successfully </span>
       <br>
-      <span class="verify">logged out </span>
+      <span class="verify" id="loggedOut">logged out </span>
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
-      <span class="forgot">Want to log back in ? <span (click)="logIn()" style="border-bottom: 2px solid #544629;">Click here</span></span>
+      <span class="forgot" id="logout-want-to-logout">Want to log back in ? </span><span (click)="logIn()" style="border-bottom: 2px solid #544629;" id="logout-clickhere">Click here</span>
       
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>

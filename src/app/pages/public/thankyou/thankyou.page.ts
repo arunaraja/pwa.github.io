@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: []
 })
 export class thankyouPage implements OnInit {
+  title = "Thank You"
   submitted = false ;
   changePasswordObj = {} ;
   constructor(

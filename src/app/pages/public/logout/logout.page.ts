@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: []
 })
 export class logoutPage implements OnInit {
+  title="Logout";
   submitted = false ;
   changePasswordObj = {} ;
   constructor(

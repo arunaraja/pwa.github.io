@@ -1,0 +1,160 @@
+<div style="background-color:white">
+    <div class="row" style="overflow:auto;height:100%">
+      <!-- <div class="columnHome"></div> -->
+      <div class="columnHome" >
+        <p class="otherSet_Pro_New"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;"
+            (click)="settings()">
+          &nbsp;
+          <span style="text-align: center" id="edit-pro-title">Edit Profile</span></p>
+          <form #sendMoneyForm="ngForm" name="sendMoneyForm" novalidate>
+            <div class="sendMoneyDiv">
+                 <table style="width:100%">
+                        <tr class="trspace">
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="phone-number"> Phone Number</span>
+                            </td>
+                            <td style="width:55%">
+                                <span class="point18 ">{{user.phoneNumber}}</span>
+                            </td>
+                        </tr>
+                        <tr class="trspace" >
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="first-name"> First Name</span>
+                            </td>
+                            <td style="width:55%">
+                                <input type="text" class="form-control" autocomplete="off" name="firstName" maxlength="45" 
+                                    placeholder="" required  id="first-name-val" pattern="/^[a-zA-Z]+$/"
+                                    [ngClass]="{'is-invalid': 
+                                    firstName.invalid  && submitted  ,'is-valid': firstName.valid  && submitted }"
+                                    #firstName="ngModel" ngModel [(ngModel)]="user.firstName" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <show-error [control]="firstName" [label]="{'labelName': 'First Name'}"
+                                    [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                        <tr class="trspace" >
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="last-name"> Last Name</span>
+                            </td>
+                            <td style="width:55%">
+                                <input type="text" class="form-control" autocomplete="off" name="lastName" maxlength="45" 
+                                    placeholder="" required id="last-name-val" pattern="/^[a-zA-Z]+$/" [ngClass]="{'is-invalid': 
+                                    lastName.invalid  && submitted  ,'is-valid': lastName.valid  && submitted }"
+                                    #lastName="ngModel" ngModel [(ngModel)]="user.lastName" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <show-error [control]="lastName" [label]="{'labelName': 'LastName Name'}"
+                                    [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                        <tr class="trspace" >
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="middle-name"> Middle Name</span>
+                            </td>
+                            <td style="width:55%">
+                                <input type="text" class="form-control" autocomplete="off" name="middleName" maxlength="45"
+                                    placeholder="" required  id="middle-name-val" pattern="/^[a-zA-Z]+$/" [ngClass]="{'is-invalid': 
+                                    middleName.invalid  && submitted  ,'is-valid': middleName.valid  && submitted }"
+                                    #middleName="ngModel" ngModel [(ngModel)]="user.middleName" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <show-error [control]="middleName" [label]="{'labelName': 'Middle Name'}"
+                                    [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                        <tr class="trspace" >
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="email-lbl"> Email</span>
+                            </td>
+                            <td style="width:55%">
+                                <input type="email" class="form-control" autocomplete="off" name="email" maxlength="65" id="email-val"
+                                    placeholder="" required [ngClass]="{'is-invalid': 
+                                    email.invalid  && submitted  ,'is-valid': email.valid  && submitted }"
+                                    #email="ngModel" ngModel [(ngModel)]="user.email" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <show-error [control]="email" [label]="{'labelName': 'Email'}"
+                                    [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                        <tr class="trspace" >
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="addline1"> Address Line 1</span>
+                            </td>
+                            <td style="width:55%">
+                                <input type="text" class="form-control" autocomplete="off" name="address1" maxlength="45" id="addres1-val"
+                                    placeholder="" required [ngClass]="{'is-invalid': 
+                                    address1.invalid  && submitted  ,'is-valid': address1.valid  && submitted }"
+                                    #address1="ngModel" ngModel [(ngModel)]="user.address1" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <show-error [control]="address1" [label]="{'labelName': 'Address Line 1'}"
+                                    [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                        <tr class="trspace" >
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="addline2"> Address Line 2</span>
+                            </td>
+                            <td style="width:55%">
+                                <input type="text" class="form-control" autocomplete="off" name="address2" maxlength="45" id="addres2-val"
+                                    placeholder="" required [ngClass]="{'is-invalid': 
+                                    address2.invalid  && submitted  ,'is-valid': address2.valid  && submitted }"
+                                    #address2="ngModel" ngModel [(ngModel)]="user.address2" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <show-error [control]="address2" [label]="{'labelName': 'Address Line 2'}"
+                                    [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                        <tr class="trspace" >
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="country-lbl"> Country</span>
+                            </td>
+                            <td style="width:55%">
+                                <input type="text" class="form-control" autocomplete="off" name="country" maxlength="45"  id="country-val"
+                                    placeholder="" required [ngClass]="{'is-invalid': 
+                                    country.invalid  && submitted  ,'is-valid': country.valid  && submitted }"
+                                    #country="ngModel" ngModel [(ngModel)]="user.country" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <show-error [control]="country" [label]="{'labelName': 'Country'}"
+                                    [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                        <tr class="trspace" >
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="state-lbl"> State</span>
+                            </td>
+                            <td style="width:55%">
+                                <input type="text" class="form-control" autocomplete="off" name="state" maxlength="45" id="state-val"
+                                    placeholder="" required [ngClass]="{'is-invalid': 
+                                    state.invalid  && submitted  ,'is-valid': state.valid  && submitted }"
+                                    #state="ngModel" ngModel [(ngModel)]="user.state" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <show-error [control]="state" [label]="{'labelName': 'State'}"
+                                    [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                        <tr class="trspace" >
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="city-lbl"> City/Town</span>
+                            </td>
+                            <td style="width:55%">
+                                <input type="text" class="form-control" autocomplete="off" name="city" maxlength="45" id="city-val"
+                                    placeholder="" required [ngClass]="{'is-invalid': 
+                                    city.invalid  && submitted  ,'is-valid': city.valid  && submitted }"
+                                    #city="ngModel" ngModel [(ngModel)]="user.city" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <show-error [control]="city" [label]="{'labelName': 'City'}"
+                                    [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                        <tr class="trspace" >
+                            <td style="width:45%;padding-left: 10px;">
+                                <span class="tdLabel" id="zipcode-lbl">Zip Code</span>
+                            </td>
+                            <td style="width:55%">
+                                <input type="number" class="form-control" autocomplete="off" name="zip" maxlength="10" id="zip-val"
+                                    placeholder="" required [ngClass]="{'is-invalid': 
+                                    zip.invalid  && submitted  ,'is-valid': zip.valid  && submitted }"
+                                    #zip="ngModel" ngModel [(ngModel)]="user.zip" style="text-indent: 10px;font-size: 15.00px;font-weight: 400;font-style: normal;font-family: raleway_regular, Arial;border-right:0.5px solid #3C3C3C;border-left:0.5px solid #3C3C3C;border-top:0.5px solid #3C3C3C;border-radius: 10px;width: 95%;height: calc(1.4em +0.75rem);border-bottom:0.5px solid #3C3C3C !important">
+                                    <show-error [control]="zip" [label]="{'labelName': 'Zip Code'}"
+                                    [submitFlag]="submitted"></show-error>
+                            </td>
+                        </tr>
+                    </table> 
+                    <div style="text-align: center;margin-top: 10px;">
+                        <button   class="nextbtn !important" style="width: 125.00px;height: 40.12px ;margin-bottom: 10px !important" (click)="onUpdateClick(sendMoneyForm)" id="profile-update">Update</button>
+                        </div>
+            </div>
+           </form>
+        
+    </div>
+    </div>
+  </div>

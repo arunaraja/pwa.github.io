@@ -11,6 +11,7 @@ declare var $ : any;
   templateUrl: './managewallet.page.html'
 })
 export class managewalletPage implements OnInit {
+  title = "Manage Wallet";
   sendMsg ={};
   bankArr= [];
   cardArr= [];

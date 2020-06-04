@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/api/api.service';
   templateUrl: './walletadd.page.html'
 })
 export class walletaddPage implements OnInit {
+  title = "Add Wallet";
   sendMoney = {};
   profile;
   submitted = false;

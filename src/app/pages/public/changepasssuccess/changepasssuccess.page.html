@@ -1,41 +1,17 @@
 <div class="bg-color">
   <div class="title">
-    <label class="title-text"> ENVIA MEJOR</label>
+    <label class="title-text" id="changepass-success-title"> ENVIA MEJOR</label>
   </div>
   <div class="row" style="overflow:auto;height:100%">
     <div class="column"></div>
     <div class="column" style="text-align:center;padding-top: 100px;">
-      <span class="verify">Your Pincode has been </span>
+      <span class="verify" id="note4">Your Pincode has been </span>
       <br>
-      <span class="verify">Changed successfully </span>
+      <span class="verify" id="note5">Changed successfully </span>
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
       <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
-      <span  class="forgot" (click)="logIn()" style="border-bottom: 2px solid #544629;">Click here</span><span class="forgot"> to Login  </span>
+      <span  class="forgot" (click)="logIn()" style="border-bottom: 2px solid #544629;" id="clickhere">Click here</span><span class="forgot" id="toLogin"> to Login  </span>
     </div>
     <div class="column"></div>
   </div>
 </div>
-<!-- <style>
-#scroller {
-  height: 90%;
-  width: auto;
-  overflow: scroll;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
- 
-.news {
-  padding: 30px;
-}
-</style>
-<ul id="scroller"
-    ngxInfiniteScroller
-    strategy="scrollingToBoth"
-    (onScrollUp)="onScrollUp()"
-    (onScrollDown)="onScrollDown()">
-  <li class="news"
-      *ngFor="let item of news">
-    {{item.title}}
-  </li>
-</ul> -->

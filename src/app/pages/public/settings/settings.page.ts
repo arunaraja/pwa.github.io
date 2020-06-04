@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: []
 })
 export class settingsPage implements OnInit {
-
+  title = "Settings";
   constructor(
     private router: Router
   ) {}
@@ -21,5 +21,9 @@ export class settingsPage implements OnInit {
 
   profile(){
     this.router.navigate(["/settings/profile"]);
+  }
+
+  profileReceiver(){
+    this.router.navigate(["/settings/receiversProfile"]);
   }
 }

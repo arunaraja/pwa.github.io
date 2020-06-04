@@ -1,7 +1,7 @@
 <div style="background-color:white">
     <div class="row" style="overflow:auto;height:100%">
         <!-- <div class="columnHome"></div> -->
-        <div class="columnHome">
+        <div class="columnHome" >
             <div id="mySidenav" class="sidenav" *ngIf="openNavBar">
                 <span style="margin-top:10px;"><img src="assets/metro-home.png" style="cursor: pointer;" alt="" width="18"
                         height="18" align="top" (click)="home()"><label class="margin20" (click)="home()">Home</label></span>
@@ -23,7 +23,8 @@
             </div>
             <p><img src="assets/icon_ionic_md_menu.png" alt="" align="top" (click)="openNav()" style="cursor: pointer;padding-top: 5px;">
                 &nbsp;
-                <span class="otherSet_wel1">Welcome</span><span class="otherSet_wel2"> {{firstName+" "+lastName}}</span></p>
+                <span class="otherSet_wel1"  long-press (onLongPress)="onLongPress()" (onLongPressing)="onLongPressing()">Welcome</span>
+                <span  long-press (onLongPress)="onLongPress()" (onLongPressing)="onLongPressing()" class="otherSet_wel2"> {{firstName+" "+lastName}}</span></p>
             <p style="float: right;padding-left: 10px;">
                 <span><img src="assets/black-list.png" id="list" alt="" align="top" style="margin-right: 10px;cursor: pointer;"
                         (click)="listViewFunc()"></span>
@@ -31,23 +32,25 @@
             <p style="float: right;cursor: pointer;">
                 <span><img src="assets/yellow-grid.png" id="grid" alt="" align="top" (click)="gridViewFunc()"> &nbsp;</span>
             </p>
+            <p style="float: right;cursor: pointer;">
+                <span><img src="assets/add.png" id="grid" alt="" align="top" (click)="addToHomeScreen()"> &nbsp;</span>
+            </p>
             <svg preserveAspectRatio="none" viewBox="0 -0.5 267 1" class="line-1"></svg>
- 
-            <div class="columnContainer" id="column" *ngIf="gridView" style="opacity:1">
+            <div class="columnContainer" id="column" *ngIf="gridView" style="opacity:1" (click)="onClickMe()">
                
                 <div class="imageContainer" style="background: url('assets/Group 1.png') center no-repeat;" > 
-                    <h4 class="eh4" style="cursor:pointer" (click)="sendMoney()">$</h4>
-                    <label class="lab" style="cursor:pointer" (click)="sendMoney()">
+                    <h4 class="eh4" style="cursor:pointer" (click)="sendMoney('true','')">$</h4>
+                    <label class="lab" style="cursor:pointer" (click)="sendMoney('true','')">
                     New Transfer
                     </label>
                 </div>
                 <div class="imageContainer"  style="background: url('assets/Polygon 12.png') center no-repeat;"  *ngFor="let home of homeArr;let i=index">
-                    <h4 class="eh4" style="cursor:pointer" (click)="sendMoney(home.name)">{{getSplit(home.name)}}</h4>
-                    <label class="lab" style="cursor:pointer" (click)="sendMoney(home.name)"> 
+                    <h4 class="eh4" style="cursor:pointer" (click)="sendMoney('false',home.name)">{{getSplit(home.name)}}</h4>
+                    <label class="lab" style="cursor:pointer" (click)="sendMoney('false',home.name)"> 
                     {{home.name}}
                     </label>
                 </div>
-                
+            </div>
                 <!-- <div class="imageContainer" style="background: url('assets/Group 3.png') center no-repeat;">
                     <h4 class="eh4">W</h4>
                     <label class="lab">
@@ -90,8 +93,8 @@
                         Daniel
                         </label>
                   </div> -->
-              </div>
-              <div *ngIf="listView">
+              
+              <div *ngIf="listView" (click)="onClickMe()">
                 <div class="columnContainer" id="column" >
                     <div class="imageContainerList1" style="background: url('assets/Group 1.png') center no-repeat;" > 
                         <h4 class="eh4" style="cursor:pointer" (click)="sendMoney()">$</h4>

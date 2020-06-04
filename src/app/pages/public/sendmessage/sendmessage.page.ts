@@ -8,16 +8,21 @@ import { AuthService } from 'src/app/services/api/api.service';
   templateUrl: './sendmessage.page.html'
 })
 export class sendmessagePage implements OnInit {
+  title = "Send Message";
   msg ={};
   name ="";
   phone ="";
   profile ="";
+  fromPage ="";
   submitted = false;
   sent = false;
+  id : any;
   baseUrl = environment.baseUrl;
   constructor(private router: Router, public activatedRoute : ActivatedRoute,private authService :AuthService) { 
     this.name = activatedRoute.snapshot.queryParams["receiverName"];
     this.phone = activatedRoute.snapshot.queryParams["phone"];
+    this.fromPage = activatedRoute.snapshot.queryParams["fromPage"];
+    this.id = activatedRoute.snapshot.queryParams["id"];
     this.profile = localStorage.getItem('profileId');
   }
 
@@ -30,7 +35,7 @@ export class sendmessagePage implements OnInit {
       return;
     }
     else{
-      this.authService.post(this.baseUrl + "/api/utility/createSMS", {profileId:this.profile,receiverName:this.name,receiverPhoneNumber:this.phone,message:this.msg['message']}).subscribe((res) => {
+      this.authService.post(this.baseUrl + "/api/utility/createSMS", {receiverProfileId:this.id ? this.id : null,profileId:this.profile,receiverName:this.name,receiverPhoneNumber:this.phone,message:this.msg['message']}).subscribe((res) => {
         if (res['data']) {
           this.sent = true;
         }
@@ -44,8 +49,12 @@ export class sendmessagePage implements OnInit {
     
   }
   msgGo() {
-    this.router.navigate(["home"]);
+    if(this.fromPage === 'profile')
+      this.router.navigate(["/settings/receiversProfile"]);
+    else
+     this.router.navigate(["home"]);
   }
+  
   getHistory() {
     this.router.navigate(["transactions"]);
   }

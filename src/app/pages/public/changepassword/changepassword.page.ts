@@ -9,6 +9,7 @@ declare var $ : any;
   styleUrls: []
 })
 export class changePasswordPage implements OnInit {
+  title = "Change Password"
   submitted = false ;
   changePasswordObj = {} ;
   constructor(

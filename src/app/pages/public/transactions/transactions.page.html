@@ -21,13 +21,15 @@
                         <span><img src="assets/logout.png" style="cursor: pointer;" alt="" width="18" height="18" (click)="settings()"
                                 align="top" (click)="logOut()"><label class="margin20" (click)="logOut()">Logout</label></span>
                     </div>
-            <p class="otherSet_Pro_New"><img src="assets/icon_ionic_md_menu.png" alt="" align="top" (click)="openNav()" style="cursor: pointer;padding-top: 2px;">
-                &nbsp;
-                Transactions</p>
+                   <p class="otherSet_Pro_New" id="trans-title">
+                        <img src="assets/icon_ionic_md_menu.png" alt="" align="top" (click)="openNav()" 
+                        style="cursor: pointer;padding-top: 2px;">
+                        &nbsp;Transactions
+                    </p>
             
             <p style="float: right;">
-                <button id="7day" class="day7" (click)="click7days()">7 Days&nbsp;</button>&nbsp;
-                <button id="30day" class="day30" (click)="click30days()">&nbsp;30 Days</button>
+                <button id="7day" class="day7" (click)="click7days()" id="days7">7 Days&nbsp;</button>&nbsp;
+                <button id="30day" class="day30" (click)="click30days()" id="days30">&nbsp;30 Days</button>
             </p>
             <br>
             <div *ngFor="let dt of homeArr">
@@ -177,7 +179,9 @@
         <!-- <div class="columnHome"></div> -->
     </div>
     <div class="columnHome"  [hidden]="!confirmation">
-                <p class="otherSet_Pro_New"><img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;" (click)="transactions()">
+                <p class="otherSet_Pro_New" id="transactionDetails">
+                    <img src="assets/Icon material-arrow_back.png" alt="" align="top" style="cursor: pointer;" 
+                    (click)="transactions()">
                     &nbsp;
                     Transaction Details</p>
             <div style="text-align: -webkit-center;">
@@ -193,7 +197,7 @@
             <table style="width:100%">
                 <tr class="trspace_tran">
                     <td style="width:45%;padding-left: 10px;">
-                        <span class="tdLabelConf"> Paid To</span>
+                        <span class="tdLabelConf" id="paidTo"> Paid To</span>
                     </td>
                     <td style="width:55%">
                         <span class="tdDataConf">  {{sendMoneyObj.receiverName}}</span>
@@ -213,7 +217,7 @@
                 </tr> -->
                 <tr class="trspace_tran">
                     <td style="width:45%;padding-left: 10px;">
-                        <span class="tdLabelConf"> Country</span>
+                        <span class="tdLabelConf" id="country"> Country</span>
                     </td>
                     <td style="width:55%" colspan="2">
                         <span class="tdDataConf"> {{" "+sendMoneyObj.receiverCountry}}</span>
@@ -221,7 +225,7 @@
                 </tr>
                 <tr class="trspace_tran">
                     <td style="width:45%;padding-left: 10px;">
-                        <span class="tdLabelConf"> Mobile Number</span>
+                        <span class="tdLabelConf" id="mobNumber"> Mobile Number</span>
                     </td>
                     <td style="width:55%">
                         <span class="tdDataConf">{{" "+sendMoneyObj.receiverPhoneNumber}}</span>
@@ -229,7 +233,7 @@
                 </tr>
                 <tr class="trspace_tran">
                     <td style="width:45%;padding-left: 10px;">
-                        <span class="tdLabelConf">Vendor</span>
+                        <span class="tdLabelConf" id="vendor">Vendor</span>
                     </td>
                     <td style="width:55%">
                         <span class="tdDataConf">{{" "+(sendMoneyObj.vendorName)}}</span>
@@ -237,7 +241,7 @@
                 </tr>
                 <tr class="trspace_tran">
                     <td style="width:45%;padding-left: 10px;">
-                        <span class="tdLabelConf">Delivery Method</span>
+                        <span class="tdLabelConf" id="deliveryMethod">Delivery Method</span>
                     </td>
                     <td style="width:55%">
                         <span class="tdDataConf">{{" "+sendMoneyObj.deliveryMethod}}</span>
@@ -262,7 +266,7 @@
             <table style="width:100%">
                 <tr class="trspace_tran">
                     <td style="width:45%;padding-left: 10px;">
-                        <span class="tdLabelConf"> Amount</span>
+                        <span class="tdLabelConf" id="amount"> Amount</span>
                     </td>
                     <td style="width:55%">
                         <span class="tdDataConf">{{" "+sendMoneyObj.transactionAmount}} USD</span>
@@ -270,7 +274,7 @@
                 </tr>
                 <tr class="trspace_tran">
                     <td style="width:45%;padding-left: 10px;">
-                        <span class="tdLabelConf"> Payment Method</span>
+                        <span class="tdLabelConf" id="paymentMethod"> Payment Method</span>
                     </td>
                     <td style="width:55%">
                         <span class="tdDataConf">{{" "+(sendMoneyObj.paymentMethod)}}</span>
@@ -278,7 +282,7 @@
                 </tr>
                 <tr class="trspace_tran">
                     <td style="width:45%;padding-left: 10px;">
-                        <span class="tdLabelConf">Total Fee</span>
+                        <span class="tdLabelConf" id="totalFee">Total Fee</span>
                     </td>
                     <td style="width:55%">
                         <span class="tdDataConf">{{sendMoneyObj.totalFee}} USD</span>
@@ -286,7 +290,7 @@
                 </tr>
                 <tr class="trspace_tran">
                     <td style="width:45%;padding-left: 10px;">
-                        <span class="tdLabelConf">Total Amount</span>
+                        <span class="tdLabelConf" id="totAmount">Total Amount</span>
                     </td>
                     <td style="width:55%">
                         <span class="tdDataConf">{{" "+sendMoneyObj.transactionTotalAmount}} USD</span>
