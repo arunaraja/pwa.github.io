@@ -76,11 +76,11 @@ describe('sendmoneyPage', () => {
     expect(labelName.nativeElement.textContent.trim()).toBe('Country');
   });
 
-  it('should receiver country not to be undefined', () => {
-    let labelName = fixture.debugElement.query(By.css("#receiverCountry"));
-    labelName.nativeElement.value = "Mexico";
-    expect(labelName.nativeElement.value.length).toBeGreaterThanOrEqual(1);
-  });
+  // it('should receiver country not to be undefined', () => {
+  //   let labelName = fixture.debugElement.query(By.css("#receiverCountry"));
+  //   labelName.nativeElement.value = "Mexico";
+  //   expect(labelName.nativeElement.value.length).toBeGreaterThanOrEqual(1);
+  // });
 
   it('should check label name to be Phone Number', () => {
     let labelName = fixture.debugElement.query(By.css("#phoneNumber-lbl"));
